@@ -1,0 +1,3790 @@
+{"task_id": "CPP/22", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Filter given vector of any python values only for integers
+>>> filter_integers({\"a\", 3.14, 5})
+{5}
+>>> filter_integers({1, 2, 3, \"abc\", {}, {}})
+{1, 2, 3}
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+#include<boost/any.hpp>
+#include<list>
+typedef std::list<boost::any> list_any;
+using namespace std;
+vector<int> filter_integers(list_any values){
+    vector<int> integers;
+    for(auto value : values){
+        if(value.type() == typeid(int)){
+            integers.push_back(boost::any_cast<int>(value));
+        }
+    }
+    return integers;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<int> a,vector<int>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+        if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(filter_integers({}),{}));
+
+    assert (issame(filter_integers({4,  {},23.2, 9, string(\"adasd\")}) ,{4, 9}));
+    assert (issame(filter_integers({3, 'c', 3, 3, 'a', 'b'}) ,{3, 3, 3}));
+}", "prompt": "/*
+Filter given vector of any python values only for integers
+>>> filter_integers({\"a\", 3.14, 5})
+{5}
+>>> filter_integers({1, 2, 3, \"abc\", {}, {}})
+{1, 2, 3}
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+#include<boost/any.hpp>
+#include<list>
+typedef std::list<boost::any> list_any;
+using namespace std;
+vector<int> filter_integers(list_any values){
+", "generation": "    vector<int> integers;
+    for(auto value : values){
+        if(value.type() == typeid(int)){
+            integers.push_back(boost::any_cast<int>(value));
+        }
+    }
+    return integers;
+}", "result": "failed: compilation error: test.cpp:18:9: fatal error: boost/any.hpp: No such file or directory
+   18 | #include<boost/any.hpp>
+      |         ^~~~~~~~~~~~~~~
+compilation terminated.
+", "passed": false, "finish": -1, "file": "", "output": []}
+问题：库没导入
+--------------------
+{"task_id": "CPP/26", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<math.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+From a vector of integers, remove all elements that occur more than once.
+Keep order of elements left the same as in the input.
+>>> remove_duplicates({1, 2, 3, 2, 4})
+{1, 3, 4}
+*/
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+using namespace std;
+vector<int> remove_duplicates(vector<int> numbers){
+        unordered_map<int, int> frequency;
+        vector<int> result;
+        for(int number : numbers) {
+            frequency[number]++;
+        }
+        for(int number : numbers) {
+            if(frequency[number] == 1) {
+                result.push_back(number);
+            }
+        }
+        return result;
+
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<int> a,vector<int>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+        if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(remove_duplicates({}) , {}));
+     assert (issame(remove_duplicates({1, 2, 3, 4}) , {1, 2, 3, 4}));
+      assert (issame(remove_duplicates({1, 2, 3, 2, 4, 3, 5}) , {1, 4, 5}));
+}
+", "prompt": "/*
+From a vector of integers, remove all elements that occur more than once.
+Keep order of elements left the same as in the input.
+>>> remove_duplicates({1, 2, 3, 2, 4})
+{1, 3, 4}
+*/
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+using namespace std;
+vector<int> remove_duplicates(vector<int> numbers){
+", "generation": "        unordered_map<int, int> frequency;
+        vector<int> result;
+        for(int number : numbers) {
+            frequency[number]++;
+        }
+        for(int number : numbers) {
+            if(frequency[number] == 1) {
+                result.push_back(number);
+            }
+        }
+        return result;
+", "result": "failed: compilation error: test.cpp: In function \u2018std::vector<int> remove_duplicates(std::vector<int>)\u2019:
+test.cpp:19:9: error: \u2018unordered_map\u2019 was not declared in this scope
+   19 |         unordered_map<int, int> frequency;
+      |         ^~~~~~~~~~~~~
+test.cpp:17:1: note: \u2018std::unordered_map\u2019 is defined in header \u2018<unordered_map>\u2019; did you forget to \u2018#include <unordered_map>\u2019?
+   16 | #include<algorithm>
+  +++ |+#include <unordered_map>
+   17 | using namespace std;
+test.cpp:19:23: error: expected primary-expression before \u2018int\u2019
+   19 |         unordered_map<int, int> frequency;
+      |                       ^~~
+test.cpp:22:13: error: \u2018frequency\u2019 was not declared in this scope
+   22 |             frequency[number]++;
+      |             ^~~~~~~~~
+test.cpp:25:16: error: \u2018frequency\u2019 was not declared in this scope
+   25 |             if(frequency[number] == 1) {
+      |                ^~~~~~~~~
+In file included from /usr/include/features.h:486,
+                 from /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:39,
+                 from /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:586,
+                 from /usr/include/c++/11/cstdlib:41,
+                 from /usr/include/c++/11/stdlib.h:36,
+                 from test.cpp:1:
+/usr/include/assert.h:66:1: error: expected unqualified-id before string constant
+   66 | __BEGIN_DECLS
+      | ^~~~~~~~~~~~~
+test.cpp:33:40: error: a function-definition is not allowed here before \u2018{\u2019 token
+   33 | bool issame(vector<int> a,vector<int>b){
+      |                                        ^
+test.cpp:41:9: warning: empty parentheses were disambiguated as a function declaration [-Wvexing-parse]
+   41 | int main(){
+      |         ^~
+test.cpp:41:9: note: remove parentheses to default-initialize a variable
+   41 | int main(){
+      |         ^~
+      |         --
+test.cpp:41:9: note: or replace parentheses with braces to value-initialize a variable
+test.cpp:41:11: error: a function-definition is not allowed here before \u2018{\u2019 token
+   41 | int main(){
+      |           ^
+test.cpp:45:2: error: expected \u2018}\u2019 at end of input
+   45 | }
+      |  ^
+test.cpp:18:51: note: to match this \u2018{\u2019
+   18 | vector<int> remove_duplicates(vector<int> numbers){
+      |                                                   ^
+", "passed": false, "finish": -1, "file": "", "output": []}
+问题：库没导入
+--------------------
+{"task_id": "CPP/19", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Input is a space-delimited string of numberals from \"zero\" to \"nine\".
+Valid choices are \"zero\", \"one\", 'two\", 'three\", \"four\", \"five\", 'six\", 'seven\", \"eight\" and \"nine\".
+Return the string with numbers sorted from smallest to largest
+>>> sort_numbers('three one five\")
+\"one three five\"
+*/
+#include<stdio.h>
+#include<string>
+#include<map>
+using namespace std;
+string sort_numbers(string numbers){
+        map<string, int> str_to_num = {
+            {\"zero\", 0}, {\"one\", 1}, {\"two\", 2}, {\"three\", 3},
+            {\"four\", 4}, {\"five\", 5}, {\"six\", 6}, {\"seven\", 7},
+            {\"eight\", 8}, {\"nine\", 9}
+        };
+
+        map<int, string> num_to_str = {
+            {0, \"zero\"}, {1, \"one\"}, {2, \"two\"}, {3, \"three\"},
+            {4, \"four\"}, {5, \"five\"}, {6, \"six\"}, {7, \"seven\"},
+            {8, \"eight\"}, {9, \"nine\"}
+        };
+
+        vector<string> num_strings;
+        stringstream ss(numbers);
+        string temp;
+        while (ss >> temp) {
+            num_strings.push_back(temp);
+        }
+
+        sort(num_strings.begin(), num_strings.end(), [&](const string &a, const string &b) {
+            return str_to_num[a] < str_to_num[b];
+        });
+
+        string sorted_numbers;
+        for (size_t i = 0; i < num_strings.size(); ++i) {
+            sorted_numbers += num_strings[i];
+            if (i != num_strings.size() - 1) {
+                sorted_numbers += \" \";
+            }
+        }
+
+        return sorted_numbers;
+
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (sort_numbers(\"\") == \"\");
+    assert (sort_numbers(\"three\") == \"three\");
+    assert (sort_numbers(\"three five nine\") == \"three five nine\");
+     assert (sort_numbers(\"five zero four seven nine eight\") == \"zero four five seven eight nine\");
+      assert (sort_numbers(\"six five four three two one zero\") == \"zero one two three four five six\");
+}
+", "prompt": "/*
+Input is a space-delimited string of numberals from \"zero\" to \"nine\".
+Valid choices are \"zero\", \"one\", 'two\", 'three\", \"four\", \"five\", 'six\", 'seven\", \"eight\" and \"nine\".
+Return the string with numbers sorted from smallest to largest
+>>> sort_numbers('three one five\")
+\"one three five\"
+*/
+#include<stdio.h>
+#include<string>
+#include<map>
+using namespace std;
+string sort_numbers(string numbers){
+", "generation": "        map<string, int> str_to_num = {
+            {\"zero\", 0}, {\"one\", 1}, {\"two\", 2}, {\"three\", 3},
+            {\"four\", 4}, {\"five\", 5}, {\"six\", 6}, {\"seven\", 7},
+            {\"eight\", 8}, {\"nine\", 9}
+        };
+
+        map<int, string> num_to_str = {
+            {0, \"zero\"}, {1, \"one\"}, {2, \"two\"}, {3, \"three\"},
+            {4, \"four\"}, {5, \"five\"}, {6, \"six\"}, {7, \"seven\"},
+            {8, \"eight\"}, {9, \"nine\"}
+        };
+
+        vector<string> num_strings;
+        stringstream ss(numbers);
+        string temp;
+        while (ss >> temp) {
+            num_strings.push_back(temp);
+        }
+
+        sort(num_strings.begin(), num_strings.end(), [&](const string &a, const string &b) {
+            return str_to_num[a] < str_to_num[b];
+        });
+
+        string sorted_numbers;
+        for (size_t i = 0; i < num_strings.size(); ++i) {
+            sorted_numbers += num_strings[i];
+            if (i != num_strings.size() - 1) {
+                sorted_numbers += \" \";
+            }
+        }
+
+        return sorted_numbers;
+", "result": "failed: compilation error: test.cpp: In function \u2018std::string sort_numbers(std::string)\u2019:
+test.cpp:34:32: error: variable \u2018std::stringstream ss\u2019 has initializer but incomplete type
+   34 |         stringstream ss(numbers);
+      |                                ^
+In file included from /usr/include/features.h:486,
+                 from /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:39,
+                 from /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:586,
+                 from /usr/include/c++/11/cstdlib:41,
+                 from /usr/include/c++/11/stdlib.h:36,
+                 from test.cpp:1:
+/usr/include/assert.h:66:1: error: expected unqualified-id before string constant
+   66 | __BEGIN_DECLS
+      | ^~~~~~~~~~~~~
+test.cpp:56:9: warning: empty parentheses were disambiguated as a function declaration [-Wvexing-parse]
+   56 | int main(){
+      |         ^~
+test.cpp:56:9: note: remove parentheses to default-initialize a variable
+   56 | int main(){
+      |         ^~
+      |         --
+test.cpp:56:9: note: or replace parentheses with braces to value-initialize a variable
+test.cpp:56:11: error: a function-definition is not allowed here before \u2018{\u2019 token
+   56 | int main(){
+      |           ^
+test.cpp:62:2: error: expected \u2018}\u2019 at end of input
+   62 | }
+      |  ^
+test.cpp:20:36: note: to match this \u2018{\u2019
+   20 | string sort_numbers(string numbers){
+      |                                    ^
+", "passed": false, "finish": -1, "file": "", "output": []}
+问题：库没导入
+--------------------
+{"task_id": "CPP/16", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<math.h>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Given a string, find out how many distinct characters (regardless of case) does it consist of
+>>> count_distinct_characters(\"xyzXYZ\")
+3
+>>> count_distinct_characters(\"Jerry\")
+4
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+#include<algorithm>
+using namespace std;
+int count_distinct_characters(string str){ 
+        transform(str.begin(), str.end(), str.begin(), ::tolower);
+        vector<bool> charExists(26, false); 
+        for(char ch : str){
+            if(isalpha(ch)){
+                charExists[ch - 'a'] = true;
+            }
+        }
+        return count(charExists.begin(), charExists.end(), true);
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (count_distinct_characters(\"\") == 0);
+    assert (count_distinct_characters(\"abcde\") == 5);
+    assert (count_distinct_characters(\"abcdecadeCADE\") == 5);
+    assert (count_distinct_characters(\"aaaaAAAAaaaa\") == 1);
+    assert (count_distinct_characters(\"Jerry jERRY JeRRRY\") == 5);
+}
+", "prompt": "/*
+Given a string, find out how many distinct characters (regardless of case) does it consist of
+>>> count_distinct_characters(\"xyzXYZ\")
+3
+>>> count_distinct_characters(\"Jerry\")
+4
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+#include<algorithm>
+using namespace std;
+int count_distinct_characters(string str){ 
+", "generation": "        transform(str.begin(), str.end(), str.begin(), ::tolower);
+        vector<bool> charExists(26, false); 
+        for(char ch : str){
+            if(isalpha(ch)){
+                charExists[ch - 'a'] = true;
+            }
+        }
+        return count(charExists.begin(), charExists.end(), true);
+}", "result": "failed: a.out: test.cpp:36: int main(): Assertion `count_distinct_characters(\"Jerry jERRY JeRRRY\") == 5' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+问题：忽略空格
+--------------------
+{"task_id": "CPP/39", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+prime_fib returns n-th number that is a Fibonacci number and it's also prime.
+>>> prime_fib(1)
+2
+>>> prime_fib(2)
+3
+>>> prime_fib(3)
+5
+>>> prime_fib(4)
+13
+>>> prime_fib(5)
+89
+*/
+#include<stdio.h>
+using namespace std;
+int prime_fib(int n){
+    int is_prime(int num) {
+        if (num <= 1) return 0;
+        if (num <= 3) return 1;
+        if (num % 2 == 0 || num % 3 == 0) return 0;
+        for (int i = 5; i * i <= num; i += 6) {
+            if (num % i == 0 || num % (i + 2) == 0) return 0;
+        }
+        return 1;
+    }
+
+    int fib(int k) {
+        if (k <= 1) return k;
+        int prev = 0, curr = 1;
+        for (int i = 2; i <= k; ++i) {
+            int next = prev + curr;
+            prev = curr;
+            curr = next;
+        }
+        return curr;
+    }
+
+    int i = 2, count = 0;
+    while (count < n) {
+        int fib_num = fib(i);
+        if (is_prime(fib_num)) {
+            count++;
+            if (count == n) {
+                return fib_num;
+            }
+        }
+        i++;
+    }
+    return -1;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (prime_fib(1) == 2);
+    assert (prime_fib(2) == 3);
+    assert (prime_fib(3) == 5);
+    assert (prime_fib(4) == 13);
+    assert (prime_fib(5) == 89);
+    assert (prime_fib(6) == 233);
+    assert (prime_fib(7) == 1597);
+    assert (prime_fib(8) == 28657);
+    assert (prime_fib(9) == 514229);
+    assert (prime_fib(10) == 433494437);
+}
+", "prompt": "/*
+prime_fib returns n-th number that is a Fibonacci number and it's also prime.
+>>> prime_fib(1)
+2
+>>> prime_fib(2)
+3
+>>> prime_fib(3)
+5
+>>> prime_fib(4)
+13
+>>> prime_fib(5)
+89
+*/
+#include<stdio.h>
+using namespace std;
+int prime_fib(int n){
+", "generation": "    int is_prime(int num) {
+        if (num <= 1) return 0;
+        if (num <= 3) return 1;
+        if (num % 2 == 0 || num % 3 == 0) return 0;
+        for (int i = 5; i * i <= num; i += 6) {
+            if (num % i == 0 || num % (i + 2) == 0) return 0;
+        }
+        return 1;
+    }
+
+    int fib(int k) {
+        if (k <= 1) return k;
+        int prev = 0, curr = 1;
+        for (int i = 2; i <= k; ++i) {
+            int next = prev + curr;
+            prev = curr;
+            curr = next;
+        }
+        return curr;
+    }
+
+    int i = 2, count = 0;
+    while (count < n) {
+        int fib_num = fib(i);
+        if (is_prime(fib_num)) {
+            count++;
+            if (count == n) {
+                return fib_num;
+            }
+        }
+        i++;
+    }
+    return -1;
+}", "result": "failed: compilation error: test.cpp: In function \u2018int prime_fib(int)\u2019:
+test.cpp:26:27: error: a function-definition is not allowed here before \u2018{\u2019 token
+   26 |     int is_prime(int num) {
+      |                           ^
+test.cpp:36:20: error: a function-definition is not allowed here before \u2018{\u2019 token
+   36 |     int fib(int k) {
+      |                    ^
+test.cpp:49:23: error: \u2018fib\u2019 was not declared in this scope
+   49 |         int fib_num = fib(i);
+      |                       ^~~
+test.cpp:50:13: error: \u2018is_prime\u2019 was not declared in this scope
+   50 |         if (is_prime(fib_num)) {
+      |             ^~~~~~~~
+", "passed": false, "finish": -1, "file": "", "output": []}
+问题：括号匹配
+--------------------
+{"task_id": "CPP/20", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+From a supplied vector of numbers (of length at least two) select and return two that are the closest to each
+other and return them in order (smaller number, larger number).
+>>> find_closest_elements({1.0, 2.0, 3.0, 4.0, 5.0, 2.2})
+(2.0, 2.2)
+>>> find_closest_elements({1.0, 2.0, 3.0, 4.0, 5.0, 2.0})
+(2.0, 2.0)
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+using namespace std;
+vector<float> find_closest_elements(vector<float> numbers){
+    sort(numbers.begin(), numbers.end());
+    float min_diff = FLT_MAX;
+    pair<float, float> closest_pair;
+
+    for(size_t i = 1; i < numbers.size(); i++) {
+        float diff = numbers[i] - numbers[i-1];
+        if(diff < min_diff) {
+            min_diff = diff;
+            closest_pair = make_pair(numbers[i-1], numbers[i]);
+        }
+    }
+    return {closest_pair.first, closest_pair.second};
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<float> a,vector<float>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+        if (abs(a[i]-b[i])>1e-4) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(find_closest_elements({1.0, 2.0, 3.9, 4.0, 5.0, 2.2}) , {3.9, 4.0}));
+    assert (issame(find_closest_elements({1.0, 2.0, 5.9, 4.0, 5.0}) , {5.0, 5.9} ));
+    assert (issame(find_closest_elements({1.0, 2.0, 3.0, 4.0, 5.0, 2.2}) ,{2.0, 2.2}));
+     assert (issame(find_closest_elements({1.0, 2.0, 3.0, 4.0, 5.0, 2.0}) ,{2.0, 2.0}));
+      assert (issame(find_closest_elements({1.1, 2.2, 3.1, 4.1, 5.1}) , {2.2, 3.1}));
+}
+", "prompt": "/*
+From a supplied vector of numbers (of length at least two) select and return two that are the closest to each
+other and return them in order (smaller number, larger number).
+>>> find_closest_elements({1.0, 2.0, 3.0, 4.0, 5.0, 2.2})
+(2.0, 2.2)
+>>> find_closest_elements({1.0, 2.0, 3.0, 4.0, 5.0, 2.0})
+(2.0, 2.0)
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+using namespace std;
+vector<float> find_closest_elements(vector<float> numbers){
+", "generation": "    sort(numbers.begin(), numbers.end());
+    float min_diff = FLT_MAX;
+    pair<float, float> closest_pair;
+
+    for(size_t i = 1; i < numbers.size(); i++) {
+        float diff = numbers[i] - numbers[i-1];
+        if(diff < min_diff) {
+            min_diff = diff;
+            closest_pair = make_pair(numbers[i-1], numbers[i]);
+        }
+    }
+    return {closest_pair.first, closest_pair.second};
+}", "result": "failed: compilation error: test.cpp: In function \u2018std::vector<float> find_closest_elements(std::vector<float>)\u2019:
+test.cpp:22:22: error: \u2018FLT_MAX\u2019 was not declared in this scope
+   22 |     float min_diff = FLT_MAX;
+      |                      ^~~~~~~
+test.cpp:19:1: note: \u2018FLT_MAX\u2019 is defined in header \u2018<cfloat>\u2019; did you forget to \u2018#include <cfloat>\u2019?
+   18 | #include<vector>
+  +++ |+#include <cfloat>
+   19 | using namespace std;
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/54", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Check if two words have the same characters.
+>>> same_chars(\"eabcdzzzz\", \"dddzzzzzzzddeddabc\")
+true
+>>> same_chars(\"abcd\", \"dddddddabc\")
+true
+>>> same_chars(\"dddddddabc\", \"abcd\")
+true
+>>> same_chars(\"eabcd\", \"dddddddabc\")
+false
+>>> same_chars(\"abcd\", \"dddddddabce\")
+false
+>>> same_chars(\"eabcdzzzz\", \"dddzzzzzzzddddabc\")
+false
+*/
+#include<stdio.h>
+#include<string>
+#include<algorithm>
+using namespace std;
+bool same_chars(string s0,string s1){
+    for(char c : s0){
+        if(count(s1.begin(), s1.end(), c) < count(s0.begin(), s0.end(), c))
+            return false;
+    }
+    for(char c : s1){
+        if(count(s0.begin(), s0.end(), c) < count(s1.begin(), s1.end(), c))
+            return false;
+    }
+    return true;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (same_chars(\"eabcdzzzz\", \"dddzzzzzzzddeddabc\") == true);
+    assert (same_chars(\"abcd\", \"dddddddabc\") == true);
+    assert (same_chars(\"dddddddabc\", \"abcd\") == true);
+    assert (same_chars(\"eabcd\", \"dddddddabc\") == false);
+    assert (same_chars(\"abcd\", \"dddddddabcf\") == false);
+    assert (same_chars(\"eabcdzzzz\", \"dddzzzzzzzddddabc\") == false);
+    assert (same_chars(\"aabb\", \"aaccc\") == false);
+}
+", "prompt": "/*
+Check if two words have the same characters.
+>>> same_chars(\"eabcdzzzz\", \"dddzzzzzzzddeddabc\")
+true
+>>> same_chars(\"abcd\", \"dddddddabc\")
+true
+>>> same_chars(\"dddddddabc\", \"abcd\")
+true
+>>> same_chars(\"eabcd\", \"dddddddabc\")
+false
+>>> same_chars(\"abcd\", \"dddddddabce\")
+false
+>>> same_chars(\"eabcdzzzz\", \"dddzzzzzzzddddabc\")
+false
+*/
+#include<stdio.h>
+#include<string>
+#include<algorithm>
+using namespace std;
+bool same_chars(string s0,string s1){
+", "generation": "    for(char c : s0){
+        if(count(s1.begin(), s1.end(), c) < count(s0.begin(), s0.end(), c))
+            return false;
+    }
+    for(char c : s1){
+        if(count(s0.begin(), s0.end(), c) < count(s1.begin(), s1.end(), c))
+            return false;
+    }
+    return true;
+}", "result": "failed: a.out: test.cpp:41: int main(): Assertion `same_chars(\"eabcdzzzz\", \"dddzzzzzzzddeddabc\") == true' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+问题：逻辑错误。集合判断，而非数量判断
+--------------------
+{"task_id": "CPP/71", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<vector>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Given the lengths of the three sides of a triangle. Return the area of
+the triangle rounded to 2 decimal points if the three sides form a valid triangle. 
+Otherwise return -1
+Three sides make a valid triangle when the sum of any two sides is greater 
+than the third side.
+Example:
+triangle_area(3, 4, 5) == 6.00
+triangle_area(1, 2, 10) == -1
+*/
+#include<stdio.h>
+#include<math.h>
+using namespace std;
+float triangle_area(float a,float b,float c){
+    if(a + b <= c || a + c <= b || b + c <= a)
+        return -1;
+    float s = (a + b + c) / 2;
+    float area = sqrt(s * (s - a) (s - b) (s - c));
+    return round(area * 100) / 100;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (abs(triangle_area(3, 4, 5)-6.00)<0.01);
+    assert (abs(triangle_area(1, 2, 10) +1)<0.01);
+    assert (abs(triangle_area(4, 8, 5) -8.18)<0.01);
+    assert (abs(triangle_area(2, 2, 2) -1.73)<0.01);
+    assert (abs(triangle_area(1, 2, 3) +1)<0.01);
+    assert (abs(triangle_area(10, 5, 7) - 16.25)<0.01);
+    assert (abs(triangle_area(2, 6, 3) +1)<0.01);
+    assert (abs(triangle_area(1, 1, 1) -0.43)<0.01);
+    assert (abs(triangle_area(2, 2, 10) +1)<0.01);
+}
+", "prompt": "/*
+Given the lengths of the three sides of a triangle. Return the area of
+the triangle rounded to 2 decimal points if the three sides form a valid triangle. 
+Otherwise return -1
+Three sides make a valid triangle when the sum of any two sides is greater 
+than the third side.
+Example:
+triangle_area(3, 4, 5) == 6.00
+triangle_area(1, 2, 10) == -1
+*/
+#include<stdio.h>
+#include<math.h>
+using namespace std;
+float triangle_area(float a,float b,float c){
+", "generation": "    if(a + b <= c || a + c <= b || b + c <= a)
+        return -1;
+    float s = (a + b + c) / 2;
+    float area = sqrt(s * (s - a) (s - b) (s - c));
+    return round(area * 100) / 100;
+}", "result": "failed: compilation error: test.cpp: In function \u2018float triangle_area(float, float, float)\u2019:
+test.cpp:26:35: error: expression cannot be used as a function
+   26 |     float area = sqrt(s * (s - a) (s - b) (s - c));
+      |                           ~~~~~~~~^~~~~~~
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/69", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+You are given a non-empty vector of positive integers. Return the greatest integer that is greater than 
+zero, and has a frequency greater than or equal to the value of the integer itself. 
+The frequency of an integer is the number of times it appears in the vector.
+If no such a value exist, return -1.
+Examples:
+    search({4, 1, 2, 2, 3, 1}) == 2
+    search({1, 2, 2, 3, 3, 3, 4, 4, 4}) == 3
+    search({5, 5, 4, 4, 4}) == -1
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+int search(vector<int> lst){
+    unordered_map<int, int> frequency;
+    for(int num : lst){
+        frequency[num]++;
+    }
+    
+    int result = -1;
+    for(auto& pair : frequency){
+        if(pair.second >= pair.first){
+            result = max(result, pair.first);
+        }
+    }
+    
+    return result;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (search({5, 5, 5, 5, 1}) == 1);
+    assert (search({4, 1, 4, 1, 4, 4}) == 4);
+    assert (search({3, 3}) == -1);
+    assert (search({8, 8, 8, 8, 8, 8, 8, 8}) == 8);
+    assert (search({2, 3, 3, 2, 2}) == 2);
+    assert (search({2, 7, 8, 8, 4, 8, 7, 3, 9, 6, 5, 10, 4, 3, 6, 7, 1, 7, 4, 10, 8, 1}) == 1);
+    assert (search({3, 2, 8, 2}) == 2);
+    assert (search({6, 7, 1, 8, 8, 10, 5, 8, 5, 3, 10}) == 1);
+    assert (search({8, 8, 3, 6, 5, 6, 4}) == -1);
+    assert (search({6, 9, 6, 7, 1, 4, 7, 1, 8, 8, 9, 8, 10, 10, 8, 4, 10, 4, 10, 1, 2, 9, 5, 7, 9}) == 1);
+    assert (search({1, 9, 10, 1, 3}) == 1);
+    assert (search({6, 9, 7, 5, 8, 7, 5, 3, 7, 5, 10, 10, 3, 6, 10, 2, 8, 6, 5, 4, 9, 5, 3, 10}) == 5);
+    assert (search({1}) == 1);
+    assert (search({8, 8, 10, 6, 4, 3, 5, 8, 2, 4, 2, 8, 4, 6, 10, 4, 2, 1, 10, 2, 1, 1, 5}) == 4);
+    assert (search({2, 10, 4, 8, 2, 10, 5, 1, 2, 9, 5, 5, 6, 3, 8, 6, 4, 10}) == 2);
+    assert (search({1, 6, 10, 1, 6, 9, 10, 8, 6, 8, 7, 3}) == 1);
+    assert (search({9, 2, 4, 1, 5, 1, 5, 2, 5, 7, 7, 7, 3, 10, 1, 5, 4, 2, 8, 4, 1, 9, 10, 7, 10, 2, 8, 10, 9, 4}) == 4);
+    assert (search({2, 6, 4, 2, 8, 7, 5, 6, 4, 10, 4, 6, 3, 7, 8, 8, 3, 1, 4, 2, 2, 10, 7}) == 4);
+    assert (search({9, 8, 6, 10, 2, 6, 10, 2, 7, 8, 10, 3, 8, 2, 6, 2, 3, 1}) == 2);
+    assert (search({5, 5, 3, 9, 5, 6, 3, 2, 8, 5, 6, 10, 10, 6, 8, 4, 10, 7, 7, 10, 8}) == -1);
+    assert (search({10}) == -1);
+    assert (search({9, 7, 7, 2, 4, 7, 2, 10, 9, 7, 5, 7, 2}) == 2);
+    assert (search({5, 4, 10, 2, 1, 1, 10, 3, 6, 1, 8}) == 1);
+    assert (search({7, 9, 9, 9, 3, 4, 1, 5, 9, 1, 2, 1, 1, 10, 7, 5, 6, 7, 6, 7, 7, 6}) == 1);
+    assert (search({3, 10, 10, 9, 2}) == -1);
+}
+", "prompt": "/*
+You are given a non-empty vector of positive integers. Return the greatest integer that is greater than 
+zero, and has a frequency greater than or equal to the value of the integer itself. 
+The frequency of an integer is the number of times it appears in the vector.
+If no such a value exist, return -1.
+Examples:
+    search({4, 1, 2, 2, 3, 1}) == 2
+    search({1, 2, 2, 3, 3, 3, 4, 4, 4}) == 3
+    search({5, 5, 4, 4, 4}) == -1
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+int search(vector<int> lst){
+", "generation": "    unordered_map<int, int> frequency;
+    for(int num : lst){
+        frequency[num]++;
+    }
+    
+    int result = -1;
+    for(auto& pair : frequency){
+        if(pair.second >= pair.first){
+            result = max(result, pair.first);
+        }
+    }
+    
+    return result;
+}", "result": "failed: compilation error: test.cpp: In function \u2018int search(std::vector<int>)\u2019:
+test.cpp:23:5: error: \u2018unordered_map\u2019 was not declared in this scope
+   23 |     unordered_map<int, int> frequency;
+      |     ^~~~~~~~~~~~~
+test.cpp:21:1: note: \u2018std::unordered_map\u2019 is defined in header \u2018<unordered_map>\u2019; did you forget to \u2018#include <unordered_map>\u2019?
+   20 | #include<vector>
+  +++ |+#include <unordered_map>
+   21 | using namespace std;
+test.cpp:23:19: error: expected primary-expression before \u2018int\u2019
+   23 |     unordered_map<int, int> frequency;
+      |                   ^~~
+test.cpp:25:9: error: \u2018frequency\u2019 was not declared in this scope
+   25 |         frequency[num]++;
+      |         ^~~~~~~~~
+test.cpp:29:22: error: \u2018frequency\u2019 was not declared in this scope
+   29 |     for(auto& pair : frequency){
+      |                      ^~~~~~~~~
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/43", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+pairs_sum_to_zero takes a vector of integers as an input.
+it returns true if there are two distinct elements in the vector that
+sum to zero, and false otherwise.
+>>> pairs_sum_to_zero({1, 3, 5, 0})
+false
+>>> pairs_sum_to_zero({1, 3, -2, 1})
+false
+>>> pairs_sum_to_zero({1, 2, 3, 7})
+false
+>>> pairs_sum_to_zero({2, 4, -5, 3, 5, 7})
+true
+>>> pairs_sum_to_zero({1})
+false
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+bool pairs_sum_to_zero(vector<int> l){
+    unordered_set<int> seen;
+    for(int num : l) {
+        if(seen.find(-num) != seen.end()) {
+            return true;
+        }
+        seen.insert(num);
+    }
+    return false;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (pairs_sum_to_zero({1, 3, 5, 0}) == false);
+    assert (pairs_sum_to_zero({1, 3, -2, 1}) == false);
+    assert (pairs_sum_to_zero({1, 2, 3, 7}) == false);
+    assert (pairs_sum_to_zero({2, 4, -5, 3, 5, 7}) == true);
+    assert (pairs_sum_to_zero({1}) == false);
+    assert (pairs_sum_to_zero({-3, 9, -1, 3, 2, 30}) == true);
+    assert (pairs_sum_to_zero({-3, 9, -1, 3, 2, 31}) == true);
+    assert (pairs_sum_to_zero({-3, 9, -1, 4, 2, 30}) == false);
+    assert (pairs_sum_to_zero({-3, 9, -1, 4, 2, 31}) == false);
+}
+", "prompt": "/*
+pairs_sum_to_zero takes a vector of integers as an input.
+it returns true if there are two distinct elements in the vector that
+sum to zero, and false otherwise.
+>>> pairs_sum_to_zero({1, 3, 5, 0})
+false
+>>> pairs_sum_to_zero({1, 3, -2, 1})
+false
+>>> pairs_sum_to_zero({1, 2, 3, 7})
+false
+>>> pairs_sum_to_zero({2, 4, -5, 3, 5, 7})
+true
+>>> pairs_sum_to_zero({1})
+false
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+bool pairs_sum_to_zero(vector<int> l){
+", "generation": "    unordered_set<int> seen;
+    for(int num : l) {
+        if(seen.find(-num) != seen.end()) {
+            return true;
+        }
+        seen.insert(num);
+    }
+    return false;
+}", "result": "failed: compilation error: test.cpp: In function \u2018bool pairs_sum_to_zero(std::vector<int>)\u2019:
+test.cpp:28:5: error: \u2018unordered_set\u2019 was not declared in this scope
+   28 |     unordered_set<int> seen;
+      |     ^~~~~~~~~~~~~
+test.cpp:26:1: note: \u2018std::unordered_set\u2019 is defined in header \u2018<unordered_set>\u2019; did you forget to \u2018#include <unordered_set>\u2019?
+   25 | #include<vector>
+  +++ |+#include <unordered_set>
+   26 | using namespace std;
+test.cpp:28:19: error: expected primary-expression before \u2018int\u2019
+   28 |     unordered_set<int> seen;
+      |                   ^~~
+test.cpp:30:12: error: \u2018seen\u2019 was not declared in this scope
+   30 |         if(seen.find(-num) != seen.end()) {
+      |            ^~~~
+test.cpp:33:9: error: \u2018seen\u2019 was not declared in this scope
+   33 |         seen.insert(num);
+      |         ^~~~
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/77", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<vector>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Write a function that takes an integer a and returns true 
+if this ingeger is a cube of some integer number.
+Note: you may assume the input is always valid.
+Examples:
+iscube(1) ==> true
+iscube(2) ==> false
+iscube(-1) ==> true
+iscube(64) ==> true
+iscube(0) ==> true
+iscube(180) ==> false
+*/
+#include<stdio.h>
+#include<math.h>
+using namespace std;
+bool iscuber(int a){
+        int cube_root = round(pow(a, 1.0/3.0));
+        return (cube_root * cube_root * cube_root) == a;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (iscuber(1) == true);
+    assert (iscuber(2) == false);
+    assert (iscuber(-1) == true);
+    assert (iscuber(64) == true);
+    assert (iscuber(180) == false);
+    assert (iscuber(1000) == true);
+    assert (iscuber(0) == true);
+    assert (iscuber(1729) == false);
+}
+", "prompt": "/*
+Write a function that takes an integer a and returns true 
+if this ingeger is a cube of some integer number.
+Note: you may assume the input is always valid.
+Examples:
+iscube(1) ==> true
+iscube(2) ==> false
+iscube(-1) ==> true
+iscube(64) ==> true
+iscube(0) ==> true
+iscube(180) ==> false
+*/
+#include<stdio.h>
+#include<math.h>
+using namespace std;
+bool iscuber(int a){
+", "generation": "        int cube_root = round(pow(a, 1.0/3.0));
+        return (cube_root * cube_root * cube_root) == a;
+}", "result": "failed: a.out: test.cpp:33: int main(): Assertion `iscuber(-1) == true' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/75", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Write a function that returns true if the given number is the multiplication of 3 prime numbers
+and false otherwise.
+Knowing that (a) is less then 100. 
+Example:
+is_multiply_prime(30) == true
+30 = 2 * 3 * 5
+*/
+#include<stdio.h>
+using namespace std;
+bool is_multiply_prime(int a){
+    if (a >= 100) return false;
+    for (int i = 2; i <= a / 2; i++) {
+        if (a % i == 0) {
+            int remaining = a / i;
+            for (int j = 2; j <= remaining / 2; j++) {
+                if (remaining % j == 0) {
+                    int third = remaining / j;
+                    if (i != j && j != third && i != third && remaining % third == 0 && is_prime(i) && is_prime(j) && is_prime(third)) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool is_prime(int n) {
+    if (n <= 1) return false;
+    for (int i = 2; i <= n / 2; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (is_multiply_prime(5) == false);
+    assert (is_multiply_prime(30) == true);
+    assert (is_multiply_prime(8) == true);
+    assert (is_multiply_prime(10) == false);
+    assert (is_multiply_prime(125) == true);
+    assert (is_multiply_prime(3 * 5 * 7) == true);
+    assert (is_multiply_prime(3 * 6 * 7) == false);
+    assert (is_multiply_prime(9 * 9 * 9) == false);
+    assert (is_multiply_prime(11 * 9 * 9) == false);
+    assert (is_multiply_prime(11 * 13 * 7) == true);
+}
+", "prompt": "/*
+Write a function that returns true if the given number is the multiplication of 3 prime numbers
+and false otherwise.
+Knowing that (a) is less then 100. 
+Example:
+is_multiply_prime(30) == true
+30 = 2 * 3 * 5
+*/
+#include<stdio.h>
+using namespace std;
+bool is_multiply_prime(int a){
+", "generation": "    if (a >= 100) return false;
+    for (int i = 2; i <= a / 2; i++) {
+        if (a % i == 0) {
+            int remaining = a / i;
+            for (int j = 2; j <= remaining / 2; j++) {
+                if (remaining % j == 0) {
+                    int third = remaining / j;
+                    if (i != j && j != third && i != third && remaining % third == 0 && is_prime(i) && is_prime(j) && is_prime(third)) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool is_prime(int n) {
+    if (n <= 1) return false;
+    for (int i = 2; i <= n / 2; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}", "result": "failed: compilation error: test.cpp: In function \u2018bool is_multiply_prime(int)\u2019:
+test.cpp:28:89: error: \u2018is_prime\u2019 was not declared in this scope
+   28 |                     if (i != j && j != third && i != third && remaining % third == 0 && is_prime(i) && is_prime(j) && is_prime(third)) {
+      |                                                                                         ^~~~~~~~
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/81", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+It is the last week of the semester and the teacher has to give the grades
+to students. The teacher has been making her own algorithm for grading.
+The only problem is, she has lost the code she used for grading.
+She has given you a vector of GPAs for some students and you have to write 
+a function that can output a vector of letter grades using the following table:
+         GPA       |    Letter grade
+          4.0                A+
+        > 3.7                A 
+        > 3.3                A- 
+        > 3.0                B+
+        > 2.7                B 
+        > 2.3                B-
+        > 2.0                C+
+        > 1.7                C
+        > 1.3                C-
+        > 1.0                D+ 
+        > 0.7                D 
+        > 0.0                D-
+          0.0                E
+
+
+Example:
+grade_equation({4.0, 3, 1.7, 2, 3.5}) ==> {\"A+\", \"B\", \"C-\", \"C\", \"A-\"}
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+vector<string> numerical_letter_grade(vector<float> grades){
+        vector<string> letter_grades;
+        for(float gpa : grades){
+                if(gpa == 4.0)
+                        letter_grades.push_back(\"A+\");
+                else if(gpa > 3.7)
+                        letter_grades.push_back(\"A\");
+                else if(gpa > 3.3)
+                        letter_grades.push_back(\"A-\");
+                else if(gpa > 3.0)
+                        letter_grades.push_back(\"B+\");
+                else if(gpa > 2.7)
+                        letter_grades.push_back(\"B\");
+                else if(gpa > 2.3)
+                        letter_grades.push_back(\"B-\");
+                else if(gpa > 2.0)
+                        letter_grades.push_back(\"C+\");
+                else if(gpa > 1.7)
+                        letter_grades.push_back(\"C\");
+                else if(gpa > 1.3)
+                        letter_grades.push_back(\"C-\");
+                else if(gpa > 1.0)
+                        letter_grades.push_back(\"D+\");
+                else if(gpa > 0.7)
+                        letter_grades.push_back(\"D\");
+                else if(gpa > 0.0)
+                        letter_grades.push_back(\"D-\");
+                else
+                        letter_grades.push_back(\"E\");
+        }
+        return letter_grades;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<string> a,vector<string>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+    if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(numerical_letter_grade({4.0, 3, 1.7, 2, 3.5}) , {\"A+\", \"B\", \"C-\", \"C\", \"A-\"}));
+    assert (issame(numerical_letter_grade({1.2}) , {\"D+\"}));
+    assert (issame(numerical_letter_grade({0.5}) , {\"D-\"}));
+    assert (issame(numerical_letter_grade({0.0}) , {\"E\"}));
+    assert (issame(numerical_letter_grade({1, 0.3, 1.5, 2.8, 3.3}) , {\"D\", \"D-\", \"C-\", \"B\", \"B+\"}));
+    assert (issame(numerical_letter_grade({0, 0.7}) , {\"E\", \"D-\"}));
+    
+}
+", "prompt": "/*
+It is the last week of the semester and the teacher has to give the grades
+to students. The teacher has been making her own algorithm for grading.
+The only problem is, she has lost the code she used for grading.
+She has given you a vector of GPAs for some students and you have to write 
+a function that can output a vector of letter grades using the following table:
+         GPA       |    Letter grade
+          4.0                A+
+        > 3.7                A 
+        > 3.3                A- 
+        > 3.0                B+
+        > 2.7                B 
+        > 2.3                B-
+        > 2.0                C+
+        > 1.7                C
+        > 1.3                C-
+        > 1.0                D+ 
+        > 0.7                D 
+        > 0.0                D-
+          0.0                E
+
+
+Example:
+grade_equation({4.0, 3, 1.7, 2, 3.5}) ==> {\"A+\", \"B\", \"C-\", \"C\", \"A-\"}
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+vector<string> numerical_letter_grade(vector<float> grades){
+", "generation": "        vector<string> letter_grades;
+        for(float gpa : grades){
+                if(gpa == 4.0)
+                        letter_grades.push_back(\"A+\");
+                else if(gpa > 3.7)
+                        letter_grades.push_back(\"A\");
+                else if(gpa > 3.3)
+                        letter_grades.push_back(\"A-\");
+                else if(gpa > 3.0)
+                        letter_grades.push_back(\"B+\");
+                else if(gpa > 2.7)
+                        letter_grades.push_back(\"B\");
+                else if(gpa > 2.3)
+                        letter_grades.push_back(\"B-\");
+                else if(gpa > 2.0)
+                        letter_grades.push_back(\"C+\");
+                else if(gpa > 1.7)
+                        letter_grades.push_back(\"C\");
+                else if(gpa > 1.3)
+                        letter_grades.push_back(\"C-\");
+                else if(gpa > 1.0)
+                        letter_grades.push_back(\"D+\");
+                else if(gpa > 0.7)
+                        letter_grades.push_back(\"D\");
+                else if(gpa > 0.0)
+                        letter_grades.push_back(\"D-\");
+                else
+                        letter_grades.push_back(\"E\");
+        }
+        return letter_grades;
+}", "result": "failed: a.out: test.cpp:80: int main(): Assertion `issame(numerical_letter_grade({4.0, 3, 1.7, 2, 3.5}) , {\"A+\", \"B\", \"C-\", \"C\", \"A-\"})' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/137", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Create a function that takes integers, floats, or strings representing
+real numbers, and returns the larger variable in its given variable type.
+Return \"None\" if the values are equal.
+Note: If a real number is represented as a string, the floating point might be . or ,
+
+compare_one(1, 2.5) \u279e 2.5
+compare_one(1, \"2,3\") \u279e \"2,3\"
+compare_one(\"5,1\", \"6\") \u279e \"6\"
+compare_one(\"1\", 1) \u279e \"None\"
+*/
+#include<stdio.h>
+#include<string>
+#include<algorithm>
+#include<boost/any.hpp>
+using namespace std;
+boost::any compare_one(boost::any a,boost::any b){
+   double val_a, val_b;
+   string str_a, str_b;
+
+   if(a.type() == typeid(int)) {
+       val_a = boost::any_cast<int>(a);
+       str_a = to_string(boost::any_cast<int>(a));
+   } else if(a.type() == typeid(float)) {
+       val_a = boost::any_cast<float>(a);
+       str_a = to_string(boost::any_cast<float>(a));
+   } else if(a.type() == typeid(string)) {
+       str_a = boost::any_cast<string>(a);
+       replace(str_a.begin(), str_a.end(), ',', '.');
+       val_a = stod(str_a);
+   }
+
+   if(b.type() == typeid(int)) {
+       val_b = boost::any_cast<int>(b);
+       str_b = to_string(boost::any_cast<int>(b));
+   } else if(b.type() == typeid(float)) {
+       val_b = boost::any_cast<float>(b);
+       str_b = to_string(boost::any_cast<float>(b));
+   } else if(b.type() == typeid(string)) {
+       str_b = boost::any_cast<string>(b);
+       replace(str_b.begin(), str_b.end(), ',', '.');
+       val_b = stod(str_b);
+   }
+
+   if(val_a == val_b) return \"None\";
+   return val_a > val_b ? a : b;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (boost::any_cast<int>(compare_one(1, 2)) == 2);
+    assert (boost::any_cast<double>(compare_one(1, 2.5))== 2.5);
+    assert (boost::any_cast<int>(compare_one(2, 3)) == 3);
+    assert (boost::any_cast<int>(compare_one(5, 6)) == 6);
+    assert (boost::any_cast<string>(compare_one(1, string(\"2,3\")))== \"2,3\");
+    assert (boost::any_cast<string>(compare_one(string(\"5,1\"), string(\"6\"))) == \"6\");
+    assert (boost::any_cast<string>(compare_one(string(\"1\"), string(\"2\"))) == \"2\");
+    assert (boost::any_cast<string>(compare_one(string(\"1\"), 1)) == \"None\");
+}
+", "prompt": "/*
+Create a function that takes integers, floats, or strings representing
+real numbers, and returns the larger variable in its given variable type.
+Return \"None\" if the values are equal.
+Note: If a real number is represented as a string, the floating point might be . or ,
+
+compare_one(1, 2.5) \u279e 2.5
+compare_one(1, \"2,3\") \u279e \"2,3\"
+compare_one(\"5,1\", \"6\") \u279e \"6\"
+compare_one(\"1\", 1) \u279e \"None\"
+*/
+#include<stdio.h>
+#include<string>
+#include<algorithm>
+#include<boost/any.hpp>
+using namespace std;
+boost::any compare_one(boost::any a,boost::any b){
+", "generation": "   double val_a, val_b;
+   string str_a, str_b;
+
+   if(a.type() == typeid(int)) {
+       val_a = boost::any_cast<int>(a);
+       str_a = to_string(boost::any_cast<int>(a));
+   } else if(a.type() == typeid(float)) {
+       val_a = boost::any_cast<float>(a);
+       str_a = to_string(boost::any_cast<float>(a));
+   } else if(a.type() == typeid(string)) {
+       str_a = boost::any_cast<string>(a);
+       replace(str_a.begin(), str_a.end(), ',', '.');
+       val_a = stod(str_a);
+   }
+
+   if(b.type() == typeid(int)) {
+       val_b = boost::any_cast<int>(b);
+       str_b = to_string(boost::any_cast<int>(b));
+   } else if(b.type() == typeid(float)) {
+       val_b = boost::any_cast<float>(b);
+       str_b = to_string(boost::any_cast<float>(b));
+   } else if(b.type() == typeid(string)) {
+       str_b = boost::any_cast<string>(b);
+       replace(str_b.begin(), str_b.end(), ',', '.');
+       val_b = stod(str_b);
+   }
+
+   if(val_a == val_b) return \"None\";
+   return val_a > val_b ? a : b;
+}", "result": "failed: compilation error: test.cpp:22:9: fatal error: boost/any.hpp: No such file or directory
+   22 | #include<boost/any.hpp>
+      |         ^~~~~~~~~~~~~~~
+compilation terminated.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/94", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+You are given a vector of integers.
+You need to find the largest prime value and return the sum of its digits.
+
+Examples:
+For lst = {0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3} the output should be 10
+For lst = {1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1} the output should be 25
+For lst = {1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3} the output should be 13
+For lst = {0,724,32,71,99,32,6,0,5,91,83,0,5,6} the output should be 11
+For lst = {0,81,12,3,1,21} the output should be 3
+For lst = {0,8,1,2,1,7} the output should be 7
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+int skjkasdkd(vector<int> lst){
+    bool is_prime(int num) {
+        if (num <= 1) return false;
+        for (int i = 2; i <= sqrt(num); i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
+    int sum_of_digits(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+    }
+
+    int largest_prime = -1;
+    for (int num : lst) {
+        if (is_prime(num) && num > largest_prime) {
+            largest_prime = num;
+        }
+    }
+
+    if (largest_prime == -1) return 0;
+
+    return sum_of_digits(largest_prime);
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (skjkasdkd({0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3}) == 10);
+    assert (skjkasdkd({1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1}) == 25);
+    assert (skjkasdkd({1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3}) == 13);
+    assert (skjkasdkd({0,724,32,71,99,32,6,0,5,91,83,0,5,6}) == 11);
+    assert (skjkasdkd({0,81,12,3,1,21}) == 3);
+    assert (skjkasdkd({0,8,1,2,1,7}) == 7);
+    assert (skjkasdkd({8191}) == 19);
+    assert (skjkasdkd({8191, 123456, 127, 7}) == 19);
+    assert (skjkasdkd({127, 97, 8192}) == 10);
+}
+", "prompt": "/*
+You are given a vector of integers.
+You need to find the largest prime value and return the sum of its digits.
+
+Examples:
+For lst = {0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3} the output should be 10
+For lst = {1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1} the output should be 25
+For lst = {1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3} the output should be 13
+For lst = {0,724,32,71,99,32,6,0,5,91,83,0,5,6} the output should be 11
+For lst = {0,81,12,3,1,21} the output should be 3
+For lst = {0,8,1,2,1,7} the output should be 7
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+int skjkasdkd(vector<int> lst){
+", "generation": "    bool is_prime(int num) {
+        if (num <= 1) return false;
+        for (int i = 2; i <= sqrt(num); i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
+    int sum_of_digits(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+    }
+
+    int largest_prime = -1;
+    for (int num : lst) {
+        if (is_prime(num) && num > largest_prime) {
+            largest_prime = num;
+        }
+    }
+
+    if (largest_prime == -1) return 0;
+
+    return sum_of_digits(largest_prime);
+}", "result": "failed: compilation error: test.cpp: In function \u2018int skjkasdkd(std::vector<int>)\u2019:
+test.cpp:25:28: error: a function-definition is not allowed here before \u2018{\u2019 token
+   25 |     bool is_prime(int num) {
+      |                            ^
+test.cpp:33:32: error: a function-definition is not allowed here before \u2018{\u2019 token
+   33 |     int sum_of_digits(int num) {
+      |                                ^
+test.cpp:44:13: error: \u2018is_prime\u2019 was not declared in this scope
+   44 |         if (is_prime(num) && num > largest_prime) {
+      |             ^~~~~~~~
+test.cpp:51:12: error: \u2018sum_of_digits\u2019 was not declared in this scope
+   51 |     return sum_of_digits(largest_prime);
+      |            ^~~~~~~~~~~~~
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/93", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Write a function that takes a message, and encodes in such a 
+way that it swaps case of all letters, replaces all vowels in 
+the message with the letter that appears 2 places ahead of that 
+vowel in the english alphabet. 
+Assume only letters. 
+
+Examples:
+>>> encode('test\")
+\"TGST\"
+>>> encode(\"This is a message\")
+'tHKS KS C MGSSCGG\"
+*/
+#include<stdio.h>
+#include<string>
+#include<algorithm>
+using namespace std;
+string encode(string message){
+    for(int i = 0; i < message.length(); ++i){
+        char ch = message[i];
+        if(isalpha(ch)){
+            if(islower(ch))
+                message[i] = toupper(ch);
+            else
+                message[i] = tolower(ch);
+            
+            switch(tolower(ch)){
+                case 'a': message[i] = 'C'; break;
+                case 'e': message[i] = 'G'; break;
+                case 'i': message[i] = 'K'; break;
+                case 'o': message[i] = 'Q'; break;
+                case 'u': message[i] = 'W'; break;
+            }
+        }
+    }
+    return message;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (encode(\"TEST\") == \"tgst\");
+    assert (encode(\"Mudasir\") == \"mWDCSKR\");
+    assert (encode(\"YES\") == \"ygs\");
+    assert (encode(\"This is a message\") == \"tHKS KS C MGSSCGG\");
+    assert (encode(\"I DoNt KnOw WhAt tO WrItE\") == \"k dQnT kNqW wHcT Tq wRkTg\");
+}
+", "prompt": "/*
+Write a function that takes a message, and encodes in such a 
+way that it swaps case of all letters, replaces all vowels in 
+the message with the letter that appears 2 places ahead of that 
+vowel in the english alphabet. 
+Assume only letters. 
+
+Examples:
+>>> encode('test\")
+\"TGST\"
+>>> encode(\"This is a message\")
+'tHKS KS C MGSSCGG\"
+*/
+#include<stdio.h>
+#include<string>
+#include<algorithm>
+using namespace std;
+string encode(string message){
+", "generation": "    for(int i = 0; i < message.length(); ++i){
+        char ch = message[i];
+        if(isalpha(ch)){
+            if(islower(ch))
+                message[i] = toupper(ch);
+            else
+                message[i] = tolower(ch);
+            
+            switch(tolower(ch)){
+                case 'a': message[i] = 'C'; break;
+                case 'e': message[i] = 'G'; break;
+                case 'i': message[i] = 'K'; break;
+                case 'o': message[i] = 'Q'; break;
+                case 'u': message[i] = 'W'; break;
+            }
+        }
+    }
+    return message;
+}", "result": "failed: a.out: test.cpp:48: int main(): Assertion `encode(\"TEST\") == \"tgst\"' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/127", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+You are given two intervals,
+where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).
+The given intervals are closed which means that the interval (start, end)
+includes both start and end.
+For each given interval, it is assumed that its start is less or equal its end.
+Your task is to determine whether the length of intersection of these two 
+intervals is a prime number.
+Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)
+which its length is 1, which not a prime number.
+If the length of the intersection is a prime number, return \"YES\",
+otherwise, return \"NO\".
+If the two intervals don't intersect, return \"NO\".
+
+
+{input/output} samples:
+intersection({1, 2}, {2, 3}) ==> \"NO\"
+intersection({-1, 1}, {0, 4}) ==> \"NO\"
+intersection({-3, -1}, {-5, 5}) ==> \"YES\"
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+string intersection( vector<int> interval1,vector<int> interval2){
+    int start1 = interval1[0];
+    int end1 = interval1[1];
+    int start2 = interval2[0];
+    int end2 = interval2[1];
+    
+    int intersect_start = max(start1, start2);
+    int intersect_end = min(end1, end2);
+    
+    if (intersect_start > intersect_end) {
+        return \"NO\";
+    }
+    
+    int length = intersect_end - intersect_start + 1;
+    
+    if (length < 2) {
+        return \"NO\";
+    }
+    
+    for (int i = 2; i * i <= length; i++) {
+        if (length % i == 0) {
+            return \"NO\";
+        }
+    }
+    
+    return \"YES\";
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (intersection({1, 2}, {2, 3}) == \"NO\");
+    assert (intersection({-1, 1}, {0, 4}) == \"NO\");
+    assert (intersection({-3, -1}, {-5, 5}) == \"YES\");
+    assert (intersection({-2, 2}, {-4, 0}) == \"YES\");
+    assert (intersection({-11, 2}, {-1, -1}) == \"NO\");
+    assert (intersection({1, 2}, {3, 5}) == \"NO\");
+    assert (intersection({1, 2}, {1, 2}) == \"NO\");
+    assert (intersection({-2, -2}, {-3, -2}) == \"NO\");
+}
+", "prompt": "/*
+You are given two intervals,
+where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).
+The given intervals are closed which means that the interval (start, end)
+includes both start and end.
+For each given interval, it is assumed that its start is less or equal its end.
+Your task is to determine whether the length of intersection of these two 
+intervals is a prime number.
+Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)
+which its length is 1, which not a prime number.
+If the length of the intersection is a prime number, return \"YES\",
+otherwise, return \"NO\".
+If the two intervals don't intersect, return \"NO\".
+
+
+{input/output} samples:
+intersection({1, 2}, {2, 3}) ==> \"NO\"
+intersection({-1, 1}, {0, 4}) ==> \"NO\"
+intersection({-3, -1}, {-5, 5}) ==> \"YES\"
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+string intersection( vector<int> interval1,vector<int> interval2){
+", "generation": "    int start1 = interval1[0];
+    int end1 = interval1[1];
+    int start2 = interval2[0];
+    int end2 = interval2[1];
+    
+    int intersect_start = max(start1, start2);
+    int intersect_end = min(end1, end2);
+    
+    if (intersect_start > intersect_end) {
+        return \"NO\";
+    }
+    
+    int length = intersect_end - intersect_start + 1;
+    
+    if (length < 2) {
+        return \"NO\";
+    }
+    
+    for (int i = 2; i * i <= length; i++) {
+        if (length % i == 0) {
+            return \"NO\";
+        }
+    }
+    
+    return \"YES\";
+}", "result": "failed: a.out: test.cpp:63: int main(): Assertion `intersection({-1, 1}, {0, 4}) == \"NO\"' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/125", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<math.h>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Given a string of words, return a vector of words split on whitespace, if no whitespaces exists in the text you
+should split on commas ',' if no commas exists you should return a vector with one element, the number of lower-case letters with odd order in the
+alphabet, ord(\"a\") = 0, ord(\"b\") = 1, ... ord(\"z\") = 25
+Examples
+split_words(\"Hello world!\") \u279e {\"Hello\", \"world!\"}
+split_words(\"Hello,world!\") \u279e {\"Hello\", \"world!\"}
+split_words(\"abcdef\") == {\"3\"} 
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+#include<algorithm>
+using namespace std;
+vector<string> split_words(string txt){
+    vector<string> result;
+    bool has_whitespace = find(txt.begin(), txt.end(), ' ') != txt.end();
+    bool has_comma = find(txt.begin(), txt.end(), ',') != txt.end();
+    if (has_whitespace) {
+        string word;
+        for (auto c : txt) {
+            if (c == ' ') {
+                result.push_back(word);
+                word = \"\";
+            } else {
+                word += c;
+            }
+        }
+        if (!word.empty()) result.push_back(word);
+    } else if (has_comma) {
+        string word;
+        for (auto c : txt) {
+            if (c == ',') {
+                result.push_back(word);
+                word = \"\";
+            } else {
+                word += c;
+            }
+        }
+        if (!word.empty()) result.push_back(word);
+    } else {
+        int odd_count = 0;
+        for (auto c : txt) {
+            if (('a' <= c && c <= 'z') && ((c - 'a') % 2 == 0)) {
+                odd_count++;
+            }
+        }
+        result.push_back(to_string(odd_count));
+    }
+    return result;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<string> a,vector<string>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+    if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(split_words(\"Hello world!\") , {\"Hello\",\"world!\"}));
+    assert (issame(split_words(\"Hello,world!\") , {\"Hello\",\"world!\"}));
+    assert (issame(split_words(\"Hello world,!\") , {\"Hello\",\"world,!\"}));
+    assert (issame(split_words(\"Hello,Hello,world !\") , {\"Hello,Hello,world\",\"!\"}));
+    assert (issame(split_words(\"abcdef\") , {\"3\"}));
+    assert (issame(split_words(\"aaabb\") , {\"2\"}));
+    assert (issame(split_words(\"aaaBb\") , {\"1\"}));
+    assert (issame(split_words(\"\") ,{\"0\"}));
+}
+", "prompt": "/*
+Given a string of words, return a vector of words split on whitespace, if no whitespaces exists in the text you
+should split on commas ',' if no commas exists you should return a vector with one element, the number of lower-case letters with odd order in the
+alphabet, ord(\"a\") = 0, ord(\"b\") = 1, ... ord(\"z\") = 25
+Examples
+split_words(\"Hello world!\") \u279e {\"Hello\", \"world!\"}
+split_words(\"Hello,world!\") \u279e {\"Hello\", \"world!\"}
+split_words(\"abcdef\") == {\"3\"} 
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+#include<algorithm>
+using namespace std;
+vector<string> split_words(string txt){
+", "generation": "    vector<string> result;
+    bool has_whitespace = find(txt.begin(), txt.end(), ' ') != txt.end();
+    bool has_comma = find(txt.begin(), txt.end(), ',') != txt.end();
+    if (has_whitespace) {
+        string word;
+        for (auto c : txt) {
+            if (c == ' ') {
+                result.push_back(word);
+                word = \"\";
+            } else {
+                word += c;
+            }
+        }
+        if (!word.empty()) result.push_back(word);
+    } else if (has_comma) {
+        string word;
+        for (auto c : txt) {
+            if (c == ',') {
+                result.push_back(word);
+                word = \"\";
+            } else {
+                word += c;
+            }
+        }
+        if (!word.empty()) result.push_back(word);
+    } else {
+        int odd_count = 0;
+        for (auto c : txt) {
+            if (('a' <= c && c <= 'z') && ((c - 'a') % 2 == 0)) {
+                odd_count++;
+            }
+        }
+        result.push_back(to_string(odd_count));
+    }
+    return result;
+}", "result": "failed: a.out: test.cpp:74: int main(): Assertion `issame(split_words(\"aaabb\") , {\"2\"})' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/134", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Create a function that returns true if the last character
+of a given string is an alphabetical character and is not
+a part of a word, and false otherwise.
+Note: \"word\" is a group of characters separated by space.
+
+Examples:
+check_if_last_char_is_a_letter(\"apple pie\") \u279e false
+check_if_last_char_is_a_letter(\"apple pi e\") \u279e true
+check_if_last_char_is_a_letter(\"apple pi e \") \u279e false
+check_if_last_char_is_a_letter(\"\") \u279e false 
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+bool check_if_last_char_is_a_letter(string txt){
+        int len = txt.length();
+        if(len == 0 || txt[len-1] == ' ') return false;
+        if(isalpha(txt[len-1])) {
+            for(int i = len-2; i >= 0; i--) {
+                if(txt[i] == ' ') return true;
+                if(isalpha(txt[i])) return false;
+            }
+        }
+        return false;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (check_if_last_char_is_a_letter(\"apple\") == false);
+    assert (check_if_last_char_is_a_letter(\"apple pi e\") == true);
+    assert (check_if_last_char_is_a_letter(\"eeeee\") == false);
+    assert (check_if_last_char_is_a_letter(\"A\") == true);
+    assert (check_if_last_char_is_a_letter(\"Pumpkin pie \") == false);
+    assert (check_if_last_char_is_a_letter(\"Pumpkin pie 1\") == false);
+    assert (check_if_last_char_is_a_letter(\"\") == false);
+    assert (check_if_last_char_is_a_letter(\"eeeee e \") == false);
+    assert (check_if_last_char_is_a_letter(\"apple pie\") == false);
+    assert (check_if_last_char_is_a_letter(\"apple pi e \") == false);
+}
+", "prompt": "/*
+Create a function that returns true if the last character
+of a given string is an alphabetical character and is not
+a part of a word, and false otherwise.
+Note: \"word\" is a group of characters separated by space.
+
+Examples:
+check_if_last_char_is_a_letter(\"apple pie\") \u279e false
+check_if_last_char_is_a_letter(\"apple pi e\") \u279e true
+check_if_last_char_is_a_letter(\"apple pi e \") \u279e false
+check_if_last_char_is_a_letter(\"\") \u279e false 
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+bool check_if_last_char_is_a_letter(string txt){
+", "generation": "        int len = txt.length();
+        if(len == 0 || txt[len-1] == ' ') return false;
+        if(isalpha(txt[len-1])) {
+            for(int i = len-2; i >= 0; i--) {
+                if(txt[i] == ' ') return true;
+                if(isalpha(txt[i])) return false;
+            }
+        }
+        return false;
+}", "result": "failed: a.out: test.cpp:41: int main(): Assertion `check_if_last_char_is_a_letter(\"A\") == true' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/140", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Given a string text, replace all spaces in it with underscores, 
+and if a string has more than 2 consecutive spaces, 
+then replace all consecutive spaces with - 
+
+fix_spaces(\"Example\") == \"Example\"
+fix_spaces(\"Example 1\") == \"Example_1\"
+fix_spaces(\" Example 2\") == \"_Example_2\"
+fix_spaces(\" Example   3\") == \"_Example-3\"
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+string fix_spaces(string text){
+    string result = \"\";
+    int space_count = 0;
+
+    for(char c : text) {
+        if(c == ' ') {
+            space_count++;
+        } else {
+            if(space_count == 1) {
+                result += '_';
+            } else if(space_count > 1) {
+                result += '-';
+            }
+            space_count = 0;
+            result += c;
+        }
+    }
+    
+    if(space_count == 1) {
+        result += '_';
+    } else if(space_count > 1) {
+        result += '-';
+    }
+    
+    return result;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (fix_spaces(\"Example\") == \"Example\");
+    assert (fix_spaces(\"Mudasir Hanif \") == \"Mudasir_Hanif_\");
+    assert (fix_spaces(\"Yellow Yellow  Dirty  Fellow\") == \"Yellow_Yellow__Dirty__Fellow\");
+    assert (fix_spaces(\"Exa   mple\") == \"Exa-mple\");
+    assert (fix_spaces(\"   Exa 1 2 2 mple\") == \"-Exa_1_2_2_mple\");
+}
+", "prompt": "/*
+Given a string text, replace all spaces in it with underscores, 
+and if a string has more than 2 consecutive spaces, 
+then replace all consecutive spaces with - 
+
+fix_spaces(\"Example\") == \"Example\"
+fix_spaces(\"Example 1\") == \"Example_1\"
+fix_spaces(\" Example 2\") == \"_Example_2\"
+fix_spaces(\" Example   3\") == \"_Example-3\"
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+string fix_spaces(string text){
+", "generation": "    string result = \"\";
+    int space_count = 0;
+
+    for(char c : text) {
+        if(c == ' ') {
+            space_count++;
+        } else {
+            if(space_count == 1) {
+                result += '_';
+            } else if(space_count > 1) {
+                result += '-';
+            }
+            space_count = 0;
+            result += c;
+        }
+    }
+    
+    if(space_count == 1) {
+        result += '_';
+    } else if(space_count > 1) {
+        result += '-';
+    }
+    
+    return result;
+}", "result": "failed: a.out: test.cpp:53: int main(): Assertion `fix_spaces(\"Yellow Yellow  Dirty  Fellow\") == \"Yellow_Yellow__Dirty__Fellow\"' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/130", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+the last couple centuries. However, what people don't know is Tribonacci sequence.
+Tribonacci sequence is defined by the recurrence:
+tri(1) = 3
+tri(n) = 1 + n / 2, if n is even.
+tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+For example:
+tri(2) = 1 + (2 / 2) = 2
+tri(4) = 3
+tri(3) = tri(2) + tri(1) + tri(4)
+       = 2 + 3 + 3 = 8 
+You are given a non-negative integer number n, you have to a return a vector of the 
+first n + 1 numbers of the Tribonacci sequence.
+Examples:
+tri(3) = {1, 3, 2, 8}
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+vector<int> tri(int n){
+    vector<int> sequence;
+    if(n == 0) {
+        sequence.push_back(3);
+        return sequence;
+    }
+    vector<int> tri_values(n + 4, 0);
+    tri_values[1] = 3;
+    for(int i = 2; i <= n + 3; i++){
+        if(i % 2 == 0) {
+            tri_values[i] = 1 + (i / 2);
+        } else {
+            tri_values[i] = tri_values[i - 1] + tri_values[i - 2] + tri_values[i + 1];
+        }
+    }
+    for(int i = 1; i <= n + 1; i++) {
+        sequence.push_back(tri_values[i]);
+    }
+    return sequence;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<int> a,vector<int>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+    if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(tri(3) , {1, 3, 2, 8}));
+    assert (issame(tri(4) , {1, 3, 2, 8, 3}));
+    assert (issame(tri(5) , {1, 3, 2, 8, 3, 15}));
+    assert (issame(tri(6) , {1, 3, 2, 8, 3, 15, 4}));
+    assert (issame(tri(7) , {1, 3, 2, 8, 3, 15, 4, 24}));
+    assert (issame(tri(8) , {1, 3, 2, 8, 3, 15, 4, 24, 5}));
+    assert (issame(tri(9) , {1, 3, 2, 8, 3, 15, 4, 24, 5, 35}));
+    assert (issame(tri(20) , {1, 3, 2, 8, 3, 15, 4, 24, 5, 35, 6, 48, 7, 63, 8, 80, 9, 99, 10, 120, 11}));
+    assert (issame(tri(0) , {1}));
+    assert (issame(tri(1) , {1, 3}));
+}
+", "prompt": "/*
+Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+the last couple centuries. However, what people don't know is Tribonacci sequence.
+Tribonacci sequence is defined by the recurrence:
+tri(1) = 3
+tri(n) = 1 + n / 2, if n is even.
+tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+For example:
+tri(2) = 1 + (2 / 2) = 2
+tri(4) = 3
+tri(3) = tri(2) + tri(1) + tri(4)
+       = 2 + 3 + 3 = 8 
+You are given a non-negative integer number n, you have to a return a vector of the 
+first n + 1 numbers of the Tribonacci sequence.
+Examples:
+tri(3) = {1, 3, 2, 8}
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+vector<int> tri(int n){
+", "generation": "    vector<int> sequence;
+    if(n == 0) {
+        sequence.push_back(3);
+        return sequence;
+    }
+    vector<int> tri_values(n + 4, 0);
+    tri_values[1] = 3;
+    for(int i = 2; i <= n + 3; i++){
+        if(i % 2 == 0) {
+            tri_values[i] = 1 + (i / 2);
+        } else {
+            tri_values[i] = tri_values[i - 1] + tri_values[i - 2] + tri_values[i + 1];
+        }
+    }
+    for(int i = 1; i <= n + 1; i++) {
+        sequence.push_back(tri_values[i]);
+    }
+    return sequence;
+}", "result": "failed: a.out: test.cpp:60: int main(): Assertion `issame(tri(3) , {1, 3, 2, 8})' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/132", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Create a function that takes a string as input which contains only square brackets.
+The function should return true if and only if there is a valid subsequence of brackets
+where at least one bracket in the subsequence is nested.
+
+is_nested(\"[[]]\") \u279e true
+is_nested(\"[]]]]]]][[[[[]\") \u279e false
+is_nested(\"[][]\") \u279e false
+is_nested(\"[]\") \u279e false
+is_nested(\"[[][]]\") \u279e true
+is_nested(\"[[]][[\") \u279e true
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+bool is_nested(string str){
+    int open_brackets = 0;
+    int nested_brackets = 0;
+    for(char ch : str){
+        if(ch == '[') {
+            open_brackets++;
+        } else if(ch == ']') {
+            if(open_brackets > 0) {
+                open_brackets--;
+                nested_brackets++;
+            } else {
+                nested_brackets = 0;
+            }
+        }
+        if(nested_brackets > 1) {
+            return true;
+        }
+    }
+    return false;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (is_nested(\"[[]]\") == true);
+    assert (is_nested(\"[]]]]]]][[[[[]\") == false);
+    assert (is_nested(\"[][]\") == false);
+    assert (is_nested((\"[]\")) == false);
+    assert (is_nested(\"[[[[]]]]\") == true);
+    assert (is_nested(\"[]]]]]]]]]]\") == false);
+    assert (is_nested(\"[][][[]]\") == true);
+    assert (is_nested(\"[[]\") == false);
+    assert (is_nested(\"[]]\") == false);
+    assert (is_nested(\"[[]][[\") == true);
+    assert (is_nested(\"[[][]]\") == true);
+    assert (is_nested(\"\") == false);
+    assert (is_nested(\"[[[[[[[[\") == false);
+    assert (is_nested(\"]]]]]]]]\") == false);
+}
+", "prompt": "/*
+Create a function that takes a string as input which contains only square brackets.
+The function should return true if and only if there is a valid subsequence of brackets
+where at least one bracket in the subsequence is nested.
+
+is_nested(\"[[]]\") \u279e true
+is_nested(\"[]]]]]]][[[[[]\") \u279e false
+is_nested(\"[][]\") \u279e false
+is_nested(\"[]\") \u279e false
+is_nested(\"[[][]]\") \u279e true
+is_nested(\"[[]][[\") \u279e true
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+bool is_nested(string str){
+", "generation": "    int open_brackets = 0;
+    int nested_brackets = 0;
+    for(char ch : str){
+        if(ch == '[') {
+            open_brackets++;
+        } else if(ch == ']') {
+            if(open_brackets > 0) {
+                open_brackets--;
+                nested_brackets++;
+            } else {
+                nested_brackets = 0;
+            }
+        }
+        if(nested_brackets > 1) {
+            return true;
+        }
+    }
+    return false;
+}", "result": "failed: a.out: test.cpp:49: int main(): Assertion `is_nested(\"[][]\") == false' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/129", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+each cell of the grid contains a value. Every integer in the range {1, N * N}
+inclusive appears exactly once on the cells of the grid.
+
+You have to find the minimum path of length k in the grid. You can start
+from any cell, and in each step you can move to any of the neighbor cells,
+in other words, you can go to cells which share an edge with you current
+cell.
+Please note that a path of length k means visiting exactly k cells (not
+necessarily distinct).
+You CANNOT go off the grid.
+A path A (of length k) is considered less than a path B (of length k) if
+after making the ordered vectors of the values on the cells that A and B go
+through (let's call them lst_A and lst_B), lst_A is lexicographically less
+than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+lst_A[j] = lst_B[j].
+It is guaranteed that the answer is unique.
+Return an ordered vector of the values on the cells that the minimum path go through.
+
+Examples:
+
+    Input: grid = { {1,2,3}, {4,5,6}, {7,8,9}}, k = 3
+    Output: {1, 2, 1}
+
+    Input: grid = { {5,9,3}, {4,1,6}, {7,8,2}}, k = 1
+    Output: {1}
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+vector<int> minPath(vector<vector<int>> grid, int k){
+    int N = grid.size();
+    vector<int> result;
+    vector<vector<int>> paths(N, vector<int>(N, 0));
+    for(int i = 0; i < N; ++i){
+        for(int j = 0; j < N; ++j){
+            paths[i][j] = grid[i][j];
+        }
+    }
+
+    for(int l = 1; l < k; ++l){
+        vector<vector<int>> newPaths(N, vector<int>(N, INT_MAX));
+        for(int i = 0; i < N; ++i){
+            for(int j = 0; j < N; ++j){
+                int currentValue = paths[i][j];
+                if (i > 0) newPaths[i][j] = min(newPaths[i][j], currentValue * 10 + grid[i-1][j]);
+                if (j > 0) newPaths[i][j] = min(newPaths[i][j], currentValue * 10 + grid[i][j-1]);
+                if (i + 1 < N) newPaths[i][j] = min(newPaths[i][j], currentValue * 10 + grid[i+1][j]);
+                if (j + 1 < N) newPaths[i][j] = min(newPaths[i][j], currentValue * 10 + grid[i][j+1]);
+            }
+        }
+        paths = newPaths;
+    }
+
+    int minPathValue = INT_MAX;
+    for(int i = 0; i < N; ++i){
+        for(int j = 0; j < N; ++j){
+            minPathValue = min(minPathValue, paths[i][j]);
+        }
+    }
+
+    string pathStr = to_string(minPathValue);
+    for(char c : pathStr){
+        result.push_back(c - '0');
+    }
+
+    return result;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<int> a,vector<int>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+    if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(minPath({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}, 3) , {1, 2, 1}));
+    assert (issame(minPath({{5, 9, 3}, {4, 1, 6}, {7, 8, 2}}, 1) , {1}));
+    assert (issame(minPath({{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}}, 4) , {1, 2, 1, 2}));
+    assert (issame(minPath({{6, 4, 13, 10}, {5, 7, 12, 1}, {3, 16, 11, 15}, {8, 14, 9, 2}}, 7) , {1, 10, 1, 10, 1, 10, 1}));
+    assert (issame(minPath({{8, 14, 9, 2}, {6, 4, 13, 15}, {5, 7, 1, 12}, {3, 10, 11, 16}}, 5) , {1, 7, 1, 7, 1}));
+    assert (issame(minPath({{11, 8, 7, 2}, {5, 16, 14, 4}, {9, 3, 15, 6}, {12, 13, 10, 1}}, 9) , {1, 6, 1, 6, 1, 6, 1, 6, 1}));
+    assert (issame(minPath({{12, 13, 10, 1}, {9, 3, 15, 6}, {5, 16, 14, 4}, {11, 8, 7, 2}}, 12) , {1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6}));
+    assert (issame(minPath({{2, 7, 4}, {3, 1, 5}, {6, 8, 9}}, 8) , {1, 3, 1, 3, 1, 3, 1, 3}));
+    assert (issame(minPath({{6, 1, 5}, {3, 8, 9}, {2, 7, 4}}, 8) , {1, 5, 1, 5, 1, 5, 1, 5}));
+    assert (issame(minPath({{1, 2}, {3, 4}}, 10) , {1, 2, 1, 2, 1, 2, 1, 2, 1, 2}));
+    assert (issame(minPath({{1, 3}, {3, 2}}, 10) , {1, 3, 1, 3, 1, 3, 1, 3, 1, 3}));
+}
+", "prompt": "/*
+Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+each cell of the grid contains a value. Every integer in the range {1, N * N}
+inclusive appears exactly once on the cells of the grid.
+
+You have to find the minimum path of length k in the grid. You can start
+from any cell, and in each step you can move to any of the neighbor cells,
+in other words, you can go to cells which share an edge with you current
+cell.
+Please note that a path of length k means visiting exactly k cells (not
+necessarily distinct).
+You CANNOT go off the grid.
+A path A (of length k) is considered less than a path B (of length k) if
+after making the ordered vectors of the values on the cells that A and B go
+through (let's call them lst_A and lst_B), lst_A is lexicographically less
+than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+lst_A[j] = lst_B[j].
+It is guaranteed that the answer is unique.
+Return an ordered vector of the values on the cells that the minimum path go through.
+
+Examples:
+
+    Input: grid = { {1,2,3}, {4,5,6}, {7,8,9}}, k = 3
+    Output: {1, 2, 1}
+
+    Input: grid = { {5,9,3}, {4,1,6}, {7,8,2}}, k = 1
+    Output: {1}
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+vector<int> minPath(vector<vector<int>> grid, int k){
+", "generation": "    int N = grid.size();
+    vector<int> result;
+    vector<vector<int>> paths(N, vector<int>(N, 0));
+    for(int i = 0; i < N; ++i){
+        for(int j = 0; j < N; ++j){
+            paths[i][j] = grid[i][j];
+        }
+    }
+
+    for(int l = 1; l < k; ++l){
+        vector<vector<int>> newPaths(N, vector<int>(N, INT_MAX));
+        for(int i = 0; i < N; ++i){
+            for(int j = 0; j < N; ++j){
+                int currentValue = paths[i][j];
+                if (i > 0) newPaths[i][j] = min(newPaths[i][j], currentValue * 10 + grid[i-1][j]);
+                if (j > 0) newPaths[i][j] = min(newPaths[i][j], currentValue * 10 + grid[i][j-1]);
+                if (i + 1 < N) newPaths[i][j] = min(newPaths[i][j], currentValue * 10 + grid[i+1][j]);
+                if (j + 1 < N) newPaths[i][j] = min(newPaths[i][j], currentValue * 10 + grid[i][j+1]);
+            }
+        }
+        paths = newPaths;
+    }
+
+    int minPathValue = INT_MAX;
+    for(int i = 0; i < N; ++i){
+        for(int j = 0; j < N; ++j){
+            minPathValue = min(minPathValue, paths[i][j]);
+        }
+    }
+
+    string pathStr = to_string(minPathValue);
+    for(char c : pathStr){
+        result.push_back(c - '0');
+    }
+
+    return result;
+}", "result": "failed: a.out: test.cpp:90: int main(): Assertion `issame(minPath({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}, 3) , {1, 2, 1})' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/119", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+You are given a vector of two strings, both strings consist of open
+parentheses '(' or close parentheses ')' only.
+Your job is to check if it is possible to concatenate the two strings in
+some order, that the resulting string will be good.
+A string S is considered to be good if and only if all parentheses in S
+are balanced. For example: the string \"(())()\" is good, while the string
+\"())\" is not.
+Return \"Yes\" if there's a way to make a good string, and return \"No\" otherwise.
+
+Examples:
+match_parens({\"()(\", \")\"}) == \"Yes\"
+match_parens({\")\", \")\"}) == \"No\"
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+string match_parens(vector<string> lst){
+    string combined_1 = lst[0] + lst[1];
+    string combined_2 = lst[1] + lst[0];
+    
+    if (is_good(combined_1) || is_good(combined_2)) {
+        return \"Yes\";
+    }
+    return \"No\";
+}
+
+bool is_good(string s) {
+    int balance = 0;
+    for (char ch : s) {
+        if (ch == '(') {
+            balance++;
+        } else {
+            balance--;
+        }
+        if (balance < 0) {
+            return false;
+        }
+    }
+    return balance == 0;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (match_parens({\"()(\", \")\"}) == \"Yes\");
+    assert (match_parens({\")\", \")\"}) == \"No\");
+    assert (match_parens({\"(()(())\", \"())())\"}) == \"No\");
+    assert (match_parens({\")())\", \"(()()(\"}) == \"Yes\");
+    assert (match_parens({\"(())))\", \"(()())((\"}) == \"Yes\");
+    assert (match_parens({\"()\", \"())\"}) == \"No\");
+    assert (match_parens({\"(()(\", \"()))()\"}) == \"Yes\");
+    assert (match_parens({\"((((\", \"((())\"}) == \"No\");
+    assert (match_parens({\")(()\", \"(()(\"}) == \"No\");
+    assert (match_parens({\")(\", \")(\"}) == \"No\");
+    assert (match_parens({\"(\", \")\"}) == \"Yes\");
+    assert (match_parens({\")\", \"(\"}) == \"Yes\" );
+}
+", "prompt": "/*
+You are given a vector of two strings, both strings consist of open
+parentheses '(' or close parentheses ')' only.
+Your job is to check if it is possible to concatenate the two strings in
+some order, that the resulting string will be good.
+A string S is considered to be good if and only if all parentheses in S
+are balanced. For example: the string \"(())()\" is good, while the string
+\"())\" is not.
+Return \"Yes\" if there's a way to make a good string, and return \"No\" otherwise.
+
+Examples:
+match_parens({\"()(\", \")\"}) == \"Yes\"
+match_parens({\")\", \")\"}) == \"No\"
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+string match_parens(vector<string> lst){
+", "generation": "    string combined_1 = lst[0] + lst[1];
+    string combined_2 = lst[1] + lst[0];
+    
+    if (is_good(combined_1) || is_good(combined_2)) {
+        return \"Yes\";
+    }
+    return \"No\";
+}
+
+bool is_good(string s) {
+    int balance = 0;
+    for (char ch : s) {
+        if (ch == '(') {
+            balance++;
+        } else {
+            balance--;
+        }
+        if (balance < 0) {
+            return false;
+        }
+    }
+    return balance == 0;
+}", "result": "failed: compilation error: test.cpp: In function \u2018std::string match_parens(std::vector<std::__cxx11::basic_string<char> >)\u2019:
+test.cpp:30:9: error: \u2018is_good\u2019 was not declared in this scope
+   30 |     if (is_good(combined_1) || is_good(combined_2)) {
+      |         ^~~~~~~
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/116", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+In this Kata, you have to sort a vector of non-negative integers according to
+number of ones in their binary representation in ascending order.
+For similar number of ones, sort based on decimal value.
+
+It must be implemented like this:
+>>> sort_vector({1, 5, 2, 3, 4}) == {1, 2, 3, 4, 5}
+>>> sort_vector({-2, -3, -4, -5, -6}) == {-6, -5, -4, -3, -2}
+>>> sort_vector({1, 0, 2, 3, 4}) == {0, 1, 2, 3, 4}
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+#include<algorithm>
+using namespace std;
+vector<int> sort_array(vector<int> arr){
+    auto bit_count = [](int n) {
+        return __builtin_popcount(n); // Count number of 1's in binary representation
+    };
+    sort(arr.begin(), arr.end(), [&](int a, int b) {
+        if (bit_count(a) == bit_count(b)) return a < b;
+        return bit_count(a) < bit_count(b);
+    });
+    return arr;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<int> a,vector<int>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+    if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(sort_array({1,5,2,3,4}) , {1, 2, 4, 3, 5}));
+    assert (issame(sort_array({-2,-3,-4,-5,-6}) , {-4, -2, -6, -5, -3}));
+    assert (issame(sort_array({1,0,2,3,4}) , {0, 1, 2, 4, 3}));
+    assert (issame(sort_array({}) , {}));
+    assert (issame(sort_array({2,5,77,4,5,3,5,7,2,3,4}) , {2, 2, 4, 4, 3, 3, 5, 5, 5, 7, 77}));
+    assert (issame(sort_array({3,6,44,12,32,5}) , {32, 3, 5, 6, 12, 44}));
+    assert (issame(sort_array({2,4,8,16,32}) , {2, 4, 8, 16, 32}));
+    assert (issame(sort_array({2,4,8,16,32}) , {2, 4, 8, 16, 32}));
+}
+", "prompt": "/*
+In this Kata, you have to sort a vector of non-negative integers according to
+number of ones in their binary representation in ascending order.
+For similar number of ones, sort based on decimal value.
+
+It must be implemented like this:
+>>> sort_vector({1, 5, 2, 3, 4}) == {1, 2, 3, 4, 5}
+>>> sort_vector({-2, -3, -4, -5, -6}) == {-6, -5, -4, -3, -2}
+>>> sort_vector({1, 0, 2, 3, 4}) == {0, 1, 2, 3, 4}
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+#include<algorithm>
+using namespace std;
+vector<int> sort_array(vector<int> arr){
+", "generation": "    auto bit_count = [](int n) {
+        return __builtin_popcount(n); // Count number of 1's in binary representation
+    };
+    sort(arr.begin(), arr.end(), [&](int a, int b) {
+        if (bit_count(a) == bit_count(b)) return a < b;
+        return bit_count(a) < bit_count(b);
+    });
+    return arr;
+}", "result": "failed: a.out: test.cpp:44: int main(): Assertion `issame(sort_array({-2,-3,-4,-5,-6}) , {-4, -2, -6, -5, -3})' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/115", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+You are given a rectangular grid of wells. Each row represents a single well,
+and each 1 in a row represents a single unit of water.
+Each well has a corresponding bucket that can be used to extract water from it, 
+and all buckets have the same capacity.
+Your task is to use the buckets to empty the wells.
+Output the number of times you need to lower the buckets.
+
+Example 1:
+    Input: 
+        grid : {{0,0,1,0}, {0,1,0,0}, {1,1,1,1}}
+        bucket_capacity : 1
+    Output: 6
+
+Example 2:
+    Input: 
+        grid : {{0,0,1,1}, {0,0,0,0}, {1,1,1,1}, {0,1,1,1}}
+        bucket_capacity : 2
+    Output: 5
+
+Example 3:
+    Input: 
+        grid : {{0,0,0}, {0,0,0}}
+        bucket_capacity : 5
+    Output: 0
+
+Constraints:
+    * all wells have the same length
+    * 1 <= grid.length <= 10^2
+    * 1 <= grid{:,1}.length <= 10^2
+    * grid{i}{j} -> 0 | 1
+    * 1 <= capacity <= 10
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+int max_fill(vector<vector<int>> grid,int capacity){
+    int total_units = 0;
+    for(int i = 0; i < grid.size(); i++) {
+        for(int j = 0; j < grid[i].size(); j++) {
+            if(grid[i][j] == 1) {
+                total_units++;
+            }
+        }
+    }
+    return (total_units + capacity - 1) / capacity;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (max_fill({{0,0,1,0}, {0,1,0,0}, {1,1,1,1}}, 1) == 6);
+    assert (max_fill({{0,0,1,1}, {0,0,0,0}, {1,1,1,1}, {0,1,1,1}}, 2) == 5);
+    assert (max_fill({{0,0,0}, {0,0,0}}, 5) == 0);
+    assert (max_fill({{1,1,1,1}, {1,1,1,1}}, 2) == 4);
+    assert (max_fill({{1,1,1,1}, {1,1,1,1}}, 9) == 2);
+}
+", "prompt": "/*
+You are given a rectangular grid of wells. Each row represents a single well,
+and each 1 in a row represents a single unit of water.
+Each well has a corresponding bucket that can be used to extract water from it, 
+and all buckets have the same capacity.
+Your task is to use the buckets to empty the wells.
+Output the number of times you need to lower the buckets.
+
+Example 1:
+    Input: 
+        grid : {{0,0,1,0}, {0,1,0,0}, {1,1,1,1}}
+        bucket_capacity : 1
+    Output: 6
+
+Example 2:
+    Input: 
+        grid : {{0,0,1,1}, {0,0,0,0}, {1,1,1,1}, {0,1,1,1}}
+        bucket_capacity : 2
+    Output: 5
+
+Example 3:
+    Input: 
+        grid : {{0,0,0}, {0,0,0}}
+        bucket_capacity : 5
+    Output: 0
+
+Constraints:
+    * all wells have the same length
+    * 1 <= grid.length <= 10^2
+    * 1 <= grid{:,1}.length <= 10^2
+    * grid{i}{j} -> 0 | 1
+    * 1 <= capacity <= 10
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+int max_fill(vector<vector<int>> grid,int capacity){
+", "generation": "    int total_units = 0;
+    for(int i = 0; i < grid.size(); i++) {
+        for(int j = 0; j < grid[i].size(); j++) {
+            if(grid[i][j] == 1) {
+                total_units++;
+            }
+        }
+    }
+    return (total_units + capacity - 1) / capacity;
+}", "result": "failed: a.out: test.cpp:63: int main(): Assertion `max_fill({{1,1,1,1}, {1,1,1,1}}, 9) == 2' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/143", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+You are given a string representing a sentence,
+the sentence contains some words separated by a space,
+and you have to return a string that contains the words from the original sentence,
+whose lengths are prime numbers,
+the order of the words in the new string should be the same as the original one.
+
+Example 1:
+    Input: sentence = \"This is a test\"
+    Output: \"is\"
+
+Example 2:
+    Input: sentence = \"lets go for swimming\"
+    Output: \"go for\"
+
+Constraints:
+    * 1 <= len(sentence) <= 100
+    * sentence contains only letters
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+string words_in_sentence(string sentence){
+    string result = \"\";
+    int length;
+
+    // Helper function to check if a number is prime
+    bool is_prime(int num){
+        if (num <= 1)
+            return false;
+        for (int i = 2; i <= sqrt(num); i++){
+            if (num % i == 0)
+                return false;
+        }
+        return true;
+    }
+
+    // Split sentence into words and check the length of each word
+    string word = \"\";
+    for (char c : sentence){
+        if (c != ' '){
+            word += c;
+        }
+        else{
+            length = word.length();
+            if (is_prime(length)){
+                result += word + \" \";
+            }
+            word = \"\";
+        }
+    }
+
+    // Check the last word
+    length = word.length();
+    if (is_prime(length)){
+        result += word;
+    }
+
+    // Remove trailing space, if any
+    if (!result.empty() && result[result.length() - 1] == ' '){
+        result.pop_back();
+    }
+
+    return result;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (words_in_sentence(\"This is a test\") == \"is\");
+    assert (words_in_sentence(\"lets go for swimming\") == \"go for\");
+    assert (words_in_sentence(\"there is no place available here\") == \"there is no place\");
+    assert (words_in_sentence(\"Hi I am Hussein\") == \"Hi am Hussein\");
+    assert (words_in_sentence(\"go for it\") == \"go for it\");
+    assert (words_in_sentence(\"here\") == \"\");
+    assert (words_in_sentence(\"here is\") == \"is\");
+}
+", "prompt": "/*
+You are given a string representing a sentence,
+the sentence contains some words separated by a space,
+and you have to return a string that contains the words from the original sentence,
+whose lengths are prime numbers,
+the order of the words in the new string should be the same as the original one.
+
+Example 1:
+    Input: sentence = \"This is a test\"
+    Output: \"is\"
+
+Example 2:
+    Input: sentence = \"lets go for swimming\"
+    Output: \"go for\"
+
+Constraints:
+    * 1 <= len(sentence) <= 100
+    * sentence contains only letters
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+string words_in_sentence(string sentence){
+", "generation": "    string result = \"\";
+    int length;
+
+    // Helper function to check if a number is prime
+    bool is_prime(int num){
+        if (num <= 1)
+            return false;
+        for (int i = 2; i <= sqrt(num); i++){
+            if (num % i == 0)
+                return false;
+        }
+        return true;
+    }
+
+    // Split sentence into words and check the length of each word
+    string word = \"\";
+    for (char c : sentence){
+        if (c != ' '){
+            word += c;
+        }
+        else{
+            length = word.length();
+            if (is_prime(length)){
+                result += word + \" \";
+            }
+            word = \"\";
+        }
+    }
+
+    // Check the last word
+    length = word.length();
+    if (is_prime(length)){
+        result += word;
+    }
+
+    // Remove trailing space, if any
+    if (!result.empty() && result[result.length() - 1] == ' '){
+        result.pop_back();
+    }
+
+    return result;
+}", "result": "failed: compilation error: test.cpp: In function \u2018std::string words_in_sentence(std::string)\u2019:
+test.cpp:36:27: error: a function-definition is not allowed here before \u2018{\u2019 token
+   36 |     bool is_prime(int num){
+      |                           ^
+test.cpp:54:17: error: \u2018is_prime\u2019 was not declared in this scope
+   54 |             if (is_prime(length)){
+      |                 ^~~~~~~~
+test.cpp:63:9: error: \u2018is_prime\u2019 was not declared in this scope
+   63 |     if (is_prime(length)){
+      |         ^~~~~~~~
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/90", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<math.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+You are given a vector of integers.
+Write a function next_smallest() that returns the 2nd smallest element of the vector.
+Return None if there is no such element.
+
+next_smallest({1, 2, 3, 4, 5}) == 2
+next_smallest({5, 1, 4, 3, 2}) == 2
+next_smallest({}) == None
+next_smallest({1, 1}) == None
+*/
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int next_smallest(vector<int> lst){
+        if (lst.size() < 2) return None;
+        sort(lst.begin(), lst.end());
+        for (size_t i = 1; i < lst.size(); i++) {
+            if (lst[i] != lst[0]) return lst[i];
+        }
+        return None;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (next_smallest({1, 2, 3, 4, 5}) == 2);
+    assert (next_smallest({5, 1, 4, 3, 2}) == 2);
+    assert (next_smallest({}) == -1);
+    assert (next_smallest({1, 1}) == -1);
+    assert (next_smallest({1,1,1,1,0}) == 1);
+    assert (next_smallest({-35, 34, 12, -45}) == -35);
+}
+", "prompt": "/*
+You are given a vector of integers.
+Write a function next_smallest() that returns the 2nd smallest element of the vector.
+Return None if there is no such element.
+
+next_smallest({1, 2, 3, 4, 5}) == 2
+next_smallest({5, 1, 4, 3, 2}) == 2
+next_smallest({}) == None
+next_smallest({1, 1}) == None
+*/
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int next_smallest(vector<int> lst){
+", "generation": "        if (lst.size() < 2) return None;
+        sort(lst.begin(), lst.end());
+        for (size_t i = 1; i < lst.size(); i++) {
+            if (lst[i] != lst[0]) return lst[i];
+        }
+        return None;
+}", "result": "failed: compilation error: test.cpp: In function \u2018int next_smallest(std::vector<int>)\u2019:
+test.cpp:23:36: error: \u2018None\u2019 was not declared in this scope
+   23 |         if (lst.size() < 2) return None;
+      |                                    ^~~~
+test.cpp:28:16: error: \u2018None\u2019 was not declared in this scope
+   28 |         return None;
+      |                ^~~~
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/91", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+You'll be given a string of words, and your task is to count the number
+of boredoms. A boredom is a sentence that starts with the word \"I\".
+Sentences are delimited by '.', '?' or '!'.
+
+For example:
+>>> is_bored(\"Hello world\")
+0
+>>> is_bored(\"The sky is blue. The sun is shining. I love this weather\")
+1
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+int is_bored(string S){
+        int count = 0;
+        size_t pos = 0;
+        string delimiter = \".!?\";
+        size_t start = 0;
+        while ((pos = S.find_first_of(delimiter, start)) != string::npos) {
+            string sentence = S.substr(start, pos - start);
+            if (!sentence.empty() && sentence[0] == ' ') {
+                sentence.erase(0, 1);
+            }
+            if (sentence.rfind(\"I\", 0) == 0) {
+                count++;
+            }
+            start = pos + 1;
+        }
+        return count;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (is_bored(\"Hello world\") == 0);
+    assert (is_bored(\"Is the sky blue?\") == 0);
+    assert (is_bored(\"I love It !\") == 1);
+    assert (is_bored(\"bIt\") == 0);
+    assert (is_bored(\"I feel good today. I will be productive. will kill It\") == 2);
+    assert (is_bored(\"You and I are going for a walk\") == 0);
+}
+", "prompt": "/*
+You'll be given a string of words, and your task is to count the number
+of boredoms. A boredom is a sentence that starts with the word \"I\".
+Sentences are delimited by '.', '?' or '!'.
+
+For example:
+>>> is_bored(\"Hello world\")
+0
+>>> is_bored(\"The sky is blue. The sun is shining. I love this weather\")
+1
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+int is_bored(string S){
+", "generation": "        int count = 0;
+        size_t pos = 0;
+        string delimiter = \".!?\";
+        size_t start = 0;
+        while ((pos = S.find_first_of(delimiter, start)) != string::npos) {
+            string sentence = S.substr(start, pos - start);
+            if (!sentence.empty() && sentence[0] == ' ') {
+                sentence.erase(0, 1);
+            }
+            if (sentence.rfind(\"I\", 0) == 0) {
+                count++;
+            }
+            start = pos + 1;
+        }
+        return count;
+}", "result": "failed: a.out: test.cpp:44: int main(): Assertion `is_bored(\"Is the sky blue?\") == 0' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/108", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Write a function count_nums which takes a vector of integers and returns
+the number of elements which has a sum of digits > 0.
+If a number is negative, then its first signed digit will be negative:
+e.g. -123 has signed digits -1, 2, and 3.
+>>> count_nums({}) == 0
+>>> count_nums({-1, 11, -11}) == 1
+>>> count_nums({1, 1, 2}) == 3
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+using namespace std;
+int count_nums(vector<int> n){
+    int count = 0;
+    for(int num : n){
+        int sum = 0;
+        bool negative = num < 0;
+        num = abs(num);
+        
+        while(num > 0){
+            sum += num % 10;
+            num /= 10;
+        }
+
+        if (negative){
+            sum = -sum;
+        }
+        
+        if(sum > 0){
+            count++;
+        }
+    }
+    return count;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (count_nums({}) == 0);
+    assert (count_nums({-1, -2, 0}) == 0);
+    assert (count_nums({1, 1, 2, -2, 3, 4, 5}) == 6);
+    assert (count_nums({1, 6, 9, -6, 0, 1, 5}) == 5);
+    assert (count_nums({1, 100, 98, -7, 1, -1}) == 4);
+    assert (count_nums({12, 23, 34, -45, -56, 0}) == 5);
+    assert (count_nums({-0, 1}) == 1);
+    assert (count_nums({1}) == 1);
+}
+", "prompt": "/*
+Write a function count_nums which takes a vector of integers and returns
+the number of elements which has a sum of digits > 0.
+If a number is negative, then its first signed digit will be negative:
+e.g. -123 has signed digits -1, 2, and 3.
+>>> count_nums({}) == 0
+>>> count_nums({-1, 11, -11}) == 1
+>>> count_nums({1, 1, 2}) == 3
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+using namespace std;
+int count_nums(vector<int> n){
+", "generation": "    int count = 0;
+    for(int num : n){
+        int sum = 0;
+        bool negative = num < 0;
+        num = abs(num);
+        
+        while(num > 0){
+            sum += num % 10;
+            num /= 10;
+        }
+
+        if (negative){
+            sum = -sum;
+        }
+        
+        if(sum > 0){
+            count++;
+        }
+    }
+    return count;
+}", "result": "failed: a.out: test.cpp:51: int main(): Assertion `count_nums({12, 23, 34, -45, -56, 0}) == 5' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/145", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Write a function which sorts the given vector of integers
+in ascending order according to the sum of their digits.
+Note: if there are several items with similar sum of their digits,
+order them based on their index in original vector.
+
+For example:
+>>> order_by_points({1, 11, -1, -11, -12}) == {-1, -11, 1, -12, 11}
+>>> order_by_points({}) == {}
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+#include<string>
+using namespace std;
+vector<int> order_by_points(vector<int> nums){
+    auto digit_sum = [](int num) {
+        num = abs(num); 
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+    };
+    
+    sort(nums.begin(), nums.end(), [&](int a, int b) {
+        int sum_a = digit_sum(a);
+        int sum_b = digit_sum(b);
+        if (sum_a == sum_b) {
+            return a < b;
+        }
+        return sum_a < sum_b;
+    });
+    
+    return nums;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<int> a,vector<int>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+    if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(order_by_points({1, 11, -1, -11, -12}) , {-1, -11, 1, -12, 11}));
+    assert (issame(order_by_points({1234,423,463,145,2,423,423,53,6,37,3457,3,56,0,46}) , {0, 2, 3, 6, 53, 423, 423, 423, 1234, 145, 37, 46, 56, 463, 3457}));
+    assert (issame(order_by_points({}) , {}));
+    assert (issame(order_by_points({1, -11, -32, 43, 54, -98, 2, -3}) , {-3, -32, -98, -11, 1, 2, 43, 54}));
+    assert (issame(order_by_points({1,2,3,4,5,6,7,8,9,10,11}) , {1, 10, 2, 11, 3, 4, 5, 6, 7, 8, 9}));
+    assert (issame(order_by_points({0,6,6,-76,-21,23,4}) , {-76, -21, 0, 4, 23, 6, 6}));
+    
+}
+", "prompt": "/*
+Write a function which sorts the given vector of integers
+in ascending order according to the sum of their digits.
+Note: if there are several items with similar sum of their digits,
+order them based on their index in original vector.
+
+For example:
+>>> order_by_points({1, 11, -1, -11, -12}) == {-1, -11, 1, -12, 11}
+>>> order_by_points({}) == {}
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+#include<string>
+using namespace std;
+vector<int> order_by_points(vector<int> nums){
+", "generation": "    auto digit_sum = [](int num) {
+        num = abs(num); 
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+    };
+    
+    sort(nums.begin(), nums.end(), [&](int a, int b) {
+        int sum_a = digit_sum(a);
+        int sum_b = digit_sum(b);
+        if (sum_a == sum_b) {
+            return a < b;
+        }
+        return sum_a < sum_b;
+    });
+    
+    return nums;
+}", "result": "failed: a.out: test.cpp:55: int main(): Assertion `issame(order_by_points({1, 11, -1, -11, -12}) , {-1, -11, 1, -12, 11})' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/148", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+There are eight planets in our solar system: the closerst to the Sun 
+is Mercury, the next one is Venus, then Earth, Mars, Jupiter, Saturn, 
+Uranus, Neptune.
+Write a function that takes two planet names as strings planet1 and planet2. 
+The function should return a vector containing all planets whose orbits are 
+located between the orbit of planet1 and the orbit of planet2, sorted by 
+the proximity to the sun. 
+The function should return an empty vector if planet1 or planet2
+are not correct planet names. 
+Examples
+bf(\"Jupiter\", \"Neptune\") ==> {\"Saturn\", \"Uranus\"}
+bf(\"Earth\", \"Mercury\") ==> {\"Venus\"}
+bf(\"Mercury\", \"Uranus\") ==> {\"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\"}
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+vector<string> bf(string planet1,string planet2){
+    vector<string> planets = {\"Mercury\", \"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\", \"Uranus\", \"Neptune\"};
+    vector<string> result;
+    auto it1 = find(planets.begin(), planets.end(), planet1);
+    auto it2 = find(planets.begin(), planets.end(), planet2);
+    
+    if (it1 == planets.end() || it2 == planets.end()) {
+        return result;
+    }
+
+    if (it1 > it2) {
+        swap(it1, it2);
+    }
+
+    for (auto it = it1 + 1; it != it2; ++it) {
+        result.push_back(*it);
+    }
+
+    return result;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<string> a,vector<string>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+    if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(bf(\"Jupiter\", \"Neptune\") , {\"Saturn\", \"Uranus\"}));
+    assert (issame(bf(\"Earth\", \"Mercury\") , {\"Venus\",}));
+    assert (issame(bf(\"Mercury\", \"Uranus\") , {\"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\"}));
+    assert (issame(bf(\"Neptune\", \"Venus\") , {\"Earth\", \"Mars\", \"Jupiter\", \"Saturn\", \"Uranus\"}));
+    assert (issame(bf(\"Earth\", \"Earth\") , {}));
+    assert (issame(bf(\"Mars\", \"Earth\") , {}));
+    assert (issame(bf(\"Jupiter\", \"Makemake\") , {}));
+}
+", "prompt": "/*
+There are eight planets in our solar system: the closerst to the Sun 
+is Mercury, the next one is Venus, then Earth, Mars, Jupiter, Saturn, 
+Uranus, Neptune.
+Write a function that takes two planet names as strings planet1 and planet2. 
+The function should return a vector containing all planets whose orbits are 
+located between the orbit of planet1 and the orbit of planet2, sorted by 
+the proximity to the sun. 
+The function should return an empty vector if planet1 or planet2
+are not correct planet names. 
+Examples
+bf(\"Jupiter\", \"Neptune\") ==> {\"Saturn\", \"Uranus\"}
+bf(\"Earth\", \"Mercury\") ==> {\"Venus\"}
+bf(\"Mercury\", \"Uranus\") ==> {\"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\"}
+*/
+#include<stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+vector<string> bf(string planet1,string planet2){
+", "generation": "    vector<string> planets = {\"Mercury\", \"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\", \"Uranus\", \"Neptune\"};
+    vector<string> result;
+    auto it1 = find(planets.begin(), planets.end(), planet1);
+    auto it2 = find(planets.begin(), planets.end(), planet2);
+    
+    if (it1 == planets.end() || it2 == planets.end()) {
+        return result;
+    }
+
+    if (it1 > it2) {
+        swap(it1, it2);
+    }
+
+    for (auto it = it1 + 1; it != it2; ++it) {
+        result.push_back(*it);
+    }
+
+    return result;
+}", "result": "failed: ", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/150", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+A simple program which should return the value of x if n is 
+a prime number and should return the value of y otherwise.
+
+Examples:
+for x_or_y(7, 34, 12) == 34
+for x_or_y(15, 8, 5) == 5
+
+*/
+#include<stdio.h>
+using namespace std;
+int x_or_y(int n,int x,int y){
+    for(int i = 2; i <= n / 2; i++){
+        if(n % i == 0) 
+            return y;
+    }
+    return x;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (x_or_y(7, 34, 12) == 34);
+    assert (x_or_y(15, 8, 5) == 5);
+    assert (x_or_y(3, 33, 5212) == 33);
+    assert (x_or_y(1259, 3, 52) == 3);
+    assert (x_or_y(7919, -1, 12) == -1);
+    assert (x_or_y(3609, 1245, 583) == 583);
+    assert (x_or_y(91, 56, 129) == 129);
+    assert (x_or_y(6, 34, 1234) == 1234);
+    assert (x_or_y(1, 2, 0) == 0);
+    assert (x_or_y(2, 2, 0) == 2);
+}
+", "prompt": "/*
+A simple program which should return the value of x if n is 
+a prime number and should return the value of y otherwise.
+
+Examples:
+for x_or_y(7, 34, 12) == 34
+for x_or_y(15, 8, 5) == 5
+
+*/
+#include<stdio.h>
+using namespace std;
+int x_or_y(int n,int x,int y){
+", "generation": "    for(int i = 2; i <= n / 2; i++){
+        if(n % i == 0) 
+            return y;
+    }
+    return x;
+}", "result": "failed: a.out: test.cpp:39: int main(): Assertion `x_or_y(1, 2, 0) == 0' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/154", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+You are given 2 words. You need to return true if the second word or any of its rotations is a substring in the first word
+cycpattern_check(\"abcd\",\"abd\") => false
+cycpattern_check(\"hello\",\"ell\") => true
+cycpattern_check(\"whassup\",\"psus\") => false
+cycpattern_check(\"abab\",\"baa\") => true
+cycpattern_check(\"efef\",\"eeff\") => false
+cycpattern_check(\"himenss\",'simen\") => true
+
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+bool cycpattern_check(string a,string b){
+    string concat_b = b + b;
+    return a.find(concat_b.substr(0, b.size())) != string::npos;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert  (cycpattern_check(\"xyzw\",\"xyw\") == false );
+    assert  (cycpattern_check(\"yello\",\"ell\") == true );
+    assert  (cycpattern_check(\"whattup\",\"ptut\") == false );
+    assert  (cycpattern_check(\"efef\",\"fee\") == true );
+    assert  (cycpattern_check(\"abab\",\"aabb\") == false );
+    assert  (cycpattern_check(\"winemtt\",\"tinem\") == true );
+}
+", "prompt": "/*
+You are given 2 words. You need to return true if the second word or any of its rotations is a substring in the first word
+cycpattern_check(\"abcd\",\"abd\") => false
+cycpattern_check(\"hello\",\"ell\") => true
+cycpattern_check(\"whassup\",\"psus\") => false
+cycpattern_check(\"abab\",\"baa\") => true
+cycpattern_check(\"efef\",\"eeff\") => false
+cycpattern_check(\"himenss\",'simen\") => true
+
+*/
+#include<stdio.h>
+#include<string>
+using namespace std;
+bool cycpattern_check(string a,string b){
+", "generation": "    string concat_b = b + b;
+    return a.find(concat_b.substr(0, b.size())) != string::npos;
+}", "result": "failed: a.out: test.cpp:32: int main(): Assertion `cycpattern_check(\"efef\",\"fee\") == true' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/163", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Given two positive integers a and b, return the even digits between a
+and b, in ascending order.
+
+For example:
+generate_integers(2, 8) => {2, 4, 6, 8}
+generate_integers(8, 2) => {2, 4, 6, 8}
+generate_integers(10, 14) => {}
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+vector<int> generate_integers(int a,int b){
+    vector<int> result;
+    if (a > b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+    for (int i = a; i <= b; i++) {
+        if (i % 2 == 0) {
+            result.push_back(i);
+        }
+    }
+    return result;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<int> a,vector<int>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+    if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(generate_integers(2, 10) , {2, 4, 6, 8}));
+    assert (issame(generate_integers(10, 2) , {2, 4, 6, 8}));
+    assert (issame(generate_integers(132, 2) , {2, 4, 6, 8}));
+    assert (issame(generate_integers(17,89) , {}));
+}
+", "prompt": "/*
+Given two positive integers a and b, return the even digits between a
+and b, in ascending order.
+
+For example:
+generate_integers(2, 8) => {2, 4, 6, 8}
+generate_integers(8, 2) => {2, 4, 6, 8}
+generate_integers(10, 14) => {}
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+vector<int> generate_integers(int a,int b){
+", "generation": "    vector<int> result;
+    if (a > b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+    for (int i = a; i <= b; i++) {
+        if (i % 2 == 0) {
+            result.push_back(i);
+        }
+    }
+    return result;
+}", "result": "failed: a.out: test.cpp:46: int main(): Assertion `issame(generate_integers(2, 10) , {2, 4, 6, 8})' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/160", "completion_id": 0, "test_code": "#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Given two vectors operator, and operand. The first vector has basic algebra operations, and 
+the second vector is a vector of integers. Use the two given vectors to build the algebric 
+expression and return the evaluation of this expression.
+
+The basic algebra operations:
+Addition ( + ) 
+Subtraction ( - ) 
+Multiplication ( * ) 
+Floor division ( // ) 
+Exponentiation ( ** ) 
+
+Example:
+operator{\"+\", \"*\", \"-\"}
+vector = {2, 3, 4, 5}
+result = 2 + 3 * 4 - 5
+=> result = 9
+
+Note:
+    The length of operator vector is equal to the length of operand vector minus one.
+    Operand is a vector of of non-negative integers.
+    Operator vector has at least one operator, and operand vector has at least two operands.
+
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+#include<string>
+using namespace std;
+#include<algorithm>
+#include<stdlib.h>
+int do_algebra(vector<string> operato, vector<int> operand){
+    int result = operand[0];
+    for (size_t i = 0; i < operato.size(); i++) {
+        if (operato[i] == \"+\") {
+            result += operand[i + 1];
+        } else if (operato[i] == \"-\") {
+            result -= operand[i + 1];
+        } else if (operato[i] == \"*\") {
+            result *= operand[i + 1];
+        } else if (operato[i] == \"//\") {
+            result /= operand[i + 1];
+        } else if (operato[i] == \"**\") {
+            result = pow(result, operand[i + 1]);
+        }
+    }
+    return result;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (do_algebra({\"**\", \"*\", \"+\"}, {2, 3, 4, 5}) == 37);
+    assert (do_algebra({\"+\", \"*\", \"-\"}, {2, 3, 4, 5}) == 9);
+    assert (do_algebra({\"//\", \"*\"}, {7, 3, 4}) == 8);
+}
+", "prompt": "/*
+Given two vectors operator, and operand. The first vector has basic algebra operations, and 
+the second vector is a vector of integers. Use the two given vectors to build the algebric 
+expression and return the evaluation of this expression.
+
+The basic algebra operations:
+Addition ( + ) 
+Subtraction ( - ) 
+Multiplication ( * ) 
+Floor division ( // ) 
+Exponentiation ( ** ) 
+
+Example:
+operator{\"+\", \"*\", \"-\"}
+vector = {2, 3, 4, 5}
+result = 2 + 3 * 4 - 5
+=> result = 9
+
+Note:
+    The length of operator vector is equal to the length of operand vector minus one.
+    Operand is a vector of of non-negative integers.
+    Operator vector has at least one operator, and operand vector has at least two operands.
+
+*/
+#include<stdio.h>
+#include<math.h>
+#include<vector>
+#include<string>
+using namespace std;
+#include<algorithm>
+#include<stdlib.h>
+int do_algebra(vector<string> operato, vector<int> operand){
+", "generation": "    int result = operand[0];
+    for (size_t i = 0; i < operato.size(); i++) {
+        if (operato[i] == \"+\") {
+            result += operand[i + 1];
+        } else if (operato[i] == \"-\") {
+            result -= operand[i + 1];
+        } else if (operato[i] == \"*\") {
+            result *= operand[i + 1];
+        } else if (operato[i] == \"//\") {
+            result /= operand[i + 1];
+        } else if (operato[i] == \"**\") {
+            result = pow(result, operand[i + 1]);
+        }
+    }
+    return result;
+}", "result": "failed: a.out: test.cpp:57: int main(): Assertion `do_algebra({\"+\", \"*\", \"-\"}, {2, 3, 4, 5}) == 9' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/95", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<vector>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Given a map, return true if all keys are strings in lower 
+case or all keys are strings in upper case, else return false.
+The function should return false is the given map is empty.
+Examples:
+check_map_case({{\"a\",\"apple\"}, {\"b\",\"banana\"}}) should return true.
+check_map_case({{\"a\",\"apple\"}, {\"A\",\"banana\"}, {\"B\",\"banana\"}}) should return false.
+check_map_case({{\"a\",\"apple\"}, {\"8\",\"banana\"}, {\"a\",\"apple\"}}) should return false.
+check_map_case({{\"Name\",\"John\"}, {\"Age\",\"36\"}, {\"City\",\"Houston\"}}) should return false.
+check_map_case({{\"STATE\",\"NC\"}, {\"ZIP\",\"12345\"} }) should return true.
+*/
+#include<stdio.h>
+#include<string>
+#include<map>
+using namespace std;
+bool check_dict_case(map<string,string> dict){
+    if (dict.empty()) return false;
+    
+    auto it = dict.begin();
+    bool is_lower = islower(it->first[0]);
+    bool is_upper = isupper(it->first[0]);
+    
+    for (auto &pair : dict) {
+        for (char c : pair.first) {
+            if ((!is_lower && !islower(c)) && (!is_upper && !isupper(c))) return false;
+        }
+    }
+
+    return true;
+}
+#undef NDEBUG
+#include<assert.h>
+int main(){
+    assert (check_dict_case({{\"p\",\"pineapple\"}, {\"b\",\"banana\"}}) == true);
+    assert (check_dict_case({{\"p\",\"pineapple\"}, {\"A\",\"banana\"}, {\"B\",\"banana\"}}) == false);
+    assert (check_dict_case({{\"p\",\"pineapple\"}, {\"5\",\"banana\"}, {\"a\",\"apple\"}}) == false);
+    assert (check_dict_case({{\"Name\",\"John\"}, {\"Age\",\"36\"}, {\"City\",\"Houston\"}}) == false);
+    assert (check_dict_case({{\"STATE\",\"NC\"}, {\"ZIP\",\"12345\"} }) == true  );
+    assert (check_dict_case({{\"fruit\",\"Orange\"}, {\"taste\",\"Sweet\"} }) == true  );
+    assert (check_dict_case({}) == false);
+}
+", "prompt": "/*
+Given a map, return true if all keys are strings in lower 
+case or all keys are strings in upper case, else return false.
+The function should return false is the given map is empty.
+Examples:
+check_map_case({{\"a\",\"apple\"}, {\"b\",\"banana\"}}) should return true.
+check_map_case({{\"a\",\"apple\"}, {\"A\",\"banana\"}, {\"B\",\"banana\"}}) should return false.
+check_map_case({{\"a\",\"apple\"}, {\"8\",\"banana\"}, {\"a\",\"apple\"}}) should return false.
+check_map_case({{\"Name\",\"John\"}, {\"Age\",\"36\"}, {\"City\",\"Houston\"}}) should return false.
+check_map_case({{\"STATE\",\"NC\"}, {\"ZIP\",\"12345\"} }) should return true.
+*/
+#include<stdio.h>
+#include<string>
+#include<map>
+using namespace std;
+bool check_dict_case(map<string,string> dict){
+", "generation": "    if (dict.empty()) return false;
+    
+    auto it = dict.begin();
+    bool is_lower = islower(it->first[0]);
+    bool is_upper = isupper(it->first[0]);
+    
+    for (auto &pair : dict) {
+        for (char c : pair.first) {
+            if ((!is_lower && !islower(c)) && (!is_upper && !isupper(c))) return false;
+        }
+    }
+
+    return true;
+}", "result": "failed: a.out: test.cpp:43: int main(): Assertion `check_dict_case({{\"p\",\"pineapple\"}, {\"A\",\"banana\"}, {\"B\",\"banana\"}}) == false' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "CPP/100", "completion_id": 0, "test_code": "#include<stdlib.h>
+#include<algorithm>
+#include<math.h>
+#include<string>
+#include<climits>
+#include<cstring>
+#include<iostream>
+
+/*
+Given a positive integer n, you have to make a pile of n levels of stones.
+The first level has n stones.
+The number of stones in the next level is:
+    - the next odd number if n is odd.
+    - the next even number if n is even.
+Return the number of stones in each level in a vector, where element at index
+i represents the number of stones in the level (i+1).
+
+Examples:
+>>> make_a_pile(3)
+{3, 5, 7}
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+vector<int> make_a_pile(int n){
+        vector<int> stones;
+        stones.push_back(n);
+        for(int i = 1; i < n; i++){
+                n += (n % 2 == 0) ? 2 : 2;
+                stones.push_back(n);
+        }
+        return stones;
+}
+#undef NDEBUG
+#include<assert.h>
+bool issame(vector<int> a,vector<int>b){
+    if (a.size()!=b.size()) return false;
+    for (int i=0;i<a.size();i++)
+    {
+    if (a[i]!=b[i]) return false;
+    }
+    return true;
+}
+int main(){
+    assert (issame(make_a_pile(3) , {3, 5, 7}));
+    assert (issame(make_a_pile(4) , {4,6,8,10}));
+    assert (issame(make_a_pile(5) , {5, 7, 9, 11, 13}));
+    assert (issame(make_a_pile(6) , {6, 8, 10, 12, 14, 16}));
+    assert (issame(make_a_pile(8) , {8, 10, 12, 14, 16, 18, 20, 22}));
+}
+", "prompt": "/*
+Given a positive integer n, you have to make a pile of n levels of stones.
+The first level has n stones.
+The number of stones in the next level is:
+    - the next odd number if n is odd.
+    - the next even number if n is even.
+Return the number of stones in each level in a vector, where element at index
+i represents the number of stones in the level (i+1).
+
+Examples:
+>>> make_a_pile(3)
+{3, 5, 7}
+*/
+#include<stdio.h>
+#include<vector>
+using namespace std;
+vector<int> make_a_pile(int n){
+", "generation": "        vector<int> stones;
+        stones.push_back(n);
+        for(int i = 1; i < n; i++){
+                n += (n % 2 == 0) ? 2 : 2;
+                stones.push_back(n);
+        }
+        return stones;
+}", "result": "failed: a.out: test.cpp:45: int main(): Assertion `issame(make_a_pile(3) , {3, 5, 7})' failed.
+", "passed": false, "finish": -1, "file": "", "output": []}
+问题：循环改变了n的值
+--------------------

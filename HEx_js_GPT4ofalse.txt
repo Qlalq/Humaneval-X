@@ -1,0 +1,2610 @@
+{"task_id": "JavaScript/41", "completion_id": 0, "test_code": "/*
+  Imagine a road that's a perfectly straight infinitely long line.
+  n cars are driving left to right;  simultaneously, a different set of n cars
+  are driving right to left.   The two sets of cars start out being very far from
+  each other.  All cars move in the same speed.  Two cars are said to collide
+  when a car that's moving left to right hits a car that's moving right to left.
+  However, the cars are infinitely sturdy and strong; as a result, they continue moving
+  in their trajectory as if they did not collide.
+
+  This function outputs the number of such collisions.
+  */
+const carRaceCollision = (n) => {
+    return n;
+}
+const testCarRaceCollision = () => {
+  console.assert(carRaceCollision(2) === 4)
+  console.assert(carRaceCollision(3) === 9)
+  console.assert(carRaceCollision(4) === 16)
+  console.assert(carRaceCollision(8) === 64)
+  console.assert(carRaceCollision(10) === 100)
+}
+
+testCarRaceCollision()
+", "prompt": "/*
+  Imagine a road that's a perfectly straight infinitely long line.
+  n cars are driving left to right;  simultaneously, a different set of n cars
+  are driving right to left.   The two sets of cars start out being very far from
+  each other.  All cars move in the same speed.  Two cars are said to collide
+  when a car that's moving left to right hits a car that's moving right to left.
+  However, the cars are infinitely sturdy and strong; as a result, they continue moving
+  in their trajectory as if they did not collide.
+
+  This function outputs the number of such collisions.
+  */
+const carRaceCollision = (n) => {
+", "generation": "    return n;
+}", "result": "failed: Assertion failed
+Assertion failed
+Assertion failed
+Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/64", "completion_id": 0, "test_code": "/*Write a function vowelsCount which takes a string representing
+  a word as input and returns the number of vowels in the string.
+  Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a
+  vowel, but only when it is at the end of the given word.
+
+  Example:
+  >>> vowelsCount(\"abcde\")
+  2
+  >>> vowelsCount(\"ACEDY\")
+  3
+  */
+const vowelsCount = (s) => {
+    let count = 0;
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    s = s.toLowerCase();
+    for (let i = 0; i < s.length; i++) {
+        if (vowels.includes(s[i]) || (s[i] === 'y' && i === s.length - 1)) {
+            count++;
+        }
+    }
+    return count;
+
+const testVowelsCount = () => {
+  console.assert(vowelsCount('abcde') === 2)
+  console.assert(vowelsCount('Alone') === 3)
+  console.assert(vowelsCount('key') === 2)
+  console.assert(vowelsCount('bye') === 1)
+  console.assert(vowelsCount('keY') === 2)
+  console.assert(vowelsCount('bYe') === 1)
+  console.assert(vowelsCount('ACEDY') === 3)
+}
+
+testVowelsCount()
+", "prompt": "/*Write a function vowelsCount which takes a string representing
+  a word as input and returns the number of vowels in the string.
+  Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a
+  vowel, but only when it is at the end of the given word.
+
+  Example:
+  >>> vowelsCount(\"abcde\")
+  2
+  >>> vowelsCount(\"ACEDY\")
+  3
+  */
+const vowelsCount = (s) => {
+", "generation": "    let count = 0;
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    s = s.toLowerCase();
+    for (let i = 0; i < s.length; i++) {
+        if (vowels.includes(s[i]) || (s[i] === 'y' && i === s.length - 1)) {
+            count++;
+        }
+    }
+    return count;
+", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-64-920.1621163803065/test.js:34
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/65", "completion_id": 0, "test_code": "/*Circular shift the digits of the integer x, shift the digits right by shift
+  and return the result as a string.
+  If shift > number of digits, return digits reversed.
+  >>> circularShift(12, 1)
+  \"21\"
+  >>> circularShift(12, 2)
+  \"12\"
+  */
+const circularShift = (x, shift) => {
+    let str = x.toString();
+    let n = str.length;
+    if (shift > n) {
+        return str.split('').reverse().join('');
+    }
+    shift = shift % n;
+    return str.slice(-shift) + str.slice(0, n - shift);
+};
+const testCircularShift = () => {
+  console.assert(circularShift(100, 2) === '001')
+  console.assert(circularShift(12, 2) === '12')
+  console.assert(circularShift(97, 8) === '79')
+  console.assert(circularShift(12, 1) === '21')
+  console.assert(circularShift(11, 101) === '11')
+}
+
+testCircularShift()
+", "prompt": "/*Circular shift the digits of the integer x, shift the digits right by shift
+  and return the result as a string.
+  If shift > number of digits, return digits reversed.
+  >>> circularShift(12, 1)
+  \"21\"
+  >>> circularShift(12, 2)
+  \"12\"
+  */
+const circularShift = (x, shift) => {
+", "generation": "    let str = x.toString();
+    let n = str.length;
+    if (shift > n) {
+        return str.split('').reverse().join('');
+    }
+    shift = shift % n;
+    return str.slice(-shift) + str.slice(0, n - shift);
+};", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/17", "completion_id": 0, "test_code": "/* Input to this function is a string representing musical notes in a special ASCII format.
+  Your task is to parse this string and return list of integers corresponding to how many beats does each
+  not last.
+
+  Here is a legend:
+  'o' - whole note, lasts four beats
+  'o|' - half note, lasts two beats
+  '.|' - quater note, lasts one beat
+
+  >>> parseMusic('o o| .| o| o| .| .| .| .| o o')
+  [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]
+  */
+const parseMusic = (music_string) => {
+        const notes = music_string.split(' ');
+        return notes.map(note => {
+            switch (note) {
+                case 'o':
+                    return 4;
+                case 'o|':
+                    return 2;
+                case '.|':
+                    return 1;
+                default:
+                    return 0;
+            }
+        });
+}
+const testParseMusic = () => {
+  console.assert(JSON.stringify(parseMusic('')) === JSON.stringify([]))
+  console.assert(
+    JSON.stringify(parseMusic('o o o o')) === JSON.stringify([4, 4, 4, 4])
+  )
+  console.assert(
+    JSON.stringify(parseMusic('.| .| .| .|')) === JSON.stringify([1, 1, 1, 1])
+  )
+  console.assert(
+    JSON.stringify(parseMusic('o| o| .| .| o o o o')) ===
+      JSON.stringify([2, 2, 1, 1, 4, 4, 4, 4])
+  )
+  console.assert(
+    JSON.stringify(parseMusic('o| .| o| .| o o| o o|')) ===
+      JSON.stringify([2, 1, 2, 1, 4, 2, 4, 2])
+  )
+}
+
+testParseMusic()
+", "prompt": "/* Input to this function is a string representing musical notes in a special ASCII format.
+  Your task is to parse this string and return list of integers corresponding to how many beats does each
+  not last.
+
+  Here is a legend:
+  'o' - whole note, lasts four beats
+  'o|' - half note, lasts two beats
+  '.|' - quater note, lasts one beat
+
+  >>> parseMusic('o o| .| o| o| .| .| .| .| o o')
+  [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]
+  */
+const parseMusic = (music_string) => {
+", "generation": "        const notes = music_string.split(' ');
+        return notes.map(note => {
+            switch (note) {
+                case 'o':
+                    return 4;
+                case 'o|':
+                    return 2;
+                case '.|':
+                    return 1;
+                default:
+                    return 0;
+            }
+        });
+}", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/12", "completion_id": 0, "test_code": "/* Out of list of strings, return the longest one. Return the first one in case of multiple
+  strings of the same length. Return null in case the input list is empty.
+  >>> longest([])
+
+  >>> longest(['a', 'b', 'c'])
+  'a'
+  >>> longest(['a', 'bb', 'ccc'])
+  'ccc'
+  */
+const longest = (strings) => {
+    if (strings.length === 0) {
+        return null;
+    }
+    return strings.reduce((a, b) => (a.length >= b.length ? a : b));
+
+const testLongest = () => {
+  console.assert(longest([]) === null)
+  console.assert(longest(['x', 'y', 'z']) === 'x')
+  console.assert(longest(['x', 'yyy', 'zzzz', 'www', 'kkkk', 'abc']) === 'zzzz')
+}
+
+testLongest()
+", "prompt": "/* Out of list of strings, return the longest one. Return the first one in case of multiple
+  strings of the same length. Return null in case the input list is empty.
+  >>> longest([])
+
+  >>> longest(['a', 'b', 'c'])
+  'a'
+  >>> longest(['a', 'bb', 'ccc'])
+  'ccc'
+  */
+const longest = (strings) => {
+", "generation": "    if (strings.length === 0) {
+        return null;
+    }
+    return strings.reduce((a, b) => (a.length >= b.length ? a : b));
+", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-12-722.9465911081586/test.js:23
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/10", "completion_id": 0, "test_code": "/* Test if gniven strig is a palindrome */
+const isPalindrome = (string) => {
+  return string == string.split('').reverse().join('');
+}
+
+/* Find the shortest palindrome that begins with a supplied string.
+  Algorithm idea is simple:
+  - Find the longest postfix of supplied string that is a palindrome.
+  - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+  >>> makePalindrome('')
+  ''
+  >>> makePalindrome('cat')
+  'catac'
+  >>> makePalindrome('cata')
+  'catac'
+  */
+const makePalindrome = (string) => {
+    for (let i = string.length; i > 0; i--) {
+        if (isPalindrome(string.substring(0, i))) {
+            return string + string.substring(i).split('').reverse().join('');
+        }
+    }
+    return string + string.split('').reverse().join('');
+}
+const testmakePalindrome = () => {
+  console.assert(makePalindrome('') === '')
+  console.assert(makePalindrome('x') === 'x')
+  console.assert(makePalindrome('xyz') === 'xyzyx')
+  console.assert(makePalindrome('xyx') === 'xyx')
+  console.assert(makePalindrome('jerry') === 'jerryrrej')
+}
+
+testmakePalindrome()
+", "prompt": "/* Test if gniven strig is a palindrome */
+const isPalindrome = (string) => {
+  return string == string.split('').reverse().join('');
+}
+
+/* Find the shortest palindrome that begins with a supplied string.
+  Algorithm idea is simple:
+  - Find the longest postfix of supplied string that is a palindrome.
+  - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+  >>> makePalindrome('')
+  ''
+  >>> makePalindrome('cat')
+  'catac'
+  >>> makePalindrome('cata')
+  'catac'
+  */
+const makePalindrome = (string) => {
+", "generation": "    for (let i = string.length; i > 0; i--) {
+        if (isPalindrome(string.substring(0, i))) {
+            return string + string.substring(i).split('').reverse().join('');
+        }
+    }
+    return string + string.split('').reverse().join('');
+}", "result": "failed: Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/6", "completion_id": 0, "test_code": "/* Input to this function is a string represented multiple groups for nested parentheses separated by spaces.
+  For each of the group, output the deepest level of nesting of parentheses.
+  E.g. (()()) has maximum two levels of nesting while ((())) has three.
+
+  >>> parseNestedParens('(()()) ((())) () ((())()())')
+  [2, 3, 1, 3]
+  */
+const parseNestedParens = (paren_string) => {
+    return paren_string.split(' ').map(group => {
+        let maxDepth = 0, currentDepth = 0;
+        for (let char of group) {
+            if (char === '(') {
+                currentDepth++;
+                if (currentDepth > maxDepth) {
+                    maxDepth = currentDepth;
+                }
+            } else if (char === ')') {
+                currentDepth--;
+            }
+        }
+        return maxDepth;
+    });
+
+const testParseNestedParens = () => {
+  console.assert(
+    JSON.stringify(parseNestedParens('(()()) ((())) () ((())()())')) ===
+      JSON.stringify([2, 3, 1, 3])
+  )
+  console.assert(
+    JSON.stringify(parseNestedParens('() (()) ((())) (((())))')) ===
+      JSON.stringify([1, 2, 3, 4])
+  )
+  console.assert(
+    JSON.stringify(parseNestedParens('(()(())((())))')) === JSON.stringify([4])
+  )
+}
+
+testParseNestedParens()
+", "prompt": "/* Input to this function is a string represented multiple groups for nested parentheses separated by spaces.
+  For each of the group, output the deepest level of nesting of parentheses.
+  E.g. (()()) has maximum two levels of nesting while ((())) has three.
+
+  >>> parseNestedParens('(()()) ((())) () ((())()())')
+  [2, 3, 1, 3]
+  */
+const parseNestedParens = (paren_string) => {
+", "generation": "    return paren_string.split(' ').map(group => {
+        let maxDepth = 0, currentDepth = 0;
+        for (let char of group) {
+            if (char === '(') {
+                currentDepth++;
+                if (currentDepth > maxDepth) {
+                    maxDepth = currentDepth;
+                }
+            } else if (char === ')') {
+                currentDepth--;
+            }
+        }
+        return maxDepth;
+    });
+", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-6-743.2591928954964/test.js:39
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/83", "completion_id": 0, "test_code": "/*
+  Given a positive integer n, return the count of the numbers of n-digit
+  positive integers that start or end with 1.
+  */
+const startsOneEnds = (n) => {
+    if (n == 1) return 1;
+    let count = 18; // for n=2, count is 18: 10, 11, 12, ..., 19, and 01, 11, 21, ..., 91
+    for (let i = 3; i <= n; i++) {
+        count = count * 10 - 2 * (i-2); // calculate the count for each digit length
+    }
+    return count;
+}
+const testStartsOneEnds = () => {
+  console.assert(startsOneEnds(1) === 1)
+  console.assert(startsOneEnds(2) === 18)
+  console.assert(startsOneEnds(3) === 180)
+  console.assert(startsOneEnds(4) === 1800)
+  console.assert(startsOneEnds(5) === 18000)
+}
+
+testStartsOneEnds()
+", "prompt": "/*
+  Given a positive integer n, return the count of the numbers of n-digit
+  positive integers that start or end with 1.
+  */
+const startsOneEnds = (n) => {
+", "generation": "    if (n == 1) return 1;
+    let count = 18; // for n=2, count is 18: 10, 11, 12, ..., 19, and 01, 11, 21, ..., 91
+    for (let i = 3; i <= n; i++) {
+        count = count * 10 - 2 * (i-2); // calculate the count for each digit length
+    }
+    return count;
+}", "result": "failed: Assertion failed
+Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/54", "completion_id": 0, "test_code": "/*
+  Check if two words have the same characters.
+  >>> sameChars('eabcdzzzz', 'dddzzzzzzzddeddabc')
+  true
+  >>> sameChars('abcd', 'dddddddabc')
+  true
+  >>> sameChars('dddddddabc', 'abcd')
+  true
+  >>> sameChars('eabcd', 'dddddddabc')
+  false
+  >>> sameChars('abcd', 'dddddddabce')
+  false
+  >>> sameChars('eabcdzzzz', 'dddzzzzzzzddddabc')
+  false
+  */
+const sameChars = (s0, s1) => {
+    const charCount = (s) => {
+        return Array.from(s).reduce((count, char) => {
+            count[char] = (count[char] || 0) + 1;
+            return count;
+        }, {});
+    };
+
+    const count0 = charCount(s0);
+    const count1 = charCount(s1);
+
+    return Object.keys(count0).every(char => count1[char]);
+};
+const testSameChars = () => {
+  console.assert(sameChars('eabcdzzzz', 'dddzzzzzzzddeddabc') === true)
+  console.assert(sameChars('abcd', 'dddddddabc') === true)
+  console.assert(sameChars('dddddddabc', 'abcd') === true)
+  console.assert(sameChars('eabcd', 'dddddddabc') === false)
+  console.assert(sameChars('abcd', 'dddddddabcf') === false)
+  console.assert(sameChars('eabcdzzzz', 'dddzzzzzzzddddabc') === false)
+  console.assert(sameChars('aabb', 'aaccc') === false)
+}
+
+testSameChars()
+", "prompt": "/*
+  Check if two words have the same characters.
+  >>> sameChars('eabcdzzzz', 'dddzzzzzzzddeddabc')
+  true
+  >>> sameChars('abcd', 'dddddddabc')
+  true
+  >>> sameChars('dddddddabc', 'abcd')
+  true
+  >>> sameChars('eabcd', 'dddddddabc')
+  false
+  >>> sameChars('abcd', 'dddddddabce')
+  false
+  >>> sameChars('eabcdzzzz', 'dddzzzzzzzddddabc')
+  false
+  */
+const sameChars = (s0, s1) => {
+", "generation": "    const charCount = (s) => {
+        return Array.from(s).reduce((count, char) => {
+            count[char] = (count[char] || 0) + 1;
+            return count;
+        }, {});
+    };
+
+    const count0 = charCount(s0);
+    const count1 = charCount(s1);
+
+    return Object.keys(count0).every(char => count1[char]);
+};", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/19", "completion_id": 0, "test_code": "/* Input is a space-delimited string of numberals from 'zero' to 'nine'.
+  Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.
+  Return the string with numbers sorted from smallest to largest
+  >>> sortNumbers('three one five')
+  'one three five'
+  */
+const sortNumbers = (numbers) => {
+    const numberWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    return numbers.split(' ')
+                  .sort((a, b) => numberWords.indexOf(a) - numberWords.indexOf(b))
+                  .join(' ');
+
+const testSortNumbers = () => {
+  console.assert(sortNumbers('') === '')
+  console.assert(sortNumbers('three') === 'three')
+  console.assert(sortNumbers('three five nine') === 'three five nine')
+  console.assert(
+    sortNumbers(
+      'five zero four seven nine eight') === 'zero four five seven eight nine'
+  )
+  console.assert(
+    sortNumbers(
+      'six five four three two one zero') === 'zero one two three four five six'
+  )
+}
+
+testSortNumbers()
+", "prompt": "/* Input is a space-delimited string of numberals from 'zero' to 'nine'.
+  Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.
+  Return the string with numbers sorted from smallest to largest
+  >>> sortNumbers('three one five')
+  'one three five'
+  */
+const sortNumbers = (numbers) => {
+", "generation": "    const numberWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    return numbers.split(' ')
+                  .sort((a, b) => numberWords.indexOf(a) - numberWords.indexOf(b))
+                  .join(' ');
+", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-19-852.7347271133518/test.js:28
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/95", "completion_id": 0, "test_code": "/*
+  Given a dictionary, return true if all keys are strings in lower 
+  case or all keys are strings in upper case, else return false.
+  The function should return false is the given dictionary is empty.
+  Examples:
+  checkDictCase({\"a\":\"apple\", \"b\":\"banana\"}) should return true.
+  checkDictCase({\"a\":\"apple\", \"A\":\"banana\", \"B\":\"banana\"}) should return false.
+  checkDictCase({\"a\":\"apple\", 8:\"banana\", \"a\":\"apple\"}) should return false.
+  checkDictCase({\"Name\":\"John\", \"Age\":\"36\", \"City\":\"Houston\"}) should return false.
+  checkDictCase({\"STATE\":\"NC\", \"ZIP\":\"12345\" }) should return true.
+  */
+const checkDictCase = (dict) => {
+    if (Object.keys(dict).length === 0) return false;
+
+    const allLowerCase = Object.keys(dict).every(key => typeof key === 'string' && key === key.toLowerCase());
+    const allUpperCase = Object.keys(dict).every(key => typeof key === 'string' && key === key.toUpperCase());
+
+    return allLowerCase || allUpperCase;
+}
+const testCheckDictCase = () => {
+  console.assert(checkDictCase({ p: 'pineapple', b: 'banana' }) === true)
+  console.assert(
+    checkDictCase({ p: 'pineapple', A: 'banana', B: 'banana' }) === false
+  )
+  console.assert(
+    checkDictCase({ p: 'pineapple', 5: 'banana', a: 'apple' }) === false
+  )
+  console.assert(
+    checkDictCase({ Name: 'John', Age: '36', City: 'Houston' }) === false
+  )
+  console.assert(checkDictCase({ STATE: 'NC', ZIP: '12345' }) === true)
+  console.assert(checkDictCase({ fruit: 'Orange', taste: 'Sweet' }) === true)
+  console.assert(checkDictCase({}) === false)
+}
+
+testCheckDictCase()
+", "prompt": "/*
+  Given a dictionary, return true if all keys are strings in lower 
+  case or all keys are strings in upper case, else return false.
+  The function should return false is the given dictionary is empty.
+  Examples:
+  checkDictCase({\"a\":\"apple\", \"b\":\"banana\"}) should return true.
+  checkDictCase({\"a\":\"apple\", \"A\":\"banana\", \"B\":\"banana\"}) should return false.
+  checkDictCase({\"a\":\"apple\", 8:\"banana\", \"a\":\"apple\"}) should return false.
+  checkDictCase({\"Name\":\"John\", \"Age\":\"36\", \"City\":\"Houston\"}) should return false.
+  checkDictCase({\"STATE\":\"NC\", \"ZIP\":\"12345\" }) should return true.
+  */
+const checkDictCase = (dict) => {
+", "generation": "    if (Object.keys(dict).length === 0) return false;
+
+    const allLowerCase = Object.keys(dict).every(key => typeof key === 'string' && key === key.toLowerCase());
+    const allUpperCase = Object.keys(dict).every(key => typeof key === 'string' && key === key.toUpperCase());
+
+    return allLowerCase || allUpperCase;
+}", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/125", "completion_id": 0, "test_code": "/* Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you
+  should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the
+  alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25
+  Examples
+  splitWords(\"Hello world!\") \u279e [\"Hello\", \"world!\"]
+  splitWords(\"Hello,world!\") \u279e [\"Hello\", \"world!\"]
+  splitWords(\"abcdef\") == 3
+  */
+const splitWords = (txt) => {
+  if (txt.includes(' ')) {
+    return txt.split(' ');
+  } else if (txt.includes(',')) {
+    return txt.split(',');
+  } else {
+    let oddOrderCount = 0;
+    for (let char of txt) {
+      let order = char.charCodeAt(0) - 'a'.charCodeAt(0);
+      if (order % 2 === 0) {
+        oddOrderCount++;
+      }
+    }
+    return oddOrderCount;
+  }
+}
+const testSplitWords = () => {
+  console.assert(
+    JSON.stringify(splitWords('Hello world!')) ===
+    JSON.stringify(['Hello', 'world!'])
+  )
+  console.assert(
+    JSON.stringify(splitWords('Hello,world!')) ===
+    JSON.stringify(['Hello', 'world!'])
+  )
+  console.assert(
+    JSON.stringify(splitWords('Hello world,!')) ===
+    JSON.stringify(['Hello', 'world,!'])
+  )
+  console.assert(
+    JSON.stringify(splitWords('Hello,Hello,world !')) ===
+    JSON.stringify(['Hello,Hello,world', '!'])
+  )
+  console.assert(JSON.stringify(splitWords('abcdef')) === JSON.stringify(3))
+  console.assert(JSON.stringify(splitWords('aaabb')) === JSON.stringify(2))
+  console.assert(JSON.stringify(splitWords('aaaBb')) === JSON.stringify(1))
+  console.assert(JSON.stringify(splitWords('')) === JSON.stringify(0))
+}
+
+testSplitWords()
+", "prompt": "/* Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you
+  should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the
+  alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25
+  Examples
+  splitWords(\"Hello world!\") \u279e [\"Hello\", \"world!\"]
+  splitWords(\"Hello,world!\") \u279e [\"Hello\", \"world!\"]
+  splitWords(\"abcdef\") == 3
+  */
+const splitWords = (txt) => {
+", "generation": "  if (txt.includes(' ')) {
+    return txt.split(' ');
+  } else if (txt.includes(',')) {
+    return txt.split(',');
+  } else {
+    let oddOrderCount = 0;
+    for (let char of txt) {
+      let order = char.charCodeAt(0) - 'a'.charCodeAt(0);
+      if (order % 2 === 0) {
+        oddOrderCount++;
+      }
+    }
+    return oddOrderCount;
+  }
+}", "result": "failed: Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/122", "completion_id": 0, "test_code": "/*
+  Given a non-empty array of integers arr and an integer k, return
+  the sum of the elements with at most two digits from the first k elements of arr.
+
+  Example:
+
+      Input: arr = [111,21,3,4000,5,6,7,8,9], k = 4
+      Output: 24 # sum of 21 + 3
+
+  Constraints:
+      1. 1 <= len(arr) <= 100
+      2. 1 <= k <= len(arr)
+  */
+const addElements = (arr, k) => {
+    let sum = 0;
+    for (let i = 0; i < k; i++) {
+        if (arr[i] >= 0 && arr[i] < 100) {
+            sum += arr[i];
+        }
+    }
+    return sum;
+};
+const testAddElements = () => {
+  console.assert(addElements([1, -2, -3, 41, 57, 76, 87, 88, 99], 3) === -4)
+  console.assert(addElements([111, 121, 3, 4000, 5, 6], 2) === 0)
+  console.assert(addElements([11, 21, 3, 90, 5, 6, 7, 8, 9], 4) === 125)
+  console.assert(addElements([111, 21, 3, 4000, 5, 6, 7, 8, 9], 4) === 24)
+  console.assert(addElements([1], 1) === 1)
+}
+
+testAddElements()
+", "prompt": "/*
+  Given a non-empty array of integers arr and an integer k, return
+  the sum of the elements with at most two digits from the first k elements of arr.
+
+  Example:
+
+      Input: arr = [111,21,3,4000,5,6,7,8,9], k = 4
+      Output: 24 # sum of 21 + 3
+
+  Constraints:
+      1. 1 <= len(arr) <= 100
+      2. 1 <= k <= len(arr)
+  */
+const addElements = (arr, k) => {
+", "generation": "    let sum = 0;
+    for (let i = 0; i < k; i++) {
+        if (arr[i] >= 0 && arr[i] < 100) {
+            sum += arr[i];
+        }
+    }
+    return sum;
+};", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/127", "completion_id": 0, "test_code": "/*You are given two intervals,
+  where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).
+  The given intervals are closed which means that the interval (start, end)
+  includes both start and end.
+  For each given interval, it is assumed that its start is less or equal its end.
+  Your task is to determine whether the length of intersection of these two 
+  intervals is a prime number.
+  Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)
+  which its length is 1, which not a prime number.
+  If the length of the intersection is a prime number, return \"YES\",
+  otherwise, return \"NO\".
+  If the two intervals don't intersect, return \"NO\".
+
+
+  [input/output] samples:
+  intersection((1, 2), (2, 3)) ==> \"NO\"
+  intersection((-1, 1), (0, 4)) ==> \"NO\"
+  intersection((-3, -1), (-5, 5)) ==> \"YES\"
+  */
+const intersection = (interval1, interval2) => {
+    const isPrime = (num) => {
+        if (num <= 1) return false;
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i === 0) return false;
+        }
+        return true;
+    };
+
+    const [start1, end1] = interval1;
+    const [start2, end2] = interval2;
+
+    const interStart = Math.max(start1, start2);
+    const interEnd = Math.min(end1, end2);
+
+    if (interStart > interEnd) {
+        return \"NO\";
+    }
+
+    const intersectionLength = interEnd - interStart + 1;
+
+    return isPrime(intersectionLength) ? \"YES\" : \"NO\";
+}
+const testIntersection = () => {
+  console.assert(intersection([1, 2], [2, 3]) === 'NO')
+  console.assert(intersection([-1, 1], [0, 4]) === 'NO')
+  console.assert(intersection([-3, -1], [-5, 5]) === 'YES')
+  console.assert(intersection([-2, 2], [-4, 0]) === 'YES')
+  console.assert(intersection([-11, 2], [-1, -1]) === 'NO')
+  console.assert(intersection([1, 2], [3, 5]) === 'NO')
+  console.assert(intersection([1, 2], [1, 2]) === 'NO')
+  console.assert(intersection([-2, -2], [-3, -2]) === 'NO')
+}
+
+testIntersection()
+", "prompt": "/*You are given two intervals,
+  where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).
+  The given intervals are closed which means that the interval (start, end)
+  includes both start and end.
+  For each given interval, it is assumed that its start is less or equal its end.
+  Your task is to determine whether the length of intersection of these two 
+  intervals is a prime number.
+  Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)
+  which its length is 1, which not a prime number.
+  If the length of the intersection is a prime number, return \"YES\",
+  otherwise, return \"NO\".
+  If the two intervals don't intersect, return \"NO\".
+
+
+  [input/output] samples:
+  intersection((1, 2), (2, 3)) ==> \"NO\"
+  intersection((-1, 1), (0, 4)) ==> \"NO\"
+  intersection((-3, -1), (-5, 5)) ==> \"YES\"
+  */
+const intersection = (interval1, interval2) => {
+", "generation": "    const isPrime = (num) => {
+        if (num <= 1) return false;
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i === 0) return false;
+        }
+        return true;
+    };
+
+    const [start1, end1] = interval1;
+    const [start2, end2] = interval2;
+
+    const interStart = Math.max(start1, start2);
+    const interEnd = Math.min(end1, end2);
+
+    if (interStart > interEnd) {
+        return \"NO\";
+    }
+
+    const intersectionLength = interEnd - interStart + 1;
+
+    return isPrime(intersectionLength) ? \"YES\" : \"NO\";
+}", "result": "failed: Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/130", "completion_id": 0, "test_code": "/*Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+  the last couple centuries. However, what people don't know is Tribonacci sequence.
+  Tribonacci sequence is defined by the recurrence:
+  tri(1) = 3
+  tri(n) = 1 + n / 2, if n is even.
+  tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+  For example:
+  tri(2) = 1 + (2 / 2) = 2
+  tri(4) = 3
+  tri(3) = tri(2) + tri(1) + tri(4)
+         = 2 + 3 + 3 = 8 
+  You are given a non-negative integer number n, you have to a return a list of the 
+  first n + 1 numbers of the Tribonacci sequence.
+  Examples:
+  tri(3) = [1, 3, 2, 8]
+  */
+const tri = (n) => {
+    let tribonacci = [];
+    for (let i = 0; i <= n; i++) {
+        if (i === 1) {
+            tribonacci.push(3);
+        } else if (i % 2 === 0) {
+            tribonacci.push(1 + i / 2);
+        } else {
+            let tri_n1 = tribonacci[i - 1];
+            let tri_n2 = tribonacci[i - 2];
+            let tri_nPlus1 = 3; // tri(i) is defined recursively and needs tri(n+1), which is always 3
+            let computedValue = tribonacci[i - 1] + tribonacci[i - 2] + tri_nPlus1;
+            tribonacci.push(computedValue);
+        }
+    }
+    return tribonacci;
+}
+const testTri = () => {
+  console.assert(JSON.stringify(tri(3)) === JSON.stringify([1, 3, 2.0, 8.0]))
+
+  console.assert(
+    JSON.stringify(tri(4)) === JSON.stringify([1, 3, 2.0, 8.0, 3.0])
+  )
+  console.assert(
+    JSON.stringify(tri(5)) === JSON.stringify([1, 3, 2.0, 8.0, 3.0, 15.0])
+  )
+  console.assert(
+    JSON.stringify(tri(6)) === JSON.stringify([1, 3, 2.0, 8.0, 3.0, 15.0, 4.0])
+  )
+  console.assert(
+    JSON.stringify(tri(7)) ===
+    JSON.stringify([1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0])
+  )
+  console.assert(
+    JSON.stringify(tri(8)) ===
+    JSON.stringify([1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0, 5.0])
+  )
+  console.assert(
+    JSON.stringify(tri(9)) ===
+    JSON.stringify([1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0, 5.0, 35.0])
+  )
+  console.assert(
+    JSON.stringify(tri(20)) ===
+    JSON.stringify([
+      1, 3, 2.0, 8.0, 3.0, 15.0, 4.0, 24.0, 5.0, 35.0, 6.0, 48.0, 7.0, 63.0,
+      8.0, 80.0, 9.0, 99.0, 10.0, 120.0, 11.0,
+    ])
+  )
+  console.assert(JSON.stringify(tri(0)) === JSON.stringify([1]))
+  console.assert(JSON.stringify(tri(1)) === JSON.stringify([1, 3]))
+}
+
+testTri()
+", "prompt": "/*Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+  the last couple centuries. However, what people don't know is Tribonacci sequence.
+  Tribonacci sequence is defined by the recurrence:
+  tri(1) = 3
+  tri(n) = 1 + n / 2, if n is even.
+  tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+  For example:
+  tri(2) = 1 + (2 / 2) = 2
+  tri(4) = 3
+  tri(3) = tri(2) + tri(1) + tri(4)
+         = 2 + 3 + 3 = 8 
+  You are given a non-negative integer number n, you have to a return a list of the 
+  first n + 1 numbers of the Tribonacci sequence.
+  Examples:
+  tri(3) = [1, 3, 2, 8]
+  */
+const tri = (n) => {
+", "generation": "    let tribonacci = [];
+    for (let i = 0; i <= n; i++) {
+        if (i === 1) {
+            tribonacci.push(3);
+        } else if (i % 2 === 0) {
+            tribonacci.push(1 + i / 2);
+        } else {
+            let tri_n1 = tribonacci[i - 1];
+            let tri_n2 = tribonacci[i - 2];
+            let tri_nPlus1 = 3; // tri(i) is defined recursively and needs tri(n+1), which is always 3
+            let computedValue = tribonacci[i - 1] + tribonacci[i - 2] + tri_nPlus1;
+            tribonacci.push(computedValue);
+        }
+    }
+    return tribonacci;
+}", "result": "failed: Assertion failed
+Assertion failed
+Assertion failed
+Assertion failed
+Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/134", "completion_id": 0, "test_code": "/* Create a function that returns true if the last character
+  of a given string is an alphabetical character and is not
+  a part of a word, and false otherwise.
+  Note: \"word\" is a group of characters separated by space.
+  Examples:
+  checkIfLastCharIsALetter(\"apple pie\") \u279e false
+  checkIfLastCharIsALetter(\"apple pi e\") \u279e true
+  checkIfLastCharIsALetter(\"apple pi e \") \u279e false
+  checkIfLastCharIsALetter(\"\") \u279e false
+  */
+const checkIfLastCharIsALetter = (txt) => {
+    if (txt.length === 0) return false;
+    const trimmedTxt = txt.trim();
+    const lastChar = trimmedTxt[trimmedTxt.length - 1];
+    if (!/[a-zA-Z]/.test(lastChar)) return false;
+    
+    const words = trimmedTxt.split(' ');
+    const lastWord = words[words.length - 1];
+    
+    if (lastWord.length === 1) return true;
+    
+    return false;
+}
+const testCheckIfLastCharIsALetter = () => {
+  console.assert(checkIfLastCharIsALetter('apple') === false)
+  console.assert(checkIfLastCharIsALetter('apple pi e') === true)
+  console.assert(checkIfLastCharIsALetter('eeeee') === false)
+  console.assert(checkIfLastCharIsALetter('A') === true)
+  console.assert(checkIfLastCharIsALetter('Pumpkin pie ') === false)
+  console.assert(checkIfLastCharIsALetter('Pumpkin pie 1') === false)
+  console.assert(checkIfLastCharIsALetter('') === false)
+  console.assert(checkIfLastCharIsALetter('eeeee e ') === false)
+  console.assert(checkIfLastCharIsALetter('apple pie') === false)
+  console.assert(checkIfLastCharIsALetter('apple pi e ') === false)
+}
+
+testCheckIfLastCharIsALetter()
+", "prompt": "/* Create a function that returns true if the last character
+  of a given string is an alphabetical character and is not
+  a part of a word, and false otherwise.
+  Note: \"word\" is a group of characters separated by space.
+  Examples:
+  checkIfLastCharIsALetter(\"apple pie\") \u279e false
+  checkIfLastCharIsALetter(\"apple pi e\") \u279e true
+  checkIfLastCharIsALetter(\"apple pi e \") \u279e false
+  checkIfLastCharIsALetter(\"\") \u279e false
+  */
+const checkIfLastCharIsALetter = (txt) => {
+", "generation": "    if (txt.length === 0) return false;
+    const trimmedTxt = txt.trim();
+    const lastChar = trimmedTxt[trimmedTxt.length - 1];
+    if (!/[a-zA-Z]/.test(lastChar)) return false;
+    
+    const words = trimmedTxt.split(' ');
+    const lastWord = words[words.length - 1];
+    
+    if (lastWord.length === 1) return true;
+    
+    return false;
+}", "result": "failed: Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/132", "completion_id": 0, "test_code": "/*
+  Create a function that takes a string as input which contains only square brackets.
+  The function should return true if and only if there is a valid subsequence of brackets
+  where at least one bracket in the subsequence is nested.
+  isNested('[[]]') \u279e true
+  isNested('[]]]]]]][[[[[]') \u279e false
+  isNested('[][]') \u279e false
+  isNested('[]') \u279e false
+  isNested('[[][]]') \u279e true
+  isNested('[[]][[') \u279e true
+  */
+const isNested = (string) => {
+    let stack = [];
+    for (let char of string) {
+        if (char === '[') {
+            stack.push(char);
+        } else if (char === ']' && stack.length > 0) {
+            if (stack[stack.length - 1] === '[') {
+                stack.pop();
+                if (stack.length > 0) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    return false;
+}
+const testIsNested = () => {
+  console.assert(isNested('[[]]') === true)
+  console.assert(isNested('[]]]]]]][[[[[]') === false)
+  console.assert(isNested('[][]') === false)
+  console.assert(isNested('[]') === false)
+  console.assert(isNested('[[[[]]]]') === true)
+  console.assert(isNested('[]]]]]]]]]]') === false)
+  console.assert(isNested('[][][[]]') === true)
+  console.assert(isNested('[[]') === false)
+  console.assert(isNested('[]]') === false)
+  console.assert(isNested('[[]][[') === true)
+  console.assert(isNested('[[][]]') === true)
+  console.assert(isNested('') === false)
+  console.assert(isNested('[[[[[[[[') === false)
+  console.assert(isNested(']]]]]]]]') === false)
+}
+
+testIsNested()
+", "prompt": "/*
+  Create a function that takes a string as input which contains only square brackets.
+  The function should return true if and only if there is a valid subsequence of brackets
+  where at least one bracket in the subsequence is nested.
+  isNested('[[]]') \u279e true
+  isNested('[]]]]]]][[[[[]') \u279e false
+  isNested('[][]') \u279e false
+  isNested('[]') \u279e false
+  isNested('[[][]]') \u279e true
+  isNested('[[]][[') \u279e true
+  */
+const isNested = (string) => {
+", "generation": "    let stack = [];
+    for (let char of string) {
+        if (char === '[') {
+            stack.push(char);
+        } else if (char === ']' && stack.length > 0) {
+            if (stack[stack.length - 1] === '[') {
+                stack.pop();
+                if (stack.length > 0) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    return false;
+}", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/108", "completion_id": 0, "test_code": "/*
+  Write a function countNums which takes an array of integers and returns
+  the number of elements which has a sum of digits > 0.
+  If a number is negative, then its first signed digit will be negative:
+  e.g. -123 has signed digits -1, 2, and 3.
+  >>> countNums([]) == 0
+  >>> countNums([-1, 11, -11]) == 1
+  >>> countNums([1, 1, 2]) == 3
+  */
+const countNums = (arr) => {
+    let count = 0;
+    arr.forEach(num => {
+        let sumOfDigits = 0;
+        let strNum = num.toString();
+        for (let char of strNum) {
+            if (char !== '-') {
+                sumOfDigits += parseInt(char);
+            }
+        }
+        if (sumOfDigits > 0) {
+            count++;
+        }
+    });
+    return count;
+};
+const testCountNums = () => {
+  console.assert(countNums([]) === 0)
+  console.assert(countNums([-1, -2, 0]) === 0)
+  console.assert(countNums([1, 1, 2, -2, 3, 4, 5]) === 6)
+  console.assert(countNums([1, 6, 9, -6, 0, 1, 5]) === 5)
+  console.assert(countNums([1, 100, 98, -7, 1, -1]) === 4)
+  console.assert(countNums([12, 23, 34, -45, -56, 0]) === 5)
+  console.assert(countNums([-0, 1 ** 0]) === 1)
+  console.assert(countNums([1]) === 1)
+}
+
+testCountNums()
+", "prompt": "/*
+  Write a function countNums which takes an array of integers and returns
+  the number of elements which has a sum of digits > 0.
+  If a number is negative, then its first signed digit will be negative:
+  e.g. -123 has signed digits -1, 2, and 3.
+  >>> countNums([]) == 0
+  >>> countNums([-1, 11, -11]) == 1
+  >>> countNums([1, 1, 2]) == 3
+  */
+const countNums = (arr) => {
+", "generation": "    let count = 0;
+    arr.forEach(num => {
+        let sumOfDigits = 0;
+        let strNum = num.toString();
+        for (let char of strNum) {
+            if (char !== '-') {
+                sumOfDigits += parseInt(char);
+            }
+        }
+        if (sumOfDigits > 0) {
+            count++;
+        }
+    });
+    return count;
+};", "result": "failed: Assertion failed
+Assertion failed
+Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/102", "completion_id": 0, "test_code": "/*This function takes two positive numbers x and y and returns the
+  biggest even integer number that is in the range [x, y] inclusive. If 
+  there's no such number, then the function should return -1.
+
+  For example:
+  chooseNum(12, 15) = 14
+  chooseNum(13, 12) = -1
+  */
+const chooseNum = (x, y) => {
+    let min = Math.min(x, y);
+    let max = Math.max(x, y);
+
+    for (let i = max; i >= min; i--) {
+        if (i % 2 === 0) {
+            return i;
+        }
+    }
+    return -1;
+};
+const testChooseNum = () => {
+  console.assert(chooseNum(12, 15) === 14)
+  console.assert(chooseNum(13, 12) === -1)
+  console.assert(chooseNum(33, 12354) === 12354)
+  console.assert(chooseNum(5234, 5233) === -1)
+  console.assert(chooseNum(6, 29) === 28)
+  console.assert(chooseNum(27, 10) === -1)
+  console.assert(chooseNum(7, 7) === -1)
+  console.assert(chooseNum(546, 546) === 546)
+}
+
+testChooseNum()
+", "prompt": "/*This function takes two positive numbers x and y and returns the
+  biggest even integer number that is in the range [x, y] inclusive. If 
+  there's no such number, then the function should return -1.
+
+  For example:
+  chooseNum(12, 15) = 14
+  chooseNum(13, 12) = -1
+  */
+const chooseNum = (x, y) => {
+", "generation": "    let min = Math.min(x, y);
+    let max = Math.max(x, y);
+
+    for (let i = max; i >= min; i--) {
+        if (i % 2 === 0) {
+            return i;
+        }
+    }
+    return -1;
+};", "result": "failed: Assertion failed
+Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/87", "completion_id": 0, "test_code": "/*
+  You are given a 2 dimensional data, as a nested lists,
+  which is similar to matrix, however, unlike matrices,
+  each row may contain a different number of columns.
+  Given lst, and integer x, find integers x in the list,
+  and return list of tuples, [(x1, y1), (x2, y2) ...] such that
+  each tuple is a coordinate - (row, columns), starting with 0.
+  Sort coordinates initially by rows in ascending order.
+  Also, sort coordinates of the row by columns in descending order.
+  
+  Examples:
+  getRow([
+    [1,2,3,4,5,6],
+    [1,2,3,4,1,6],
+    [1,2,3,4,5,1]
+  ], 1) == [(0, 0), (1, 4), (1, 0), (2, 5), (2, 0)]
+  getRow([], 1) == []
+  getRow([[], [1], [1, 2, 3]], 3) == [(2, 2)]
+  */
+const getRow = (lst, x) => {
+  let result = [];
+
+  for (let i = 0; i < lst.length; i++) {
+    for (let j = 0; j < lst[i].length; j++) {
+      if (lst[i][j] === x) {
+        result.push([i, j]);
+      }
+    }
+  }
+
+  result.sort((a, b) => a[0] - b[0] || b[1] - a[1]);
+  
+  return result;
+}
+const testGetRow = () => {
+  console.assert(
+    JSON.stringify(
+      getRow(
+        [
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 1, 6],
+          [1, 2, 3, 4, 5, 1],
+        ],
+        1
+      )
+    ) === JSON.stringify([(0, 0), (1, 4), (1, 0), (2, 5), (2, 0)])
+  )
+  console.assert(
+    JSON.stringify(
+      getRow(
+        [
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 6],
+        ],
+        2
+      )
+    ) === JSON.stringify([(0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1)])
+  )
+  console.assert(
+    JSON.stringify(
+      getRow(
+        [
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 6],
+          [1, 1, 3, 4, 5, 6],
+          [1, 2, 1, 4, 5, 6],
+          [1, 2, 3, 1, 5, 6],
+          [1, 2, 3, 4, 1, 6],
+          [1, 2, 3, 4, 5, 1],
+        ],
+        1
+      )
+    ) ===
+    JSON.stringify([
+      (0, 0),
+      (1, 0),
+      (2, 1),
+      (2, 0),
+      (3, 2),
+      (3, 0),
+      (4, 3),
+      (4, 0),
+      (5, 4),
+      (5, 0),
+      (6, 5),
+      (6, 0),
+    ])
+  )
+  console.assert(JSON.stringify(getRow([], 1)) === JSON.stringify([]))
+  console.assert(JSON.stringify(getRow([[1]], 2)) === JSON.stringify([]))
+  console.assert(
+    JSON.stringify(getRow([[], [1], [1, 2, 3]], 3)) === JSON.stringify([(2, 2)])
+  )
+}
+
+testGetRow()
+", "prompt": "/*
+  You are given a 2 dimensional data, as a nested lists,
+  which is similar to matrix, however, unlike matrices,
+  each row may contain a different number of columns.
+  Given lst, and integer x, find integers x in the list,
+  and return list of tuples, [(x1, y1), (x2, y2) ...] such that
+  each tuple is a coordinate - (row, columns), starting with 0.
+  Sort coordinates initially by rows in ascending order.
+  Also, sort coordinates of the row by columns in descending order.
+  
+  Examples:
+  getRow([
+    [1,2,3,4,5,6],
+    [1,2,3,4,1,6],
+    [1,2,3,4,5,1]
+  ], 1) == [(0, 0), (1, 4), (1, 0), (2, 5), (2, 0)]
+  getRow([], 1) == []
+  getRow([[], [1], [1, 2, 3]], 3) == [(2, 2)]
+  */
+const getRow = (lst, x) => {
+", "generation": "  let result = [];
+
+  for (let i = 0; i < lst.length; i++) {
+    for (let j = 0; j < lst[i].length; j++) {
+      if (lst[i][j] === x) {
+        result.push([i, j]);
+      }
+    }
+  }
+
+  result.sort((a, b) => a[0] - b[0] || b[1] - a[1]);
+  
+  return result;
+}", "result": "failed: Assertion failed
+Assertion failed
+Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/141", "completion_id": 0, "test_code": "/*Create a function which takes a string representing a file's name, and returns
+  'Yes' if the the file's name is valid, and returns 'No' otherwise.
+  A file's name is considered to be valid if and only if all the following conditions 
+  are met:
+  - There should not be more than three digits ('0'-'9') in the file's name.
+  - The file's name contains exactly one dot '.'
+  - The substring before the dot should not be empty, and it starts with a letter from 
+  the latin alphapet ('a'-'z' and 'A'-'Z').
+  - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+  Examples:
+  fileNameCheck(\"example.txt\") # => 'Yes'
+  fileNameCheck(\"1example.dll\") # => 'No' (the name should start with a latin alphapet letter)
+  */
+const fileNameCheck = (file_name) => {
+    const dotIndex = file_name.lastIndexOf('.');
+    if (dotIndex === -1 || dotIndex === 0 || dotIndex === file_name.length - 1) {
+        return 'No';
+    }
+    const beforeDot = file_name.substring(0, dotIndex);
+    const afterDot = file_name.substring(dotIndex + 1);
+    const validExtensions = ['txt', 'exe', 'dll'];
+    const digitCount = (beforeDot.match(/\\d/g) || []).length;
+
+    if (!beforeDot[0].match(/[a-zA-Z]/)) {
+        return 'No';
+    }
+
+    if (digitCount > 3) {
+        return 'No';
+    }
+
+    if (!validExtensions.includes(afterDot)) {
+        return 'No';
+    }
+
+    return 'Yes';
+}
+const testFileNameCheck = () => {
+  console.assert(fileNameCheck('example.txt') === 'Yes')
+  console.assert(fileNameCheck('1example.dll') === 'No')
+  console.assert(fileNameCheck('s1sdf3.asd') === 'No')
+  console.assert(fileNameCheck('K.dll') === 'Yes')
+  console.assert(fileNameCheck('MY16FILE3.exe') === 'Yes')
+  console.assert(fileNameCheck('His12FILE94.exe') === 'No')
+  console.assert(fileNameCheck('_Y.txt') === 'No')
+  console.assert(fileNameCheck('?aREYA.exe') === 'No')
+  console.assert(fileNameCheck('/this_is_valid.dll') === 'No')
+  console.assert(fileNameCheck('this_is_valid.wow') === 'No')
+  console.assert(fileNameCheck('this_is_valid.txt') === 'Yes')
+  console.assert(fileNameCheck('this_is_valid.txtexe') === 'No')
+  console.assert(fileNameCheck('#this2_i4s_5valid.ten') === 'No')
+  console.assert(fileNameCheck('@this1_is6_valid.exe') === 'No')
+  console.assert(fileNameCheck('this_is_12valid.6exe4.txt') === 'No')
+  console.assert(fileNameCheck('all.exe.txt') === 'No')
+  console.assert(fileNameCheck('I563_No.exe') === 'Yes')
+  console.assert(fileNameCheck('Is3youfault.txt') === 'Yes')
+  console.assert(fileNameCheck('no_one#knows.dll') === 'Yes')
+  console.assert(fileNameCheck('1I563_Yes3.exe') === 'No')
+  console.assert(fileNameCheck('I563_Yes3.txtt') === 'No')
+  console.assert(fileNameCheck('final..txt') === 'No')
+  console.assert(fileNameCheck('final132') === 'No')
+  console.assert(fileNameCheck('_f4indsartal132.') === 'No')
+  console.assert(fileNameCheck('.txt') === 'No')
+  console.assert(fileNameCheck('s.') === 'No')
+}
+
+testFileNameCheck()
+", "prompt": "/*Create a function which takes a string representing a file's name, and returns
+  'Yes' if the the file's name is valid, and returns 'No' otherwise.
+  A file's name is considered to be valid if and only if all the following conditions 
+  are met:
+  - There should not be more than three digits ('0'-'9') in the file's name.
+  - The file's name contains exactly one dot '.'
+  - The substring before the dot should not be empty, and it starts with a letter from 
+  the latin alphapet ('a'-'z' and 'A'-'Z').
+  - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+  Examples:
+  fileNameCheck(\"example.txt\") # => 'Yes'
+  fileNameCheck(\"1example.dll\") # => 'No' (the name should start with a latin alphapet letter)
+  */
+const fileNameCheck = (file_name) => {
+", "generation": "    const dotIndex = file_name.lastIndexOf('.');
+    if (dotIndex === -1 || dotIndex === 0 || dotIndex === file_name.length - 1) {
+        return 'No';
+    }
+    const beforeDot = file_name.substring(0, dotIndex);
+    const afterDot = file_name.substring(dotIndex + 1);
+    const validExtensions = ['txt', 'exe', 'dll'];
+    const digitCount = (beforeDot.match(/\\d/g) || []).length;
+
+    if (!beforeDot[0].match(/[a-zA-Z]/)) {
+        return 'No';
+    }
+
+    if (digitCount > 3) {
+        return 'No';
+    }
+
+    if (!validExtensions.includes(afterDot)) {
+        return 'No';
+    }
+
+    return 'Yes';
+}", "result": "failed: Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/150", "completion_id": 0, "test_code": "/*A simple program which should return the value of x if n is 
+  a prime number and should return the value of y otherwise.
+
+  Examples:
+  for xOrY(7, 34, 12) == 34
+  for xOrY(15, 8, 5) == 5
+  
+  */
+const xOrY = (n, x, y) => {
+    for(let i = 2; i <= Math.sqrt(n); i++)
+        if(n % i === 0)
+            return y;
+    return x;
+}
+const testXOrY = () => {
+  console.assert(xOrY(7, 34, 12) === 34)
+  console.assert(xOrY(15, 8, 5) === 5)
+  console.assert(xOrY(3, 33, 5212) === 33)
+  console.assert(xOrY(1259, 3, 52) === 3)
+  console.assert(xOrY(7919, -1, 12) === -1)
+  console.assert(xOrY(3609, 1245, 583) === 583)
+  console.assert(xOrY(91, 56, 129) === 129)
+  console.assert(xOrY(6, 34, 1234) === 1234)
+  console.assert(xOrY(1, 2, 0) === 0)
+  console.assert(xOrY(2, 2, 0) === 2)
+}
+
+testXOrY()
+", "prompt": "/*A simple program which should return the value of x if n is 
+  a prime number and should return the value of y otherwise.
+
+  Examples:
+  for xOrY(7, 34, 12) == 34
+  for xOrY(15, 8, 5) == 5
+  
+  */
+const xOrY = (n, x, y) => {
+", "generation": "    for(let i = 2; i <= Math.sqrt(n); i++)
+        if(n % i === 0)
+            return y;
+    return x;
+}", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/145", "completion_id": 0, "test_code": "/*
+  Write a function which sorts the given list of integers
+  in ascending order according to the sum of their digits.
+  Note: if there are several items with similar sum of their digits,
+  order them based on their index in original list.
+
+  For example:
+  >>> orderByPoints([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]
+  >>> orderByPoints([]) == []
+  */
+const orderByPoints = (nums) => {
+    const digitSum = (num) => Math.abs(num).toString().split('').reduce((a, b) => a + parseInt(b), 0);
+    return nums.slice().sort((a, b) => {
+        let sumA = digitSum(a);
+        let sumB = digitSum(b);
+        if (sumA === sumB) {
+            return nums.indexOf(a) - nums.indexOf(b);
+        }
+        return sumA - sumB;
+    });
+}
+const testOrderByPoints = () => {
+  console.assert(
+    JSON.stringify(orderByPoints([1, 11, -1, -11, -12])) ===
+    JSON.stringify([-1, -11, 1, -12, 11])
+  )
+  console.assert(
+    JSON.stringify(
+      orderByPoints([
+        1234, 423, 463, 145, 2, 423, 423, 53, 6, 37, 3457, 3, 56, 0, 46,
+      ])
+    ) ===
+    JSON.stringify([
+      0, 2, 3, 6, 53, 423, 423, 423, 1234, 145, 37, 46, 56, 463, 3457,
+    ])
+  )
+  console.assert(JSON.stringify(orderByPoints([])) === JSON.stringify([]))
+  console.assert(
+    JSON.stringify(orderByPoints([1, -11, -32, 43, 54, -98, 2, -3])) ===
+    JSON.stringify([-3, -32, -98, -11, 1, 2, 43, 54])
+  )
+  console.assert(
+    JSON.stringify(orderByPoints([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])) ===
+    JSON.stringify([1, 10, 2, 11, 3, 4, 5, 6, 7, 8, 9])
+  )
+  console.assert(
+    JSON.stringify(orderByPoints([0, 6, 6, -76, -21, 23, 4])) ===
+    JSON.stringify([-76, -21, 0, 4, 23, 6, 6])
+  )
+}
+
+testOrderByPoints()
+", "prompt": "/*
+  Write a function which sorts the given list of integers
+  in ascending order according to the sum of their digits.
+  Note: if there are several items with similar sum of their digits,
+  order them based on their index in original list.
+
+  For example:
+  >>> orderByPoints([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]
+  >>> orderByPoints([]) == []
+  */
+const orderByPoints = (nums) => {
+", "generation": "    const digitSum = (num) => Math.abs(num).toString().split('').reduce((a, b) => a + parseInt(b), 0);
+    return nums.slice().sort((a, b) => {
+        let sumA = digitSum(a);
+        let sumB = digitSum(b);
+        if (sumA === sumB) {
+            return nums.indexOf(a) - nums.indexOf(b);
+        }
+        return sumA - sumB;
+    });
+}", "result": "failed: Assertion failed
+Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/146", "completion_id": 0, "test_code": "/*Write a function that takes an array of numbers as input and returns 
+  the number of elements in the array that are greater than 10 and both 
+  first and last digits of a number are odd (1, 3, 5, 7, 9).
+  For example:
+  specialFilter([15, -73, 14, -15]) => 1 
+  specialFilter([33, -2, -3, 45, 21, 109]) => 2
+  */
+const specialFilter = (nums) => {
+    let count = 0;
+    nums.forEach(num => {
+        let absNum = Math.abs(num);
+        let firstDigit = parseInt(absNum.toString().charAt(0));
+        let lastDigit = absNum % 10;
+        if (num > 10 && firstDigit % 2 !== 0 && lastDigit % 2 !== 0) {
+            count++;
+        }
+    });
+    return count;
+
+const testSpecialFilter = () => {
+  console.assert(specialFilter([5, -2, 1, -5]) === 0)
+  console.assert(specialFilter([15, -73, 14, -15]) === 1)
+  console.assert(specialFilter([33, -2, -3, 45, 21, 109]) === 2)
+  console.assert(specialFilter([43, -12, 93, 125, 121, 109]) === 4)
+  console.assert(specialFilter([71, -2, -33, 75, 21, 19]) === 3)
+  console.assert(specialFilter([1]) === 0)
+  console.assert(specialFilter([]) === 0)
+}
+
+testSpecialFilter()
+", "prompt": "/*Write a function that takes an array of numbers as input and returns 
+  the number of elements in the array that are greater than 10 and both 
+  first and last digits of a number are odd (1, 3, 5, 7, 9).
+  For example:
+  specialFilter([15, -73, 14, -15]) => 1 
+  specialFilter([33, -2, -3, 45, 21, 109]) => 2
+  */
+const specialFilter = (nums) => {
+", "generation": "    let count = 0;
+    nums.forEach(num => {
+        let absNum = Math.abs(num);
+        let firstDigit = parseInt(absNum.toString().charAt(0));
+        let lastDigit = absNum % 10;
+        if (num > 10 && firstDigit % 2 !== 0 && lastDigit % 2 !== 0) {
+            count++;
+        }
+    });
+    return count;
+", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-146-515.8308659999424/test.js:31
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/149", "completion_id": 0, "test_code": "/*Write a function that accepts a list of strings as a parameter,
+  deletes the strings that have odd lengths from it,
+  and returns the resulted list with a sorted order,
+  The list is always a list of strings and never an array of numbers,
+  and it may contain duplicates.
+  The order of the list should be ascending by length of each word, and you
+  should return the list sorted by that rule.
+  If two words have the same length, sort the list alphabetically.
+  The function should return a list of strings in sorted order.
+  You may assume that all words will have the same length.
+  For example:
+  assert list_sort([\"aa\", \"a\", \"aaa\"]) => [\"aa\"]
+  assert list_sort([\"ab\", \"a\", \"aaa\", \"cd\"]) => [\"ab\", \"cd\"]
+  */
+const sortedListSum = (lst) => {
+    return lst.filter(word => word.length % 2 == 0).sort((a, b) => a.length - b.length || a.localeCompare(b));
+}
+const testSortedListSum = () => {
+  console.assert(
+    JSON.stringify(sortedListSum(['aa', 'a', 'aaa'])) === JSON.stringify(['aa'])
+  )
+  console.assert(
+    JSON.stringify(sortedListSum(['school', 'AI', 'asdf', 'b'])) ===
+    JSON.stringify(['AI', 'asdf', 'school'])
+  )
+  console.assert(
+    JSON.stringify(sortedListSum(['d', 'b', 'c', 'a'])) === JSON.stringify([])
+  )
+  console.assert(
+    JSON.stringify(sortedListSum(['d', 'dcba', 'abcd', 'a'])) ===
+    JSON.stringify(['abcd', 'dcba'])
+  )
+  console.assert(
+    JSON.stringify(sortedListSum(['AI', 'ai', 'au'])) ===
+    JSON.stringify(['AI', 'ai', 'au'])
+  )
+  console.assert(
+    JSON.stringify(sortedListSum(['a', 'b', 'b', 'c', 'c', 'a'])) ===
+    JSON.stringify([])
+  )
+  console.assert(
+    JSON.stringify(sortedListSum(['aaaa', 'bbbb', 'dd', 'cc'])) ===
+    JSON.stringify(['cc', 'dd', 'aaaa', 'bbbb'])
+  )
+}
+
+testSortedListSum()
+", "prompt": "/*Write a function that accepts a list of strings as a parameter,
+  deletes the strings that have odd lengths from it,
+  and returns the resulted list with a sorted order,
+  The list is always a list of strings and never an array of numbers,
+  and it may contain duplicates.
+  The order of the list should be ascending by length of each word, and you
+  should return the list sorted by that rule.
+  If two words have the same length, sort the list alphabetically.
+  The function should return a list of strings in sorted order.
+  You may assume that all words will have the same length.
+  For example:
+  assert list_sort([\"aa\", \"a\", \"aaa\"]) => [\"aa\"]
+  assert list_sort([\"ab\", \"a\", \"aaa\", \"cd\"]) => [\"ab\", \"cd\"]
+  */
+const sortedListSum = (lst) => {
+", "generation": "    return lst.filter(word => word.length % 2 == 0).sort((a, b) => a.length - b.length || a.localeCompare(b));
+}", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/140", "completion_id": 0, "test_code": "/*
+  Given a string text, replace all spaces in it with underscores, 
+  and if a string has more than 2 consecutive spaces, 
+  then replace all consecutive spaces with - 
+  
+  fixSpaces(\"Example\") == \"Example\"
+  fixSpaces(\"Example 1\") == \"Example_1\"
+  fixSpaces(\" Example 2\") == \"_Example_2\"
+  fixSpaces(\" Example   3\") == \"_Example-3\"
+  */
+const fixSpaces = (text) => {
+    let fixedText = '';
+    let spaceCount = 0;
+    for (let i = 0; i < text.length; i++) {
+        if (text[i] === ' ') {
+            spaceCount++;
+        } else {
+            if (spaceCount === 1) {
+                fixedText += '_';
+            } else if (spaceCount > 1) {
+                fixedText += '-';
+            }
+            fixedText += text[i];
+            spaceCount = 0;
+        }
+    }
+    if (spaceCount === 1) {
+        fixedText += '_';
+    } else if (spaceCount > 1) {
+        fixedText += '-';
+    }
+    return fixedText;
+};
+const testFixSpaces = () => {
+  console.assert(fixSpaces('Example') === 'Example')
+  console.assert(fixSpaces('Mudasir Hanif ') === 'Mudasir_Hanif_')
+  console.assert(
+    fixSpaces('Yellow Yellow  Dirty  Fellow') === 'Yellow_Yellow__Dirty__Fellow'
+  )
+  console.assert(fixSpaces('Exa   mple') === 'Exa-mple')
+  console.assert(fixSpaces('   Exa 1 2 2 mple') === '-Exa_1_2_2_mple')
+}
+
+testFixSpaces()
+", "prompt": "/*
+  Given a string text, replace all spaces in it with underscores, 
+  and if a string has more than 2 consecutive spaces, 
+  then replace all consecutive spaces with - 
+  
+  fixSpaces(\"Example\") == \"Example\"
+  fixSpaces(\"Example 1\") == \"Example_1\"
+  fixSpaces(\" Example 2\") == \"_Example_2\"
+  fixSpaces(\" Example   3\") == \"_Example-3\"
+  */
+const fixSpaces = (text) => {
+", "generation": "    let fixedText = '';
+    let spaceCount = 0;
+    for (let i = 0; i < text.length; i++) {
+        if (text[i] === ' ') {
+            spaceCount++;
+        } else {
+            if (spaceCount === 1) {
+                fixedText += '_';
+            } else if (spaceCount > 1) {
+                fixedText += '-';
+            }
+            fixedText += text[i];
+            spaceCount = 0;
+        }
+    }
+    if (spaceCount === 1) {
+        fixedText += '_';
+    } else if (spaceCount > 1) {
+        fixedText += '-';
+    }
+    return fixedText;
+};", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/161", "completion_id": 0, "test_code": "/*You are given a string s.
+  if s[i] is a letter, reverse its case from lower to upper or vise versa, 
+  otherwise keep it as it is.
+  If the string contains no letters, reverse the string.
+  The function should return the resulted string.
+  Examples
+  solve(\"1234\") = \"4321\"
+  solve(\"ab\") = \"AB\"
+  solve(\"#a@C\") = \"#A@c\"
+  */
+const solve = (s) => {
+    let hasLetter = false;
+    let result = '';
+
+    for (let i = 0; i < s.length; i++) {
+        const char = s[i];
+        if (/[a-zA-Z]/.test(char)) {
+            hasLetter = true;
+            if (char === char.toLowerCase()) {
+                result += char.toUpperCase();
+            } else {
+                result += char.toLowerCase();
+            }
+        } else {
+            result += char;
+        }
+    }
+
+    if (!hasLetter) {
+        result = s.split('').reverse().join('');
+    }
+
+    return result;
+
+const testSolve = () => {
+  console.assert(solve('AsDf') === 'aSdF')
+  console.assert(solve('1234') === '4321')
+  console.assert(solve('ab') === 'AB')
+  console.assert(solve('#a@C') === '#A@c')
+  console.assert(solve('#AsdfW^45') === '#aSDFw^45')
+  console.assert(solve('#6@2') === '2@6#')
+  console.assert(solve('#$a^D') === '#$A^d')
+  console.assert(solve('#ccc') === '#CCC')
+}
+
+testSolve()
+", "prompt": "/*You are given a string s.
+  if s[i] is a letter, reverse its case from lower to upper or vise versa, 
+  otherwise keep it as it is.
+  If the string contains no letters, reverse the string.
+  The function should return the resulted string.
+  Examples
+  solve(\"1234\") = \"4321\"
+  solve(\"ab\") = \"AB\"
+  solve(\"#a@C\") = \"#A@c\"
+  */
+const solve = (s) => {
+", "generation": "    let hasLetter = false;
+    let result = '';
+
+    for (let i = 0; i < s.length; i++) {
+        const char = s[i];
+        if (/[a-zA-Z]/.test(char)) {
+            hasLetter = true;
+            if (char === char.toLowerCase()) {
+                result += char.toUpperCase();
+            } else {
+                result += char.toLowerCase();
+            }
+        } else {
+            result += char;
+        }
+    }
+
+    if (!hasLetter) {
+        result = s.split('').reverse().join('');
+    }
+
+    return result;
+", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-161-572.9487266585551/test.js:47
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/160", "completion_id": 0, "test_code": "/*
+  Given two lists operator, and operand. The first list has basic algebra operations, and 
+  the second list is a list of integers. Use the two given lists to build the algebric 
+  expression and return the evaluation of this expression.
+
+  The basic algebra operations:
+  Addition ( + ) 
+  Subtraction ( - ) 
+  Multiplication ( * ) 
+  Floor division ( // ) 
+  Exponentiation ( ** ) 
+
+  Example:
+  operator['+', '*', '-']
+  array = [2, 3, 4, 5]
+  result = 2 + 3 * 4 - 5
+  => result = 9
+
+  Note:
+      The length of operator list is equal to the length of operand list minus one.
+      Operand is a list of of non-negative integers.
+      Operator list has at least one operator, and operand list has at least two operands.
+
+  */
+const doAlgebra = (operator, operand) => {
+  let result = operand[0];
+  for (let i = 0; i < operator.length; i++) {
+    if (operator[i] === '+') result += operand[i + 1];
+    else if (operator[i] === '-') result -= operand[i + 1];
+    else if (operator[i] === '*') result *= operand[i + 1];
+    else if (operator[i] === '//') result = Math.floor(result / operand[i + 1]);
+    else if (operator[i] === '**') result **= operand[i + 1];
+  }
+  return result;
+}
+const testDoAlgebra = () => {
+  console.assert(doAlgebra(['**', '*', '+'], [2, 3, 4, 5]) === 37)
+  console.assert(doAlgebra(['+', '*', '-'], [2, 3, 4, 5]) === 9)
+  console.assert(doAlgebra(['//', '*'], [7, 3, 4]) === 8)
+}
+
+testDoAlgebra()
+", "prompt": "/*
+  Given two lists operator, and operand. The first list has basic algebra operations, and 
+  the second list is a list of integers. Use the two given lists to build the algebric 
+  expression and return the evaluation of this expression.
+
+  The basic algebra operations:
+  Addition ( + ) 
+  Subtraction ( - ) 
+  Multiplication ( * ) 
+  Floor division ( // ) 
+  Exponentiation ( ** ) 
+
+  Example:
+  operator['+', '*', '-']
+  array = [2, 3, 4, 5]
+  result = 2 + 3 * 4 - 5
+  => result = 9
+
+  Note:
+      The length of operator list is equal to the length of operand list minus one.
+      Operand is a list of of non-negative integers.
+      Operator list has at least one operator, and operand list has at least two operands.
+
+  */
+const doAlgebra = (operator, operand) => {
+", "generation": "  let result = operand[0];
+  for (let i = 0; i < operator.length; i++) {
+    if (operator[i] === '+') result += operand[i + 1];
+    else if (operator[i] === '-') result -= operand[i + 1];
+    else if (operator[i] === '*') result *= operand[i + 1];
+    else if (operator[i] === '//') result = Math.floor(result / operand[i + 1]);
+    else if (operator[i] === '**') result **= operand[i + 1];
+  }
+  return result;
+}", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/129", "completion_id": 0, "test_code": "/*
+  Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+  each cell of the grid contains a value. Every integer in the range [1, N * N]
+  inclusive appears exactly once on the cells of the grid.
+
+  You have to find the minimum path of length k in the grid. You can start
+  from any cell, and in each step you can move to any of the neighbor cells,
+  in other words, you can go to cells which share an edge with you current
+  cell.
+  Please note that a path of length k means visiting exactly k cells (not
+  necessarily distinct).
+  You CANNOT go off the grid.
+  A path A (of length k) is considered less than a path B (of length k) if
+  after making the ordered lists of the values on the cells that A and B go
+  through (let's call them lst_A and lst_B), lst_A is lexicographically less
+  than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+  such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+  lst_A[j] = lst_B[j].
+  It is guaranteed that the answer is unique.
+  Return an ordered list of the values on the cells that the minimum path go through.
+
+  Examples:
+
+      Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3
+      Output: [1, 2, 1]
+
+      Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
+      Output: [1]
+  */
+const minPath = (grid, k) => {
+   const directions = [[0,1], [1,0], [0,-1], [-1,0]];
+   const N = grid.length;
+   
+   const valid = (x, y) => x >= 0 && x < N && y >= 0 && y < N;
+
+   let minPath = [];
+   for (let i = 0; i < N; i++) {
+       for (let j = 0; j < N; j++) {
+           let dfs = (x, y, path) => {
+               if (path.length === k) {
+                   if (minPath.length === 0 || path < minPath) {
+                       minPath = path.slice();
+                   }
+                   return;
+               }
+               for (let dir of directions) {
+                   let newX = x + dir[0];
+                   let newY = y + dir[1];
+                   if (valid(newX, newY)) {
+                       path.push(grid[newX][newY]);
+                       dfs(newX, newY, path);
+                       path.pop();
+                   }
+               }
+           };
+           dfs(i, j, [grid[i][j]]);
+       }
+   }
+   return minPath;
+};
+const testMinPath = () => {
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9],
+        ],
+        3
+      )
+    ) === JSON.stringify([1, 2, 1])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [5, 9, 3],
+          [4, 1, 6],
+          [7, 8, 2],
+        ],
+        1
+      )
+    ) === JSON.stringify([1])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [1, 2, 3, 4],
+          [5, 6, 7, 8],
+          [9, 10, 11, 12],
+          [13, 14, 15, 16],
+        ],
+        4
+      )
+    ) === JSON.stringify([1, 2, 1, 2])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [6, 4, 13, 10],
+          [5, 7, 12, 1],
+          [3, 16, 11, 15],
+          [8, 14, 9, 2],
+        ],
+        7
+      )
+    ) === JSON.stringify([1, 10, 1, 10, 1, 10, 1])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [8, 14, 9, 2],
+          [6, 4, 13, 15],
+          [5, 7, 1, 12],
+          [3, 10, 11, 16],
+        ],
+        5
+      )
+    ) === JSON.stringify([1, 7, 1, 7, 1])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [11, 8, 7, 2],
+          [5, 16, 14, 4],
+          [9, 3, 15, 6],
+          [12, 13, 10, 1],
+        ],
+        9
+      )
+    ) === JSON.stringify([1, 6, 1, 6, 1, 6, 1, 6, 1])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [12, 13, 10, 1],
+          [9, 3, 15, 6],
+          [5, 16, 14, 4],
+          [11, 8, 7, 2],
+        ],
+        12
+      )
+    ) === JSON.stringify([1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [2, 7, 4],
+          [3, 1, 5],
+          [6, 8, 9],
+        ],
+        8
+      )
+    ) === JSON.stringify([1, 3, 1, 3, 1, 3, 1, 3])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [6, 1, 5],
+          [3, 8, 9],
+          [2, 7, 4],
+        ],
+        8
+      )
+    ) === JSON.stringify([1, 5, 1, 5, 1, 5, 1, 5])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [1, 2],
+          [3, 4],
+        ],
+        10
+      )
+    ) === JSON.stringify([1, 2, 1, 2, 1, 2, 1, 2, 1, 2])
+  )
+  console.assert(
+    JSON.stringify(
+      minPath(
+        [
+          [1, 3],
+          [4, 2],
+        ],
+        10
+      )
+    ) === JSON.stringify([1, 3, 1, 3, 1, 3, 1, 3, 1, 3])
+  )
+}
+
+testMinPath()
+", "prompt": "/*
+  Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+  each cell of the grid contains a value. Every integer in the range [1, N * N]
+  inclusive appears exactly once on the cells of the grid.
+
+  You have to find the minimum path of length k in the grid. You can start
+  from any cell, and in each step you can move to any of the neighbor cells,
+  in other words, you can go to cells which share an edge with you current
+  cell.
+  Please note that a path of length k means visiting exactly k cells (not
+  necessarily distinct).
+  You CANNOT go off the grid.
+  A path A (of length k) is considered less than a path B (of length k) if
+  after making the ordered lists of the values on the cells that A and B go
+  through (let's call them lst_A and lst_B), lst_A is lexicographically less
+  than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+  such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+  lst_A[j] = lst_B[j].
+  It is guaranteed that the answer is unique.
+  Return an ordered list of the values on the cells that the minimum path go through.
+
+  Examples:
+
+      Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3
+      Output: [1, 2, 1]
+
+      Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
+      Output: [1]
+  */
+const minPath = (grid, k) => {
+", "generation": "   const directions = [[0,1], [1,0], [0,-1], [-1,0]];
+   const N = grid.length;
+   
+   const valid = (x, y) => x >= 0 && x < N && y >= 0 && y < N;
+
+   let minPath = [];
+   for (let i = 0; i < N; i++) {
+       for (let j = 0; j < N; j++) {
+           let dfs = (x, y, path) => {
+               if (path.length === k) {
+                   if (minPath.length === 0 || path < minPath) {
+                       minPath = path.slice();
+                   }
+                   return;
+               }
+               for (let dir of directions) {
+                   let newX = x + dir[0];
+                   let newY = y + dir[1];
+                   if (valid(newX, newY)) {
+                       path.push(grid[newX][newY]);
+                       dfs(newX, newY, path);
+                       path.pop();
+                   }
+               }
+           };
+           dfs(i, j, [grid[i][j]]);
+       }
+   }
+   return minPath;
+};", "result": "failed: Assertion failed
+Assertion failed
+Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/32", "completion_id": 0, "test_code": "/*
+  Evaluates polynomial with coefficients xs at point x.
+  return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n
+  */
+const poly = (xs, x) => {
+  return xs.reduce((prev, item, index) => {
+    return prev + item * Math.pow(x, index);
+  }, 0);
+}
+
+/*
+  xs are coefficients of a polynomial.
+  findZero find x such that poly(x) = 0.
+  findZero returns only only zero point, even if there are many.
+  Moreover, findZero only takes list xs having even number of coefficients
+  and largest non zero coefficient as it guarantees
+  a solution.
+  >>> round(findZero([1, 2]), 2) # f(x) = 1 + 2x
+  -0.5
+  >>> round(findZero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3
+  1.0
+  */
+const findZero = (xs) => {
+const poly = (xs, x) => {
+  return xs.reduce((prev, item, index) => {
+    return prev + item * Math.pow(x, index);
+  }, 0);
+}
+
+const findZero = (xs) => {
+  let a = -1, b = 1, fa = poly(xs, a), fb = poly(xs, b);
+  
+  // If fa or fb is already zero, return the corresponding value
+  if (fa === 0) return a;
+  if (fb === 0) return b;
+
+  // Bisection method to find the zero point
+  for (let i = 0; i < 100; i++) {
+    let c = (a + b) / 2;
+    let fc = poly(xs, c);
+
+    if (fc === 0) return c;
+    if (fa * fc < 0) {
+      b = c;
+      fb = fc;
+    } else {
+      a = c;
+      fa = fc;
+    }
+  }
+  
+  return (a + b) / 2;
+}
+const testfindZero = () => {
+  const getRandomIntInclusive = (min = 0, max = 9) => {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+
+  for (let i = 0; i < 100; i++) {
+    let ncoeff = 2 * getRandomIntInclusive(1, 4);
+    let coeffs = [];
+    for (let j = 0; j < ncoeff; j++) {
+      let coeff = getRandomIntInclusive(-10, 10);
+      if (coeff === 0)
+        coeff = 1;
+      coeffs.push(coeff);
+    }
+    let solution = findZero(coeffs);
+    console.assert(Math.abs(poly(coeffs, solution)) < 1e-4);
+  }
+}
+testfindZero()
+", "prompt": "/*
+  Evaluates polynomial with coefficients xs at point x.
+  return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n
+  */
+const poly = (xs, x) => {
+  return xs.reduce((prev, item, index) => {
+    return prev + item * Math.pow(x, index);
+  }, 0);
+}
+
+/*
+  xs are coefficients of a polynomial.
+  findZero find x such that poly(x) = 0.
+  findZero returns only only zero point, even if there are many.
+  Moreover, findZero only takes list xs having even number of coefficients
+  and largest non zero coefficient as it guarantees
+  a solution.
+  >>> round(findZero([1, 2]), 2) # f(x) = 1 + 2x
+  -0.5
+  >>> round(findZero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3
+  1.0
+  */
+const findZero = (xs) => {
+", "generation": "const poly = (xs, x) => {
+  return xs.reduce((prev, item, index) => {
+    return prev + item * Math.pow(x, index);
+  }, 0);
+}
+
+const findZero = (xs) => {
+  let a = -1, b = 1, fa = poly(xs, a), fb = poly(xs, b);
+  
+  // If fa or fb is already zero, return the corresponding value
+  if (fa === 0) return a;
+  if (fb === 0) return b;
+
+  // Bisection method to find the zero point
+  for (let i = 0; i < 100; i++) {
+    let c = (a + b) / 2;
+    let fc = poly(xs, c);
+
+    if (fc === 0) return c;
+    if (fa * fc < 0) {
+      b = c;
+      fb = fc;
+    } else {
+      a = c;
+      fa = fc;
+    }
+  }
+  
+  return (a + b) / 2;
+}", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-32-109.40922055444341/test.js:75
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/30", "completion_id": 0, "test_code": "/*Return only positive numbers in the list.
+  >>> getPositive([-1, 2, -4, 5, 6])
+  [2, 5, 6]
+  >>> getPositive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+  [5, 3, 2, 3, 9, 123, 1]
+  */
+const getPositive = (l) => {
+    return l.filter(num => num > 0);
+
+const testGetPositive = () => {
+  console.assert(
+    JSON.stringify(getPositive([-1, -2, 4, 5, 6])) === JSON.stringify([4, 5, 6])
+  )
+  console.assert(
+    JSON.stringify(getPositive([5, 3, -5, 2, 3, 3, 9, 0, 123, 1, -10])) ===
+      JSON.stringify([5, 3, 2, 3, 3, 9, 123, 1])
+  )
+  console.assert(JSON.stringify(getPositive([-1, -2])) === JSON.stringify([]))
+  console.assert(JSON.stringify(getPositive([])) === JSON.stringify([]))
+}
+
+testGetPositive()
+", "prompt": "/*Return only positive numbers in the list.
+  >>> getPositive([-1, 2, -4, 5, 6])
+  [2, 5, 6]
+  >>> getPositive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+  [5, 3, 2, 3, 9, 123, 1]
+  */
+const getPositive = (l) => {
+", "generation": "    return l.filter(num => num > 0);
+", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-30-355.8339695146277/test.js:23
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/101", "completion_id": 0, "test_code": "/*
+  You will be given a string of words separated by commas or spaces. Your task is
+  to split the string into words and return an array of the words.
+  
+  For example:
+  wordsString(\"Hi, my name is John\") == [\"Hi\", \"my\", \"name\", \"is\", \"John\"]
+  wordsString(\"One, two, three, four, five, six\") == [\"One\", \"two\", \"three\", \"four\", \"five\", \"six\"]
+  */
+const wordsString = (s) => {
+    return s.split(/[\\s,]+/);
+
+const testWordsString = () => {
+  console.assert(
+    JSON.stringify(wordsString('Hi, my name is John')) ===
+    JSON.stringify(['Hi', 'my', 'name', 'is', 'John'])
+  )
+  console.assert(
+    JSON.stringify(wordsString('One, two, three, four, five, six')) ===
+    JSON.stringify(['One', 'two', 'three', 'four', 'five', 'six'])
+  )
+  console.assert(
+    JSON.stringify(wordsString('Hi, my name')) ===
+    JSON.stringify(['Hi', 'my', 'name'])
+  )
+  console.assert(
+    JSON.stringify(wordsString('One,, two, three, four, five, six,')) ===
+    JSON.stringify(['One', 'two', 'three', 'four', 'five', 'six'])
+  )
+  console.assert(JSON.stringify(wordsString('')) === JSON.stringify([]))
+  console.assert(
+    JSON.stringify(wordsString('ahmed     , gamal')) ===
+    JSON.stringify(['ahmed', 'gamal'])
+  )
+}
+
+testWordsString()
+", "prompt": "/*
+  You will be given a string of words separated by commas or spaces. Your task is
+  to split the string into words and return an array of the words.
+  
+  For example:
+  wordsString(\"Hi, my name is John\") == [\"Hi\", \"my\", \"name\", \"is\", \"John\"]
+  wordsString(\"One, two, three, four, five, six\") == [\"One\", \"two\", \"three\", \"four\", \"five\", \"six\"]
+  */
+const wordsString = (s) => {
+", "generation": "    return s.split(/[\\s,]+/);
+", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-101-332.3905030716619/test.js:37
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/104", "completion_id": 0, "test_code": "/*Given a list of positive integers x. return a sorted list of all 
+  elements that hasn't any even digit.
+
+  Note: Returned list should be sorted in increasing order.
+  
+  For example:
+  >>> uniqueDigits([15, 33, 1422, 1])
+  [1, 15, 33]
+  >>> uniqueDigits([152, 323, 1422, 10])
+  []
+  */
+const uniqueDigits = (x) => {
+    return x.filter(n => !/[02468]/.test(n)).sort((a, b) => a - b);
+
+const testUniqueDigits = () => {
+  console.assert(
+    JSON.stringify(uniqueDigits([15, 33, 1422, 1])) ===
+    JSON.stringify([1, 15, 33])
+  )
+  console.assert(
+    JSON.stringify(uniqueDigits([152, 323, 1422, 10])) === JSON.stringify([])
+  )
+  console.assert(
+    JSON.stringify(uniqueDigits([12345, 2033, 111, 151])) ===
+    JSON.stringify([111, 151])
+  )
+  console.assert(
+    JSON.stringify(uniqueDigits([135, 103, 31])) === JSON.stringify([31, 135])
+  )
+}
+
+testUniqueDigits()
+", "prompt": "/*Given a list of positive integers x. return a sorted list of all 
+  elements that hasn't any even digit.
+
+  Note: Returned list should be sorted in increasing order.
+  
+  For example:
+  >>> uniqueDigits([15, 33, 1422, 1])
+  [1, 15, 33]
+  >>> uniqueDigits([152, 323, 1422, 10])
+  []
+  */
+const uniqueDigits = (x) => {
+", "generation": "    return x.filter(n => !/[02468]/.test(n)).sort((a, b) => a - b);
+", "result": "failed: /root/autodl-tmp/CodeGeeX/codegeex/benchmark/humaneval-x/js/js/evaluation/tmp/JavaScript-104-378.8348025641735/test.js:33
+
+
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (internal/modules/cjs/loader.js:915:16)
+    at Module._compile (internal/modules/cjs/loader.js:963:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
+{"task_id": "JavaScript/137", "completion_id": 0, "test_code": "/*
+  Create a function that takes integers, floats, or strings representing
+  real numbers, and returns the larger variable in its given variable type.
+  Return null if the values are equal.
+  Note: If a real number is represented as a string, the floating point might be . or ,
+
+  compareOne(1, 2.5) \u279e 2.5
+  compareOne(1, \"2,3\") \u279e \"2,3\"
+  compareOne(\"5,1\", \"6\") \u279e \"6\"
+  compareOne(\"1\", 1) \u279e null
+  */
+const compareOne = (a, b) => {
+    if (typeof a === 'string' && a.includes(',')) a = parseFloat(a.replace(',', '.'));
+    if (typeof b === 'string' && b.includes(',')) b = parseFloat(b.replace(',', '.'));
+
+    if (typeof a === 'number' && typeof b === 'number') {
+        if (a > b) return a;
+        else if (b > a) return b;
+        else return null;
+    }
+
+    if (a > b) return a;
+    else if (b > a) return b;
+    else return null;
+}
+const testCompareOne = () => {
+  console.assert(compareOne(1, 2) === 2)
+  console.assert(compareOne(1, 2.5) === 2.5)
+  console.assert(compareOne(2, 3) === 3)
+  console.assert(compareOne(5, 6) === 6)
+  console.assert(compareOne(1, '2,3') === '2,3')
+  console.assert(compareOne('5,1', '6') === '6')
+  console.assert(compareOne('1', '2') === '2')
+  console.assert(compareOne('1', 1) === null)
+}
+
+testCompareOne()
+", "prompt": "/*
+  Create a function that takes integers, floats, or strings representing
+  real numbers, and returns the larger variable in its given variable type.
+  Return null if the values are equal.
+  Note: If a real number is represented as a string, the floating point might be . or ,
+
+  compareOne(1, 2.5) \u279e 2.5
+  compareOne(1, \"2,3\") \u279e \"2,3\"
+  compareOne(\"5,1\", \"6\") \u279e \"6\"
+  compareOne(\"1\", 1) \u279e null
+  */
+const compareOne = (a, b) => {
+", "generation": "    if (typeof a === 'string' && a.includes(',')) a = parseFloat(a.replace(',', '.'));
+    if (typeof b === 'string' && b.includes(',')) b = parseFloat(b.replace(',', '.'));
+
+    if (typeof a === 'number' && typeof b === 'number') {
+        if (a > b) return a;
+        else if (b > a) return b;
+        else return null;
+    }
+
+    if (a > b) return a;
+    else if (b > a) return b;
+    else return null;
+}", "result": "failed: Assertion failed
+", "passed": false, "finish": -1, "file": "", "output": []}
+--------------------
