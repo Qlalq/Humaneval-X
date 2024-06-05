@@ -2,8 +2,11 @@
 This is the version of Humaneval-X that uses openkey_API, and therefore relies on the original codegeex for evaluation. This is accomplished by replacing the humaneval-x folder in codegeex.
 
 ``$ git clone https://github.com/THUDM/CodeGeeX``
+
 ``$ cd codegeex/benchmark``
+
 ``$ rm -r humaneval-x``
+
 ``$ git clone https://github.com/Qlalq/humaneval-x``
 # Usage
 ## Answer Generation
