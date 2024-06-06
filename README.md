@@ -20,6 +20,7 @@ Fill in the **openai.api_key** and change the **language** parameter (default is
 The sample results are stored in a folder, similar to the following folder:js/data/samples_js.jsonl
 
 ## Evaluation of results
+Cpp and python can be evaluated normally, but js, java, go need to install the corresponding language compiler separately
 ```
 $python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/cpp/data/humaneval_cpp.jsonl.gz --input_file humaneval-x/cpp/data/samples_cpp_GPT4o.jsonl --out_dir humaneval-x/cpp/data/ --timeout 5
 $python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/go/data/humaneval_go.jsonl.gz --input_file humaneval-x/go/data/samples_go.jsonl --out_dir humaneval-x/go/data/ --timeout 5
