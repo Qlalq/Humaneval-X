@@ -21,11 +21,11 @@ The sample results are stored in a folder, similar to the following folder:js/da
 
 ## Evaluation of results
 ```
-#python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/cpp/data/humaneval_cpp.jsonl.gz --input_file humaneval-x/cpp/data/samples_cpp_GPT4o.jsonl --out_dir humaneval-x/cpp/data/ --timeout 5
-#python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/go/data/humaneval_go.jsonl.gz --input_file humaneval-x/go/data/samples_go.jsonl --out_dir humaneval-x/go/data/ --timeout 5
-#python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/java/data/humaneval_java.jsonl.gz --input_file humaneval-x/java/data/samples_java.jsonl --out_dir humaneval-x/java/data/ --timeout 5
-#python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/python/data/humaneval_python.jsonl.gz --input_file humaneval-x/python/data/samples_python.jsonl --out_dir humaneval-x/python/data/ --timeout 5
-#python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/js/data/humaneval_js.jsonl.gz --input_file humaneval-x/js/data/samples_js.jsonl --out_dir humaneval-x/js/data/ --timeout 5
+$python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/cpp/data/humaneval_cpp.jsonl.gz --input_file humaneval-x/cpp/data/samples_cpp_GPT4o.jsonl --out_dir humaneval-x/cpp/data/ --timeout 5
+$python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/go/data/humaneval_go.jsonl.gz --input_file humaneval-x/go/data/samples_go.jsonl --out_dir humaneval-x/go/data/ --timeout 5
+$python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/java/data/humaneval_java.jsonl.gz --input_file humaneval-x/java/data/samples_java.jsonl --out_dir humaneval-x/java/data/ --timeout 5
+$python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/python/data/humaneval_python.jsonl.gz --input_file humaneval-x/python/data/samples_python.jsonl --out_dir humaneval-x/python/data/ --timeout 5
+$python evaluate_humaneval_x.py --n_workers 64 --problem_file humaneval-x/js/data/humaneval_js.jsonl.gz --input_file humaneval-x/js/data/samples_js.jsonl --out_dir humaneval-x/js/data/ --timeout 5
 ```
 
 ## Sample Error Summary
