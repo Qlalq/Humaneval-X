@@ -3,6 +3,9 @@ This is the version of Humaneval-X that uses openkey_API, and therefore relies o
 
 ```
 $ git clone https://github.com/THUDM/CodeGeeX
+$ conda create -n HEX python=3.8
+$ conda activate HEX
+$ pip install -e .
 $ cd codegeex/benchmark
 $ rm -r humaneval-x
 $ git clone https://github.com/Qlalq/humaneval-x
