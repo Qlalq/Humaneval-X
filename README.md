@@ -1,13 +1,13 @@
 # preparation work
 This is the version of Humaneval-X that uses openkey_API, and therefore relies on the original codegeex for evaluation. This is accomplished by replacing the humaneval-x folder in codegeex.
 
-``$ git clone https://github.com/THUDM/CodeGeeX``
+```
+$ git clone https://github.com/THUDM/CodeGeeX
+$ cd codegeex/benchmark
+$ rm -r humaneval-x
+$ git clone https://github.com/Qlalq/humaneval-x
+```
 
-``$ cd codegeex/benchmark``
-
-``$ rm -r humaneval-x``
-
-``$ git clone https://github.com/Qlalq/humaneval-x``
 # Usage
 ## Answer Generation
 Fill in the **openai.api_key** and change the **language** parameter (default is cpp) to select a library in **gen_samples.py**,Run gen_samples.py
